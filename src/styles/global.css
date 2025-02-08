@@ -1,0 +1,22 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  scroll-behavior: smooth;
+  background: rgb(3, 3, 0);
+}
+
+section {
+  min-height: 100vh;
+  padding: 80px 20px;
+  color: rgba(255, 255, 255, 0.8);
+  background: #1f1919;
+  border-top: 1px solid #ccc;
+}
+
+section:nth-child(even) {
+  background: #000000;
+}
