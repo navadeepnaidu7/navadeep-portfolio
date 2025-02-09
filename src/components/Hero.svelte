@@ -1,11 +1,33 @@
 <script>
   export let name;
+
+  const socialLinks = {
+    email: 'mailto:navadeepnaidu7@protonmail.com',
+    github: 'https://github.com/navadeepnaidu7',
+    linkedin: 'https://linkedin.com/in/navadeepnaidu',
+    twitter: 'https://x.com/Navadeep_naidu7'
+  };
 </script>
 
 <main>
   <div class="left-section">
     <h1>{name}</h1>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    
+    <div class="social-buttons">
+      <a href={socialLinks.email} target="_blank" rel="noopener noreferrer" class="social-button email" aria-label="Email">
+        <i class="fas fa-envelope"></i>
+      </a>
+      <a href={socialLinks.github} target="_blank" rel="noopener noreferrer" class="social-button github" aria-label="GitHub">
+        <i class="fab fa-github"></i>
+      </a>
+      <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" class="social-button linkedin" aria-label="LinkedIn">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" class="social-button x-twitter" aria-label="X (formerly Twitter)">
+        <i class="fa-brands fa-x-twitter"></i>
+      </a>
+    </div>
   </div>
 
   <div class="right-section">
@@ -85,5 +107,58 @@
   .profile-pic {
     margin-left: 19rem; 
     margin-top: -4rem;
+  }
+
+  .social-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    justify-content: center;
+    margin-right: auto;
+    max-width: 100%;
+  }
+
+  .social-button {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    color: white;
+  }
+
+  .social-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .email {
+    background: #242d3f78;
+    border: 1px solid #2f2f2f  /* Changed from #4285f4 to a darker shade */
+  }
+  .email:hover {
+    background: #000000;
+    border-color: #666666;
+  }
+  .github {
+    background: #24292e;
+  }
+
+  .linkedin {
+    background: #0077b5;
+  }
+
+  .x-twitter {
+    background: #000000;
+    color: #ffffff;
+    border: 1px solid #2f2f2f;
+  }
+
+  .x-twitter:hover {
+    background: #000000;
+    border-color: #666666;
   }
 </style>
