@@ -8,11 +8,18 @@
     easing: cubicOut
   });
 
+  let lastScrollY = 0;
+  let isVisible = true;
+
   const updateScrollProgress = () => {
     const scrollTop = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = Math.min(Math.max((scrollTop / docHeight) * 100, 0), 100);
     scrollProgress.set(progress);
+
+    // Hide navbar when scrolling down, show when scrolling up
+    isVisible = scrollTop < lastScrollY || scrollTop < 50;
+    lastScrollY = scrollTop;
   };
 
   onMount(() => {
@@ -27,7 +34,7 @@
 
 <div class="progress-bar" style="width: {$scrollProgress}%;"></div>
 
-<nav>
+<nav class:hidden={!isVisible}>
   <ul>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#about">About</a></li>
@@ -55,7 +62,14 @@
     right: 0;
     z-index: 1000;
     padding: 15px 20px;
-    background: transparent;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+  }
+
+  nav.hidden {
+    transform: translateY(-100%);
   }
 
   nav ul {
