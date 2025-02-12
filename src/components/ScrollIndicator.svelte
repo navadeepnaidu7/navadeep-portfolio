@@ -1,47 +1,41 @@
 <script>
   import { onMount } from 'svelte';
+
+  function scrollDown() {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: 'smooth'
+    });
+  }
 </script>
 
-<div class="scroll-indicator">
-  <span class="text">scroll down</span>
-  <span class="arrow">▼</span>
+<div class="scroll-indicator" on:click={scrollDown} on:keydown={(e) => e.key === 'Enter' && scrollDown()} role="button" tabindex="0">
+  <svg class="chevron" viewBox="0 0 20 10" width="20" height="10">
+    <path d="M1,1 L10,9 L19,1" fill="none" stroke="currentColor" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
 </div>
 
 <style>
   .scroll-indicator {
     position: fixed;
-    bottom: 0rem;
+    bottom: 0.6rem;
     left: 50%;
     transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    opacity: 0.8;
     z-index: 100;
+    cursor: pointer;
   }
 
-  .text {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+  .chevron {
+    color: rgba(255, 255, 255, 0.6);
+    animation: subtle-bounce 3s ease-in-out infinite;
   }
 
-  .arrow {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.5rem;
-    animation: float 2.5s ease-in-out infinite;
-    display: block;
-    transform: scaleX(1.5) scaleY(0.7); /* Makes the triangle wider and shorter */
-  }
-
-  @keyframes float {
+  @keyframes subtle-bounce {
     0%, 100% {
-      transform: translateY(0) scaleX(1.5) scaleY(0.7);
+      transform: translateY(0);
     }
     50% {
-      transform: translateY(-10px) scaleX(1.5) scaleY(0.7);
+      transform: translateY(5px);
     }
   }
 </style>

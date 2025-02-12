@@ -7,16 +7,38 @@ body {
   font-family: Arial, sans-serif;
   scroll-behavior: smooth;
   background: rgb(3, 3, 0);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.cursor-gradient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    rgba(0, 8, 255, 0.105),
+    transparent 40%
+  );
 }
 
 section {
   min-height: 100vh;
   padding: 80px 20px;
   color: rgba(255, 255, 255, 0.8);
-  background: #1f1919;
+  background: #000000;
   border-top: 1px solid #ccc;
 }
 
 section:nth-child(even) {
   background: #000000;
+}
+
+section, #home, #projects, #about, #contact {
+  position: relative;
+  z-index: 2;
 }

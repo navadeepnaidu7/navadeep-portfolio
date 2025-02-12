@@ -16,7 +16,7 @@
     
     <div class="social-buttons">
       <a href={socialLinks.email} target="_blank" rel="noopener noreferrer" class="social-button email" aria-label="Email">
-        <i class="fas fa-envelope"></i>
+        <i class="fa-solid fa-envelope"></i>
       </a>
       <a href={socialLinks.github} target="_blank" rel="noopener noreferrer" class="social-button github" aria-label="GitHub">
         <i class="fab fa-github"></i>
@@ -24,8 +24,8 @@
       <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" class="social-button linkedin" aria-label="LinkedIn">
         <i class="fab fa-linkedin"></i>
       </a>
-      <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" class="social-button x-twitter" aria-label="X (formerly Twitter)">
-        <i class="fa-brands fa-x-twitter"></i>
+      <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" class="social-button twitter" aria-label="Twitter">
+        <i class="fab fa-twitter"></i>
       </a>
     </div>
   </div>
@@ -128,37 +128,52 @@
     font-size: 1.5rem;
     transition: all 0.3s ease;
     color: white;
+    position: relative;
+    box-shadow: 
+      0 20px 20px rgba(0, 157, 255, 0.2),
+      0 0 0 1px rgba(255, 255, 255, 0.1);
   }
 
   .social-button:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(0px);  /* Removed scale(1.1) */
+    box-shadow: 
+      0 8px 40px rgba(0, 157, 255, 0.4),
+      0 0 20px rgba(0, 157, 255, 0.3),
+      0 0 0 2px rgba(255, 255, 255, 0.2);
   }
 
   .email {
-    background: #242d3f78;
-    border: 1px solid #2f2f2f  /* Changed from #4285f4 to a darker shade */
+    background: #5732e9;
+    border: 1px solid #2f2f2f;
   }
   .email:hover {
-    background: #000000;
-    border-color: #666666;
+    background: #5637D9;
+    border-color: rgba(255, 255, 255, 0.2);
   }
   .github {
     background: #24292e;
+    border: 1px solid #2f2f2f;
+  }
+  .github:hover {
+    background: #000000;
+    border-color: rgba(255, 255, 255, 0.2);
   }
 
   .linkedin {
     background: #0077b5;
-  }
-
-  .x-twitter {
-    background: #000000;
-    color: #ffffff;
     border: 1px solid #2f2f2f;
   }
+  .linkedin:hover {
+    background: #005582;
+    border-color: rgba(255, 255, 255, 0.2);
+  }
 
-  .x-twitter:hover {
-    background: #000000;
-    border-color: #666666;
+  .twitter {
+    background: #1DA1F2;
+    border: 1px solid #2f2f2f;
+  }
+  .twitter:hover {
+    background: #1a8cd8;
+    border-color: rgba(255, 255, 255, 0.2);
   }
 </style>

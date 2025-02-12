@@ -33,6 +33,7 @@
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <div class="nav-underline"></div>
 </nav>
 
 <style>
@@ -40,9 +41,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    height: 5px;
-    background: linear-gradient(90deg, rgba(0, 157, 255, 0.8), rgba(0, 157, 255, 0.4));
-    box-shadow: 0 0 10px rgba(0, 157, 255, 0.3);
+    height: 1px;
+    background: rgba(255, 255, 255, 0.5);
     z-index: 1001;
     will-change: width;
     transform: translateZ(0);
@@ -50,17 +50,22 @@
 
   nav {
     position: fixed;
-    top: 10px;
-    right: 20px;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 1000;
+    padding: 15px 20px;
+    background: transparent;
   }
 
   nav ul {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 40px;
     padding: 0;
     margin: 0;
+    justify-content: flex-end;
+    align-items: center;
   }
 
   nav a {
@@ -70,7 +75,6 @@
     position: relative; 
     padding: 5px 10px;
     transition: all 0.3s ease;
-    text-shadow: 0 0 10px rgba(0, 157, 255, 0.3);
   }
 
   nav a::after {
@@ -79,19 +83,28 @@
     left: 0;
     bottom: -3px; 
     width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, rgba(0, 157, 255, 0.8), rgba(0, 157, 255, 0.2));
+    height: 1.5px;
+    background: rgba(255, 255, 255, 0.5);
     transition: width 0.3s ease-out;
-    box-shadow: 0 0 10px rgba(0, 157, 255, 0.5);
+    border-radius: 1px;
   }
 
   nav a:hover {
     transform: scale(1.1);
-    color: rgba(0, 157, 255, 1);
-    text-shadow: 0 0 15px rgba(0, 157, 255, 0.5);
+    color: rgba(255, 255, 255, 1);
   }
 
   nav a:hover::after {
     width: 100%;
+  }
+
+  .nav-underline {
+    position: absolute;
+    bottom: 0;
+    left: 3%;
+    right: 3%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.059);
+    border-radius: 26px;
   }
 </style>

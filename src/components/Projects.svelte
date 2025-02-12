@@ -25,9 +25,9 @@
   }
 
   .project-card {
-    background: rgba(255, 255, 255, 0.05);
+    background: #000000;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 157, 255, 0.1);
   }
-</style> 
+</style>
