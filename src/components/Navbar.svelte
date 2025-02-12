@@ -35,6 +35,7 @@
 <div class="progress-bar" style="width: {$scrollProgress}%;"></div>
 
 <nav class:hidden={!isVisible}>
+  <div class="logo">N²</div>
   <ul>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#about">About</a></li>
@@ -44,6 +45,8 @@
 </nav>
 
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
   .progress-bar {
     position: fixed;
     top: 0;
@@ -115,10 +118,39 @@
   .nav-underline {
     position: absolute;
     bottom: 0;
-    left: 3%;
-    right: 3%;
+    left: 0%;
+    right: 0%;
     height: 3px;
-    background: rgba(255, 255, 255, 0.059);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.059) 10%,
+      rgba(255, 255, 255, 0.059) 90%,
+      transparent 100%
+    );
     border-radius: 26px;
+  }
+
+  .logo {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'VT323', monospace;
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+
+  .logo:hover {
+    color: #fff;
+    text-shadow: 
+      0 0 5px rgba(255, 255, 255, 0.5),
+      0 0 10px rgba(255, 255, 255, 0.3),
+      0 0 15px rgba(255, 255, 255, 0.2);
+    transform: translateY(-50%) scale(1.1);
   }
 </style>
