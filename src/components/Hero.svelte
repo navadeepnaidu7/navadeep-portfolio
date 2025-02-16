@@ -11,9 +11,10 @@
 
 <main>
   <div class="left-section">
-    <h1>{name}</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    
+    <h1 class="greeting">Navadeep Naidu</h1>
+    <p class="intro-text">
+      I'm <span class="name">Navadeep Naidu</span>, a backend developer and DevOps engineer from Hyderabad
+    </p>
     <div class="social-buttons">
       <a href={socialLinks.email} target="_blank" rel="noopener noreferrer" class="social-button email" aria-label="Email">
         <i class="fa-solid fa-envelope"></i>
@@ -45,8 +46,10 @@
   }
 
   .left-section {
-    flex: 1;
+    flex: 1;  /* Reduced from 1 */
     padding: 20px;
+    text-align: left;
+    margin-right: 20px;  /* Add spacing between sections */
   }
 
   .left-section h1 {
@@ -62,23 +65,25 @@
   }
 
   .right-section {
-    flex: 1.2;
+    flex: 0.9;  /* Reduced from 1.2 */
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-end;  /* Changed back to flex-end */
     align-items: center;
-    padding-right: 80px;
+    padding-right: 40px;  /* Increased padding */
     margin-left: auto;
   }
 
   @media (max-width: 768px) {
     .right-section {
       flex: 1;
-      padding-right: 20px;
+      padding-right: 0;
+      justify-content: center;
     }
   }
 
   .right-section img {
-    max-width: 300px;
+    max-width: 280px;  /* Slightly reduced from 300px */
+    width: 100%;
     height: auto;
     border-radius: 50%;
     box-shadow: 
@@ -105,15 +110,21 @@
   }
 
   .profile-pic {
-    margin-left: 19rem; 
-    margin-top: -4rem;
+    margin-left: 20px;  /* Added left margin */
+    margin-top: 0;
+  }
+
+  @media (max-width: 768px) {
+    .profile-pic {
+      margin-left: 0;
+    }
   }
 
   .social-buttons {
     display: flex;
     gap: 1rem;
     margin-top: 2rem;
-    justify-content: center;
+    justify-content: flex-start;
     margin-right: auto;
     max-width: 100%;
   }
@@ -175,5 +186,83 @@
   .twitter:hover {
     background: #1a8cd8;
     border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .left-section h1.greeting {
+    font-size: 4.5rem;
+    margin-bottom: 1rem;
+    animation: fadeInSlide 0.8s ease-out;
+    text-align: left;
+  }
+
+  .intro-text {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    animation: fadeInSlide 0.8s ease-out 0.2s backwards;
+    text-align: left;
+    line-height: 1.5;
+    /* Removed white-space, overflow and text-overflow properties */
+  }
+
+  @media (max-width: 768px) {
+    .intro-text {
+      font-size: 1.2rem;
+    }
+  }
+
+  .intro-text .name {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #5732e9;
+  }
+  
+  /* Removed the unused .intro-text strong */
+  
+    /* Remove or comment out the old .intro, .name, and .role styles */
+  /* .intro {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    animation: fadeInSlide 0.8s ease-out 0.2s backwards;
+    display: flex;
+    align-items: center;
+  }
+
+  .intro .name {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-left: 0.5rem;
+  }
+
+  .role {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    animation: fadeInSlide 0.8s ease-out 0.4s backwards;
+    text-align: left;
+  } */
+
+  @keyframes fadeInSlide {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    main {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .left-section {
+      margin-right: 0;
+    }
+
+    .right-section {
+      padding-right: 0;
+    }
   }
 </style>
