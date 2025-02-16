@@ -7,14 +7,21 @@
     linkedin: 'https://linkedin.com/in/navadeepnaidu',
     twitter: 'https://x.com/Navadeep_naidu7'
   };
+
+  import FloatingIcons from './FloatingIcons.svelte';
 </script>
 
 <main>
+  <div class="gradient-cloud"></div>
   <div class="left-section">
-    <h1 class="greeting">Navadeep Naidu</h1>
-    <p class="intro-text">
-      I'm <span class="name">Navadeep Naidu</span>, a backend developer and DevOps engineer from Hyderabad
-    </p>
+    <div class="pill-container">
+      <span class="pill">Code · Automate · Scale</span>
+    </div>
+    <div class="introduction">
+      <span class="pre-title">Hello👋🏼, I'm</span>
+      <h1 class="greeting">Navadeep Naidu</h1>
+      <p class="sub-intro">Crafting scalable backends & automating DevOps workflows, the infrastructure behind great software.</p>
+    </div>
     <div class="social-buttons">
       <a href={socialLinks.email} target="_blank" rel="noopener noreferrer" class="social-button email" aria-label="Email">
         <i class="fa-solid fa-envelope"></i>
@@ -32,7 +39,10 @@
   </div>
 
   <div class="right-section">
-    <img src="/src/assets/endurance.jpg" alt="Profile Logo" class="profile-pic" />
+    <div class="profile-container">
+      <FloatingIcons />
+      <img src="/src/assets/endurance.jpg" alt="Profile Logo" class="profile-pic" />
+    </div>
   </div>
 </main>
 
@@ -43,13 +53,15 @@
     align-items: center;
     justify-content: space-between;
     padding: 20px;
+    position: relative;
+    z-index: 1;
   }
 
   .left-section {
-    flex: 1;  /* Reduced from 1 */
-    padding: 20px;
+    flex: 1;
+    padding: 40px;
     text-align: left;
-    margin-right: 20px;  /* Add spacing between sections */
+    margin-right: 40px;
   }
 
   .left-section h1 {
@@ -65,12 +77,13 @@
   }
 
   .right-section {
-    flex: 0.9;  /* Reduced from 1.2 */
+    flex: 0.9;
     display: flex;
-    justify-content: flex-end;  /* Changed back to flex-end */
+    justify-content: flex-end;
     align-items: center;
-    padding-right: 40px;  /* Increased padding */
+    padding-right: 40px;
     margin-left: auto;
+    position: relative;
   }
 
   @media (max-width: 768px) {
@@ -82,7 +95,7 @@
   }
 
   .right-section img {
-    max-width: 280px;  /* Slightly reduced from 300px */
+    max-width: 280px;
     width: 100%;
     height: auto;
     border-radius: 50%;
@@ -93,6 +106,7 @@
     animation: floating 3s ease-in-out infinite;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
+    z-index: 3;
   }
 
   .right-section img:hover {
@@ -110,7 +124,7 @@
   }
 
   .profile-pic {
-    margin-left: 20px;  /* Added left margin */
+    margin-left: 20px;
     margin-top: 0;
   }
 
@@ -123,20 +137,20 @@
   .social-buttons {
     display: flex;
     gap: 1rem;
-    margin-top: 2rem;
+    margin-top: 3rem;
     justify-content: flex-start;
     margin-right: auto;
     max-width: 100%;
   }
 
   .social-button {
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: 12px;
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     transition: all 0.3s ease;
     color: white;
     position: relative;
@@ -146,7 +160,7 @@
   }
 
   .social-button:hover {
-    transform: translateY(0px);  /* Removed scale(1.1) */
+    transform: translateY(0px);
     box-shadow: 
       0 8px 40px rgba(0, 157, 255, 0.4),
       0 0 20px rgba(0, 157, 255, 0.3),
@@ -201,7 +215,7 @@
     animation: fadeInSlide 0.8s ease-out 0.2s backwards;
     text-align: left;
     line-height: 1.5;
-    /* Removed white-space, overflow and text-overflow properties */
+    font-family: 'Playfair Display', serif;
   }
 
   @media (max-width: 768px) {
@@ -216,30 +230,6 @@
     color: #5732e9;
   }
   
-  /* Removed the unused .intro-text strong */
-  
-    /* Remove or comment out the old .intro, .name, and .role styles */
-  /* .intro {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-    animation: fadeInSlide 0.8s ease-out 0.2s backwards;
-    display: flex;
-    align-items: center;
-  }
-
-  .intro .name {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-left: 0.5rem;
-  }
-
-  .role {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    animation: fadeInSlide 0.8s ease-out 0.4s backwards;
-    text-align: left;
-  } */
-
   @keyframes fadeInSlide {
     from {
       opacity: 0;
@@ -258,11 +248,161 @@
     }
 
     .left-section {
+      padding: 20px;
       margin-right: 0;
     }
 
     .right-section {
       padding-right: 0;
+    }
+  }
+
+  .gradient-cloud {
+    position: absolute;
+    top: 50%;
+    left: 1%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      #e9325d 0deg,
+      #2C1B80 120deg,
+      #140D40 240deg,
+      #5732e9 360deg
+    );
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(250px);
+    opacity: 0.22;
+    animation: rotate 35s linear infinite;
+  }
+
+  @keyframes rotate {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  .left-section, .right-section {
+    position: relative;
+    z-index: 5;
+  }
+
+  .profile-container {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    z-index: 2;
+  }
+
+  .pill-container {
+    margin-bottom: 2.5rem;
+    animation: fadeInSlide 0.8s ease-out;
+  }
+
+  .pill {
+    background: rgba(87, 50, 233, 0.1);
+    border: 1px solid rgba(87, 50, 233, 0.2);
+    padding: 0.6rem 1.4rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.6px;
+  }
+
+  .title-container {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .pre-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.6rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 400;
+    animation: fadeInSlide 0.8s ease-out 0.1s backwards;
+  }
+
+  .greeting {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 700;
+    margin: 0.2rem 0;
+    background: linear-gradient(45deg, #fff, #5732e9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.02em;
+    animation: fadeInSlide 0.8s ease-out 0.2s backwards;
+  }
+
+  .intro-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0.4rem 0;
+    line-height: 1.4;
+    font-weight: 500;
+    animation: fadeInSlide 0.8s ease-out 0.3s backwards;
+  }
+
+  .sub-intro {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    font-weight: 400;
+    margin-top: 0.5rem;
+    animation: fadeInSlide 0.8s ease-out 0.4s backwards;
+  }
+
+  @media (max-width: 768px) {
+    .title-container {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    .greeting {
+      font-size: 3rem;
+    }
+
+    .intro-text {
+      border-spacing: 4rem;
+      font-size: 1.3rem;
+    }
+
+    .sub-intro {
+      font-size: 1rem;
+    }
+  }
+
+  .introduction {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 2.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .introduction {
+      align-items: center;
+      text-align: center;
+    }
+
+    .intro-text {
+      font-size: 1.3rem;
+    }
+
+    .sub-intro {
+      font-size: 1.1rem;
     }
   }
 </style>

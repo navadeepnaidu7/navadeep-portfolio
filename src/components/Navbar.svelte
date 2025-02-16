@@ -37,9 +37,11 @@
 <nav class:hidden={!isVisible}>
   <div class="logo">N²</div>
   <ul>
+    <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="#home">Home</a></li> <!-- Re-adding the Home link -->
   </ul>
   <div class="nav-underline"></div>
 </nav>
