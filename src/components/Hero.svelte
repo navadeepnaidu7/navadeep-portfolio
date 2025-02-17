@@ -62,18 +62,11 @@
     padding: 40px;
     text-align: left;
     margin-right: 40px;
-  }
-
-  .left-section h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
-    white-space: nowrap;
-  }
-
-  @media (max-width: 768px) {
-    .left-section h1 {
-      white-space: normal;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 5;
   }
 
   .right-section {
@@ -84,14 +77,14 @@
     padding-right: 40px;
     margin-left: auto;
     position: relative;
+    z-index: 5;
   }
 
-  @media (max-width: 768px) {
-    .right-section {
-      flex: 1;
-      padding-right: 0;
-      justify-content: center;
-    }
+  .profile-container {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    z-index: 2;
   }
 
   .right-section img {
@@ -117,27 +110,80 @@
       0 0 0 2px rgba(255, 255, 255, 0.2);
   }
 
-  @keyframes floating {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-4px); }
-    100% { transform: translateY(0px); }
+  .gradient-cloud {
+    position: absolute;
+    top: 50%;
+    left: 1%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      #e9325d 0deg,
+      #2C1B80 120deg,
+      #140D40 240deg,
+      #5732e9 360deg
+    );
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(250px);
+    opacity: 0.22;
+    animation: rotate 35s linear infinite;
   }
 
-  .profile-pic {
-    margin-left: 20px;
-    margin-top: 0;
+  .pill-container {
+    margin-bottom: 3rem;
+    animation: fadeInSlide 0.8s ease-out;
+    margin-left: -0.2rem;
   }
 
-  @media (max-width: 768px) {
-    .profile-pic {
-      margin-left: 0;
-    }
+  .pill {
+    background: rgba(87, 50, 233, 0.1);
+    border: 1px solid rgba(87, 50, 233, 0.2);
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.8px;
+  }
+
+  .pre-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.6rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 400;
+    animation: fadeInSlide 0.8s ease-out 0.1s backwards;
+  }
+
+  .greeting {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 700;
+    margin: 0.5rem 0 1.2rem 0;
+    background: linear-gradient(45deg, #fff, #5732e9);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.02em;
+    animation: fadeInSlide 0.8s ease-out 0.2s backwards;
+  }
+
+  .sub-intro {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+    font-weight: 300;
+    margin-top: 0.8rem;
+    animation: fadeInSlide 0.8s ease-out 0.4s backwards;
   }
 
   .social-buttons {
     display: flex;
     gap: 1rem;
-    margin-top: 3rem;
+    margin-top: 4rem;
     justify-content: flex-start;
     margin-right: auto;
     max-width: 100%;
@@ -167,69 +213,26 @@
       0 0 0 2px rgba(255, 255, 255, 0.2);
   }
 
-  .email {
-    background: #5732e9;
-    border: 1px solid #2f2f2f;
-  }
-  .email:hover {
-    background: #5637D9;
-    border-color: rgba(255, 255, 255, 0.2);
-  }
-  .github {
-    background: #24292e;
-    border: 1px solid #2f2f2f;
-  }
-  .github:hover {
-    background: #000000;
-    border-color: rgba(255, 255, 255, 0.2);
+  .email { background: #5732e9; border: 1px solid #2f2f2f; }
+  .email:hover { background: #5637D9; border-color: rgba(255, 255, 255, 0.2); }
+  .github { background: #24292e; border: 1px solid #2f2f2f; }
+  .github:hover { background: #000000; border-color: rgba(255, 255, 255, 0.2); }
+  .linkedin { background: #0077b5; border: 1px solid #2f2f2f; }
+  .linkedin:hover { background: #005582; border-color: rgba(255, 255, 255, 0.2); }
+  .twitter { background: #1DA1F2; border: 1px solid #2f2f2f; }
+  .twitter:hover { background: #1a8cd8; border-color: rgba(255, 255, 255, 0.2); }
+
+  @keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-4px); }
+    100% { transform: translateY(0px); }
   }
 
-  .linkedin {
-    background: #0077b5;
-    border: 1px solid #2f2f2f;
-  }
-  .linkedin:hover {
-    background: #005582;
-    border-color: rgba(255, 255, 255, 0.2);
+  @keyframes rotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
   }
 
-  .twitter {
-    background: #1DA1F2;
-    border: 1px solid #2f2f2f;
-  }
-  .twitter:hover {
-    background: #1a8cd8;
-    border-color: rgba(255, 255, 255, 0.2);
-  }
-
-  .left-section h1.greeting {
-    font-size: 4.5rem;
-    margin-bottom: 1rem;
-    animation: fadeInSlide 0.8s ease-out;
-    text-align: left;
-  }
-
-  .intro-text {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-    animation: fadeInSlide 0.8s ease-out 0.2s backwards;
-    text-align: left;
-    line-height: 1.5;
-    font-family: 'Playfair Display', serif;
-  }
-
-  @media (max-width: 768px) {
-    .intro-text {
-      font-size: 1.2rem;
-    }
-  }
-
-  .intro-text .name {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #5732e9;
-  }
-  
   @keyframes fadeInSlide {
     from {
       opacity: 0;
@@ -254,155 +257,28 @@
 
     .right-section {
       padding-right: 0;
-    }
-  }
-
-  .gradient-cloud {
-    position: absolute;
-    top: 50%;
-    left: 1%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-    background: conic-gradient(
-      from 180deg at 50% 50%,
-      #e9325d 0deg,
-      #2C1B80 120deg,
-      #140D40 240deg,
-      #5732e9 360deg
-    );
-    pointer-events: none;
-    z-index: 0;
-    filter: blur(250px);
-    opacity: 0.22;
-    animation: rotate 35s linear infinite;
-  }
-
-  @keyframes rotate {
-    from {
-      transform: translate(-50%, -50%) rotate(0deg);
-    }
-    to {
-      transform: translate(-50%, -50%) rotate(360deg);
-    }
-  }
-
-  .left-section, .right-section {
-    position: relative;
-    z-index: 5;
-  }
-
-  .profile-container {
-    position: relative;
-    width: 280px;
-    height: 280px;
-    z-index: 2;
-  }
-
-  .pill-container {
-    margin-bottom: 2.5rem;
-    animation: fadeInSlide 0.8s ease-out;
-  }
-
-  .pill {
-    background: rgba(87, 50, 233, 0.1);
-    border: 1px solid rgba(87, 50, 233, 0.2);
-    padding: 0.6rem 1.4rem;
-    border-radius: 50px;
-    font-size: 1rem;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.9);
-    letter-spacing: 0.6px;
-  }
-
-  .title-container {
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .pre-title {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.6rem;
-    color: rgba(255, 255, 255, 0.7);
-    font-weight: 400;
-    animation: fadeInSlide 0.8s ease-out 0.1s backwards;
-  }
-
-  .greeting {
-    font-family: 'Playfair Display', serif;
-    font-size: 4rem;
-    font-weight: 700;
-    margin: 0.2rem 0;
-    background: linear-gradient(45deg, #fff, #5732e9);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: -0.02em;
-    animation: fadeInSlide 0.8s ease-out 0.2s backwards;
-  }
-
-  .intro-text {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin: 0.4rem 0;
-    line-height: 1.4;
-    font-weight: 500;
-    animation: fadeInSlide 0.8s ease-out 0.3s backwards;
-  }
-
-  .sub-intro {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.7);
-    line-height: 1.6;
-    font-weight: 400;
-    margin-top: 0.5rem;
-    animation: fadeInSlide 0.8s ease-out 0.4s backwards;
-  }
-
-  @media (max-width: 768px) {
-    .title-container {
-      flex-direction: column;
-      align-items: center;
-      gap: 0.2rem;
+      justify-content: center;
     }
 
     .greeting {
       font-size: 3rem;
     }
 
-    .intro-text {
-      border-spacing: 4rem;
-      font-size: 1.3rem;
-    }
-
     .sub-intro {
       font-size: 1rem;
     }
-  }
 
-  .introduction {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    margin-bottom: 2.5rem;
-  }
-
-  @media (max-width: 768px) {
-    .introduction {
-      align-items: center;
-      text-align: center;
+    .pill-container {
+      margin-left: 0;
+      margin-bottom: 2rem;
     }
 
-    .intro-text {
-      font-size: 1.3rem;
+    .social-buttons {
+      justify-content: center;
     }
 
-    .sub-intro {
-      font-size: 1.1rem;
+    .profile-pic {
+      margin-left: 0;
     }
   }
 </style>
