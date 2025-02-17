@@ -1,47 +1,96 @@
-# Svelte + Vite
+# Navadeep Naidu's Portfolio Website
 
-This template should help get you started developing with Svelte in Vite.
+A modern, interactive portfolio website built with Svelte and Vite, featuring smooth animations and a responsive design.
 
-## Recommended IDE Setup
+## 🌟 Features
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+- Smooth scroll animations
+- Interactive UI elements
+- Responsive design
+- Dynamic cursor effects
+- Progress bar navigation
+- Blur glass morphism effects
+- Skills showcase
+- Project gallery
 
-## Need an official Svelte framework?
+## 🛠️ Technologies Used
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+- Svelte
+- Vite
+- JavaScript/TypeScript
+- CSS3
+- HTML5
 
-## Technical considerations
+## 🚀 Getting Started
 
-**Why use this over SvelteKit?**
+### Prerequisites
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
+- Node.js (v14 or higher)
+- npm or yarn
 
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+### Installation
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
-
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
-
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `checkJs` in the JS template?**
-
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/sveltejs/svelte-hmr/tree/master/packages/svelte-hmr#preservation-of-local-state).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
+1. Clone the repository
+```bash
+git clone <your-repo-url>
+cd portfolio-website
 ```
+
+2. Install dependencies
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Start the development server
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+4. Build for production
+```bash
+npm run build
+# or
+yarn build
+```
+
+## 🎨 Project Structure
+
+```
+portfolio-website/
+├── src/
+│   ├── components/
+│   │   ├── Navbar.svelte
+│   │   ├── Hero.svelte
+│   │   ├── Skills.svelte
+│   │   └── ScrollIndicator.svelte
+│   ├── styles/
+│   │   └── global.css
+│   ├── App.svelte
+│   └── main.js
+├── public/
+├── vite.config.js
+└── package.json
+```
+
+## 🔧 Customization
+
+1. Edit the content in `App.svelte` to update your personal information
+2. Modify styles in `global.css` and component-specific style tags
+3. Add or remove sections by modifying the components structure
+
+## 📱 Responsive Design
+
+The website is fully responsive and works well on:
+- Desktop devices
+- Tablets
+- Mobile phones
+
+## 🤝 Contributing
+
+Feel free to fork this project and customize it for your own use. If you find any bugs or have suggestions for improvements, please open an issue.
+
+## 📄 License

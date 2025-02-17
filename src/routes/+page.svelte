@@ -18,7 +18,7 @@
 </script>
 
 <main class="min-h-[200vh]">
-  <h1 class="text-4xl font-bold text-center py-8">Your Portfolio</h1>
+  <h1 class="text-4xl font-bold text-center py-8">My Portfolio</h1>
   <!-- Add more sections here -->
 </main>
 
@@ -58,7 +58,7 @@
 
   .scroll-top.visible {
     opacity: 1;
-    visibility: visible;
+    visibility: invisible;
     transform: translateY(0);
   }
 

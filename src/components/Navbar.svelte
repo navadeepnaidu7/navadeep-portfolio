@@ -41,7 +41,6 @@
     <li><a href="#projects">Projects</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#home">Home</a></li> <!-- Re-adding the Home link -->
   </ul>
   <div class="nav-underline"></div>
 </nav>
@@ -53,8 +52,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.5);
+    height: 3.5px;
+    background: rgba(255, 255, 255, 0.756);
     z-index: 1001;
     will-change: width;
     transform: translateZ(0);
@@ -67,7 +66,7 @@
     right: 0;
     z-index: 1000;
     padding: 15px 20px;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.612);
     backdrop-filter: blur(10px);
     transform: translateY(0);
     transition: transform 0.3s ease;
@@ -80,7 +79,7 @@
   nav ul {
     list-style: none;
     display: flex;
-    gap: 40px;
+    gap: 20px;
     padding: 0;
     margin: 0;
     justify-content: flex-end;
@@ -89,32 +88,14 @@
 
   nav a {
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.607);
     font-weight: bold;
-    position: relative; 
     padding: 5px 10px;
-    transition: all 0.3s ease;
-  }
-
-  nav a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -3px; 
-    width: 0;
-    height: 1.5px;
-    background: rgba(255, 255, 255, 0.5);
-    transition: width 0.3s ease-out;
-    border-radius: 1px;
+    transition: color 0.3s ease;
   }
 
   nav a:hover {
-    transform: scale(1.1);
     color: rgba(255, 255, 255, 1);
-  }
-
-  nav a:hover::after {
-    width: 100%;
   }
 
   .nav-underline {

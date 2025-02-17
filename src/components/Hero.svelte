@@ -20,7 +20,7 @@
     <div class="introduction">
       <span class="pre-title">Hello👋🏼, I'm</span>
       <h1 class="greeting">Navadeep Naidu</h1>
-      <p class="sub-intro">Crafting scalable backends & automating DevOps workflows, the infrastructure behind great software.</p>
+      <p class="sub-intro">Building scalable backends & automating DevOps workflows, the infrastructure behind great software.</p>
     </div>
     <div class="social-buttons">
       <a href={socialLinks.email} target="_blank" rel="noopener noreferrer" class="social-button email" aria-label="Email">
@@ -47,6 +47,8 @@
 </main>
 
 <style>
+  @import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+
   main {
     display: flex;
     min-height: 100vh;
@@ -150,7 +152,7 @@
   }
 
   .pre-title {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Playfair Display', serif;
     font-size: 1.6rem;
     color: rgba(255, 255, 255, 0.7);
     font-weight: 400;
@@ -171,7 +173,8 @@
   }
 
   .sub-intro {
-    font-family: 'Playfair Display', serif;
+    font-family: 'SF Pro Display', sans-serif;
+    font-style: bold;
     font-size: 1.2rem;
     color: rgba(255, 255, 255, 0.6);
     line-height: 1.6;
@@ -182,45 +185,68 @@
 
   .social-buttons {
     display: flex;
-    gap: 1rem;
-    margin-top: 4rem;
+    gap: 1.2rem;
+    margin-top: 1rem;
     justify-content: flex-start;
     margin-right: auto;
     max-width: 100%;
   }
 
   .social-button {
-    width: 3.2rem;
-    height: 3.2rem;
-    border-radius: 10px;
+    width: 3.4rem;
+    height: 3.4rem;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.3rem;
-    transition: all 0.3s ease;
-    color: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: rgba(255, 255, 255, 0.9);
     position: relative;
+    background: rgba(18, 18, 18, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
     box-shadow: 
-      0 20px 20px rgba(0, 157, 255, 0.2),
-      0 0 0 1px rgba(255, 255, 255, 0.1);
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .social-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
   }
 
   .social-button:hover {
-    transform: translateY(0px);
+    transform: translateY(-2px);
     box-shadow: 
-      0 8px 40px rgba(0, 157, 255, 0.4),
-      0 0 20px rgba(0, 157, 255, 0.3),
-      0 0 0 2px rgba(255, 255, 255, 0.2);
+      0 8px 15px rgba(0, 0, 0, 0.2),
+      0 4px 6px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
   }
 
-  .email { background: #5732e9; border: 1px solid #2f2f2f; }
-  .email:hover { background: #5637D9; border-color: rgba(255, 255, 255, 0.2); }
-  .github { background: #24292e; border: 1px solid #2f2f2f; }
-  .github:hover { background: #000000; border-color: rgba(255, 255, 255, 0.2); }
-  .linkedin { background: #0077b5; border: 1px solid #2f2f2f; }
-  .linkedin:hover { background: #005582; border-color: rgba(255, 255, 255, 0.2); }
-  .twitter { background: #1DA1F2; border: 1px solid #2f2f2f; }
-  .twitter:hover { background: #1a8cd8; border-color: rgba(255, 255, 255, 0.2); }
+  .social-button i {
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+  }
+
+  .email:hover i { color: #5732e9; text-shadow: 0 0 15px rgba(87, 50, 233, 0.5); }
+  .github:hover i { color: #ffffff; text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
+  .linkedin:hover i { color: #0077b5; text-shadow: 0 0 15px rgba(0, 119, 181, 0.5); }
+  .twitter:hover i { color: #1DA1F2; text-shadow: 0 0 15px rgba(29, 161, 242, 0.5); }
 
   @keyframes floating {
     0% { transform: translateY(0px); }
