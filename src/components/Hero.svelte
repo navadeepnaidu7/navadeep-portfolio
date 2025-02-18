@@ -142,7 +142,7 @@
   .pill {
     background: rgba(87, 50, 233, 0.1);
     border: 1px solid rgba(87, 50, 233, 0.2);
-    padding: 0.8rem 1.8rem;
+    padding: 0.8rem 1.8rem; 
     border-radius: 50px;
     font-size: 1rem;
     font-family: 'Inter', sans-serif;
@@ -152,7 +152,7 @@
   }
 
   .pre-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'SF Pro Display', serif;
     font-size: 1.6rem;
     color: rgba(255, 255, 255, 0.7);
     font-weight: 400;
@@ -160,7 +160,8 @@
   }
 
   .greeting {
-    font-family: 'Playfair Display', serif;
+    font-family: 'SF Pro Display', sans-serif;
+    font-style: initial;
     font-size: 4rem;
     font-weight: 700;
     margin: 0.5rem 0 1.2rem 0;
@@ -174,7 +175,7 @@
 
   .sub-intro {
     font-family: 'SF Pro Display', sans-serif;
-    font-style: bold;
+    font-style: italic;
     font-size: 1.2rem;
     color: rgba(255, 255, 255, 0.6);
     line-height: 1.6;
