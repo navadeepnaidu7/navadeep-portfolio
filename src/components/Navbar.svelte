@@ -79,7 +79,7 @@
   nav ul {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 15px;
     padding: 0;
     margin: 0;
     justify-content: flex-end;
