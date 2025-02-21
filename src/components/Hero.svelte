@@ -152,7 +152,7 @@
   }
 
   .pre-title {
-    font-family: 'SF Pro Display', serif;
+    font-family: 'Roboto', san-serif;
     font-size: 1.6rem;
     color: rgba(255, 255, 255, 0.7);
     font-weight: 400;

@@ -22,6 +22,8 @@
     lastScrollY = scrollTop;
   };
 
+  const BLOG_URL = 'https://blog.navadeep.dev'; // Add your actual blog URL here
+
   onMount(() => {
     window.addEventListener('scroll', updateScrollProgress);
     updateScrollProgress(); // Initial call
@@ -41,6 +43,17 @@
     <li><a href="#projects">Projects</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="#ideasboard">IdeasBoard</a></li>
+    <li><a href="#resume">Resume</a></li>
+    <li>
+      <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" class="blog-button">
+        Blog
+        <svg class="external-link" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="7" y1="17" x2="17" y2="7"></line>
+          <polyline points="7 7 17 7 17 17"></polyline>
+        </svg>
+      </a>
+    </li>
   </ul>
   <div class="nav-underline"></div>
 </nav>
@@ -79,7 +92,7 @@
   nav ul {
     list-style: none;
     display: flex;
-    gap: 15px;
+    gap: 8px;
     padding: 0;
     margin: 0;
     justify-content: flex-end;
@@ -135,5 +148,31 @@
       0 0 10px rgba(255, 255, 255, 0.3),
       0 0 15px rgba(255, 255, 255, 0.2);
     transform: translateY(-50%) scale(1.1);
+  }
+
+  .blog-button {
+    background: rgba(255, 255, 255, 0.9);
+    color: #000 !important;
+    padding: 6px 12px !important;  /* reduced padding */
+    border-radius: 35px;
+    display: flex;
+    align-items: center;
+    gap: 4px;  /* reduced gap */
+    transition: all 0.3s ease !important;
+    font-size: 0.9rem;  /* reduced font size */
+  }
+
+  .blog-button:hover {
+    background: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+  }
+
+  .external-link {
+    transition: transform 0.3s ease;
+  }
+
+  .blog-button:hover .external-link {
+    transform: translate(2px, -2px);
   }
 </style>
