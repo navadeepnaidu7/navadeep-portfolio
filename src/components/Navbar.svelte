@@ -22,7 +22,8 @@
     lastScrollY = scrollTop;
   };
 
-  const BLOG_URL = 'https://blog.navadeep.dev'; // Add your actual blog URL here
+  const BLOG_URL = 'https://medium.com/@navadeepnaidu7'; 
+  const RESUME_URL = 'https://drive.google.com/file/d/1ej8kQagn1jKxqDUhMF1i9rIryu2I1NSv/view?usp=drive_link';
 
   onMount(() => {
     window.addEventListener('scroll', updateScrollProgress);
@@ -39,12 +40,16 @@
 <nav class:hidden={!isVisible}>
   <div class="logo">N²</div>
   <ul>
+    <li><a href="#ideasboard">IdeasBoard</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#ideasboard">IdeasBoard</a></li>
-    <li><a href="#resume">Resume</a></li>
+    <li>
+      <a href={RESUME_URL} target="_blank" rel="noopener noreferrer">
+        Resume
+      </a>
+    </li>
     <li>
       <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" class="blog-button">
         Blog
