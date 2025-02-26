@@ -10,6 +10,7 @@
 
   let lastScrollY = 0;
   let isVisible = true;
+  let ticking = false;
 
   const updateScrollProgress = () => {
     const scrollTop = window.scrollY;
@@ -20,17 +21,28 @@
     // Hide navbar when scrolling down, show when scrolling up
     isVisible = scrollTop < lastScrollY || scrollTop < 50;
     lastScrollY = scrollTop;
+    
+    ticking = false;
+  };
+
+  const handleScroll = () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateScrollProgress();
+      });
+      ticking = true;
+    }
   };
 
   const BLOG_URL = 'https://medium.com/@navadeepnaidu7'; 
 
   onMount(() => {
-    window.addEventListener('scroll', updateScrollProgress);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     updateScrollProgress(); // Initial call
   });
   
   onDestroy(() => {
-    window.removeEventListener('scroll', updateScrollProgress);
+    window.removeEventListener('scroll', handleScroll);
   });
 </script>
 
@@ -83,6 +95,7 @@
     backdrop-filter: blur(10px);
     transform: translateY(0);
     transition: transform 0.3s ease;
+    will-change: transform;
   }
 
   nav.hidden {

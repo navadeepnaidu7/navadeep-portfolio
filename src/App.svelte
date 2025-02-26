@@ -4,6 +4,7 @@
   import Hero from './components/Hero.svelte';
   import ScrollIndicator from './components/ScrollIndicator.svelte';
   import Skills from './components/Skills.svelte';
+  import Loading from './components/Loading.svelte';
   import './styles/global.css';
 
   let name = "Navadeep Naidu";
@@ -11,6 +12,11 @@
   let mouseX = 0;
   let mouseY = 0;
   let skills = ["JavaScript", "TypeScript", "React", "Svelte", "Node.js", "Python"];
+  let isLoading = true;
+
+  function handleLoadingComplete() {
+    isLoading = false;
+  }
 
   onMount(() => {
     window.addEventListener('scroll', () => {
@@ -26,14 +32,18 @@
   });
 </script>
 
-<div class="cursor-gradient"></div>
-<Navbar />
-<div id="home">
-  <Hero {name} />
-</div>
+{#if isLoading}
+  <Loading onLoadingComplete={handleLoadingComplete} />
+{:else}
+  <div class="cursor-gradient"></div>
+  <Navbar />
+  <div id="home">
+    <Hero {name} />
+  </div>
 
-{#if showScrollIndicator}
-  <ScrollIndicator />
+  {#if showScrollIndicator}
+    <ScrollIndicator />
+  {/if}
+
+  <Skills {skills} />
 {/if}
-
-<Skills {skills} />

@@ -102,7 +102,7 @@
       <h3 class="category-title">{skillsCategories.webdev.title}</h3>
       <div class="skills-card">
         {#each skillsCategories.webdev.skills as skill, i}
-          <div class="tech-item" title={skill.name} style="--item-delay: {i * 0.05}s">
+          <div class="tech-item" title={skill.name}>
             <div class="tech-icon">
               <img src={skill.icon} alt={skill.name} on:error={(e) => handleImageError(e, skill.name)} />
             </div>
@@ -116,7 +116,7 @@
       <h3 class="category-title">{skillsCategories.devops.title}</h3>
       <div class="skills-card">
         {#each skillsCategories.devops.skills as skill, i}
-          <div class="tech-item" title={skill.name} style="--item-delay: {i * 0.05}s">
+          <div class="tech-item" title={skill.name}>
             <div class="tech-icon">
               <img src={skill.icon} alt={skill.name} on:error={(e) => handleImageError(e, skill.name)} />
             </div>
@@ -130,7 +130,7 @@
       <h3 class="category-title">{skillsCategories.tools.title}</h3>
       <div class="skills-card">
         {#each skillsCategories.tools.skills as skill, i}
-          <div class="tech-item" title={skill.name} style="--item-delay: {i * 0.05}s">
+          <div class="tech-item" title={skill.name}>
             <div class="tech-icon">
               <img src={skill.icon} alt={skill.name} on:error={(e) => handleImageError(e, skill.name)} />
             </div>
@@ -144,7 +144,7 @@
       <h3 class="category-title">{skillsCategories.others.title}</h3>
       <div class="skills-card">
         {#each skillsCategories.others.skills as skill, i}
-          <div class="tech-item" title={skill.name} style="--item-delay: {i * 0.05}s">
+          <div class="tech-item" title={skill.name}>
             <div class="tech-icon">
               <img src={skill.icon} alt={skill.name} on:error={(e) => handleImageError(e, skill.name)} />
             </div>
@@ -350,6 +350,8 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
+    /* The card itself will now be responsible for the animation */
+    transform-origin: center bottom;
   }
   
   /* Add border gradient effect like social buttons */
@@ -396,52 +398,18 @@
     flex-direction: column;
     align-items: center;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0;
-    transform: translateY(20px) scale(0.9);
-    animation: none; /* Remove the default animation */
     width: calc(20% - 10px);
     min-width: 55px;
     position: relative;
     z-index: 1;
+    /* Removed opacity and transform that were used for animation */
   }
 
-  /* Create new animations for the placement effect */
-  @keyframes placeItem {
-    0% {
-      opacity: 0;
-      transform: translateY(-20px) scale(0.8);
-    }
-    50% {
-      opacity: 0.8;
-      transform: translateY(5px) scale(0.95);
-    }
-    70% {
-      transform: translateY(-3px) scale(1.02);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  /* Initial animation handling */
-  #skills.initial-animation .tech-item {
-    animation: placeItem 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-    animation-delay: calc(var(--item-delay, 0s) + var(--initial-delay, 0s) + 0.2s);
-  }
-
-  /* Scroll animation handling - keep the original fadeIn for scroll transitions */
-  #skills:not(.initial-animation) .tech-item {
-    animation: fadeIn 0.5s ease forwards;
-    animation-delay: calc(var(--item-delay, 0s) + var(--delay, 0s) + 0.3s);
-  }
-
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
+  /* Removed individual tech-item animations */
+  /* Removed @keyframes placeItem */
+  /* Removed tech-item animation in #skills.initial-animation */
+  /* Removed scroll animation for tech items */
+  /* Removed @keyframes fadeIn for tech items */
 
   .tech-item:hover {
     transform: translateY(-4px) scale(1.05);
@@ -598,26 +566,33 @@
     }
   }
   
-  /* Add a "placement" animation for the skills cards */
+  /* Enhanced card animation */
   #skills.initial-animation .skills-card {
-    animation: placeCard 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: calc(var(--initial-delay, 0s) + 0.1s);
+    animation: popCard 0.7s cubic-bezier(0.2, 0.85, 0.4, 1.275) forwards;
+    animation-delay: calc(var(--initial-delay, 0s) + 0.2s);
     opacity: 0;
-    transform: translateY(15px) scale(0.98);
+    transform: translateY(15px) scale(0.95);
   }
   
-  @keyframes placeCard {
+  /* Scroll-based animation for cards */
+  #skills:not(.initial-animation) .category.visible .skills-card {
+    animation: popCard 0.5s cubic-bezier(0.2, 0.85, 0.4, 1.275) forwards;
+    animation-delay: calc(var(--delay, 0s) + 0.2s);
+    opacity: 0;
+    transform: translateY(15px) scale(0.95);
+  }
+  
+  @keyframes popCard {
     0% {
       opacity: 0;
-      transform: translateY(15px) scale(0.98);
-      box-shadow: 0 0 0 rgba(0, 120, 255, 0);
+      transform: translateY(15px) scale(0.95);
+    }
+    60% {
+      transform: translateY(-5px) scale(1.02);
     }
     100% {
       opacity: 1;
       transform: translateY(0) scale(1);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-                  0 2px 4px -1px rgba(0, 0, 0, 0.06),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
   }
 </style>
