@@ -1,5 +1,5 @@
 <script>
-  export let name;
+    export let name;
 
   const socialLinks = {
     email: 'mailto:navadeepnaidu7@protonmail.com',

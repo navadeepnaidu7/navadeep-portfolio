@@ -392,7 +392,7 @@
   /* Removed @keyframes fadeIn for tech items */
 
   .tech-item:hover {
-    transform: translateY(-4px) scale(1.05);
+    transform: none; /* Remove the pop-up effect */
   }
   
   .tech-item:hover::after {
@@ -431,9 +431,15 @@
     transition: all 0.3s ease;
   }
   
+  /* Docker logo a bit bigger than other SVGs */
+  .tech-icon img[alt="Docker"] {
+    width: 55px;
+    height: 55px;
+  }
+
   .tech-item:hover .tech-icon img {
     filter: brightness(1.3) drop-shadow(0 0 8px rgba(87, 50, 233, 0.5));
-    transform: scale(1.1);
+    transform: none; /* Remove the scale effect */
   }
 
   /* GitHub & Bash specific styling for better visibility */

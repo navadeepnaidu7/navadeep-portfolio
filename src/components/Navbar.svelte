@@ -51,11 +51,11 @@
 <nav class:hidden={!isVisible}>
   <div class="logo">N²</div>
   <ul>
+    <li><a href="#ideasboard">IdeaBoard</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Projects</a></li>
-    <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#ideasboard">IdeasBoard</a></li>
+    <li><a href="#about">About</a></li>
     <li><a href="#resume">Resume</a></li>
     <li>
       <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" class="blog-button">
