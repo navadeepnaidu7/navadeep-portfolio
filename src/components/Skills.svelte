@@ -94,7 +94,10 @@
 <section id="skills" bind:this={skillsSection} class:visible class:initial-animation={initialAnimation}>
   <div class="background-blur"></div>
   <div class="background-glow"></div>
-  <h2 class="section-title">Skills</h2>
+  <h2 class="section-title">
+    <i class="fas fa-code-branch"></i>
+    Skills
+  </h2>
   
   <div class="categories-grid">
     <!-- Web Development Category -->
@@ -239,26 +242,15 @@
     position: relative;
     letter-spacing: 0.5px;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
   }
-  
-  /* Add decorative accents around the title */
-  .section-title::before, .section-title::after {
-    content: '';
-    position: absolute;
-    width: 40px;
-    height: 3px;
-    background: linear-gradient(90deg, rgba(220, 220, 230, 0.3), rgba(220, 220, 230, 0.1));
-    top: 50%;
-    transform: translateY(-50%);
-    border-radius: 4px;
-  }
-  
-  .section-title::before {
-    left: 25%;
-  }
-  
-  .section-title::after {
-    right: 25%;
+
+  .section-title i {
+    font-size: 2rem;
+    color: rgba(87, 50, 233, 0.8);
   }
 
   .categories-grid {
@@ -317,18 +309,6 @@
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     position: relative;
     display: inline-block;
-  }
-  
-  /* Add underline accent to category titles */
-  .category-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 35px;
-    height: 2px;
-    background: linear-gradient(90deg, rgba(0, 168, 255, 0.6), rgba(107, 91, 255, 0.2));
-    border-radius: 2px;
   }
 
   /* Updated skills card to match social buttons */
