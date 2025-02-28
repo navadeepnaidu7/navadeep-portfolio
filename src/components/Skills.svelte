@@ -1,10 +1,6 @@
 <script>
   import { onMount } from 'svelte';
   
-  // svelte-ignore export_let_unused
-  export let skills = [];
-  
-  // Enhanced skills data structure organized by categories with CDN logo URLs
   const skillsCategories = {
     webdev: {
       title: "Web Development",

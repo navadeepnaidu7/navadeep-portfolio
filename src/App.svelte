@@ -7,11 +7,9 @@
   import Loading from './components/Loading.svelte';
   import './styles/global.css';
 
-  let name = "Navadeep Naidu";
   let showScrollIndicator = true;
   let mouseX = 0;
   let mouseY = 0;
-  let skills = ["JavaScript", "TypeScript", "React", "Svelte", "Node.js", "Python"];
   let isLoading = true;
 
   function handleLoadingComplete() {
@@ -38,12 +36,12 @@
   <div class="cursor-gradient"></div>
   <Navbar />
   <div id="home">
-    <Hero {name} />
+    <Hero />
   </div>
 
   {#if showScrollIndicator}
     <ScrollIndicator />
   {/if}
 
-  <Skills {skills} />
+  <Skills />
 {/if}
