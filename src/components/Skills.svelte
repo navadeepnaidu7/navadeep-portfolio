@@ -3,45 +3,51 @@
   
   const skillsCategories = {
     webdev: {
-      title: "Web Development",
+      title: "Web & Backend Development",
+      emoji: "🖥",
       skills: [
         { name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
         { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
-        { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
         { name: 'Svelte', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg' },
         { name: 'HTML5', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
         { name: 'CSS3', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
-        { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' }
+        { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+        { name: 'Express.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg' },
+        { name: 'FastAPI', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg' }
       ]
     },
     devops: {
-      title: "DevOps",
+      title: "DevOps & Cloud",
+      emoji: "☸️",
       skills: [
         { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
         { name: 'Kubernetes', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg' },
-        { name: 'AWS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg' },
-        { name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
-        { name: 'GitHub', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original-wordmark.svg' }
+        { name: 'Terraform', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg' },
+        { name: 'GitHub Actions', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
+        { name: 'AWS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg' }
       ]
     },
     tools: {
-      title: "Tools",
+      title: "Tools & Automation",
+      emoji: "🛠",
       skills: [
         { name: 'VS Code', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
-        { name: 'Webpack', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg' },
         { name: 'Vite', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg' },
-        { name: 'Figma', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
-        { name: 'NPM', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg' }
+        { name: 'Webpack', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg' },
+        { name: 'Playwright', icon: 'data:image/svg+xml,...' }, // You'll need to find a proper Playwright icon
+        { name: 'Selenium', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg' },
+        { name: 'GraphQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg' }
       ]
     },
-    others: {
-      title: "Others",
+    databases: {
+      title: "Databases & AI",
+      emoji: "📊",
       skills: [
-        { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
-        { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
         { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
+        { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
+        { name: 'Prisma', icon: 'data:image/svg+xml,...' }, // You'll need to find a proper Prisma icon
         { name: 'GraphQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg' },
-        { name: 'Bash', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-plain.svg' }
+        { name: 'Pandas', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg' }
       ]
     }
   };
@@ -91,66 +97,24 @@
   <div class="background-blur"></div>
   <div class="background-glow"></div>
   <h2 class="section-title">
-    <i class="fas fa-code-branch"></i>
-    Skills
+    🚀 Skills
   </h2>
   
   <div class="categories-grid">
-    <!-- Web Development Category -->
-    <div class="category" class:visible style="--delay: 0s; --initial-delay: 1.2s">
-      <h3 class="category-title">{skillsCategories.webdev.title}</h3>
-      <div class="skills-card">
-        {#each skillsCategories.webdev.skills as skill, i}
-          <div class="tech-item" title={skill.name}>
-            <div class="tech-icon">
-              <img src={skill.icon} alt={skill.name} on:error={(e) => handleImageError(e, skill.name)} />
+    {#each Object.entries(skillsCategories) as [key, category]}
+      <div class="category" class:visible style="--delay: {0.2 * Object.keys(skillsCategories).indexOf(key)}s; --initial-delay: {1.2 + 0.2 * Object.keys(skillsCategories).indexOf(key)}s">
+        <h3 class="category-title">{category.emoji} {category.title}</h3>
+        <div class="skills-card">
+          {#each category.skills as skill, i}
+            <div class="tech-item" title={skill.name}>
+              <div class="tech-icon">
+                <img src={skill.icon} alt={skill.name} on:error={(e) => handleImageError(e, skill.name)} />
+              </div>
             </div>
-          </div>
-        {/each}
+          {/each}
+        </div>
       </div>
-    </div>
-    
-    <!-- DevOps Category -->
-    <div class="category" class:visible style="--delay: 0.2s; --initial-delay: 1.4s">
-      <h3 class="category-title">{skillsCategories.devops.title}</h3>
-      <div class="skills-card">
-        {#each skillsCategories.devops.skills as skill, i}
-          <div class="tech-item" title={skill.name}>
-            <div class="tech-icon">
-              <img src={skill.icon} alt={skill.name} on:error={(e) => handleImageError(e, skill.name)} />
-            </div>
-          </div>
-        {/each}
-      </div>
-    </div>
-    
-    <!-- Tools Category -->
-    <div class="category" class:visible style="--delay: 0.4s; --initial-delay: 1.6s">
-      <h3 class="category-title">{skillsCategories.tools.title}</h3>
-      <div class="skills-card">
-        {#each skillsCategories.tools.skills as skill, i}
-          <div class="tech-item" title={skill.name}>
-            <div class="tech-icon">
-              <img src={skill.icon} alt={skill.name} on:error={(e) => handleImageError(e, skill.name)} />
-            </div>
-          </div>
-        {/each}
-      </div>
-    </div>
-    
-    <!-- Others Category -->
-    <div class="category" class:visible style="--delay: 0.6s; --initial-delay: 1.8s">
-      <h3 class="category-title">{skillsCategories.others.title}</h3>
-      <div class="skills-card">
-        {#each skillsCategories.others.skills as skill, i}
-          <div class="tech-item" title={skill.name}>
-            <div class="tech-icon">
-              <img src={skill.icon} alt={skill.name} on:error={(e) => handleImageError(e, skill.name)} />
-            </div>
-          </div>
-        {/each}
-      </div>
-    </div>
+    {/each}
   </div>
 </section>
 

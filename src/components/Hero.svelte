@@ -18,7 +18,7 @@
     <div class="introduction">
       <span class="pre-title">Hello👋🏼, I'm</span>
       <h1 class="greeting">Navadeep Naidu</h1>
-      <p class="sub-intro">Building scalable backends & automating DevOps workflows, the infrastructure behind great software.</p>
+      <p class="sub-intro">Building scalable backends & automating DevOps workflows, powering the infrastructure behind great software.</p>
     </div>
     <div class="social-buttons">
       <a href={socialLinks.email} target="_blank" rel="noopener noreferrer" class="social-button email" aria-label="Email">
@@ -174,7 +174,7 @@
   .sub-intro {
     font-family: 'SF Pro Display', sans-serif;
     font-style: italic;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: rgba(255, 255, 255, 0.6);
     line-height: 1.6;
     font-weight: 300;
