@@ -12,8 +12,9 @@
         { name: 'HTML5', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
         { name: 'CSS3', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
         { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
-        { name: 'Express.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg' },
-        { name: 'FastAPI', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg' }
+        { name: 'Express.js', icon: 'src/assets/skills-logos/expressjs.svg' },
+        { name: 'FastAPI', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg' },
+        { name: 'Flask', icon: 'src/assets/skills-logos/flask.svg' } 
       ]
     },
     devops: {
@@ -22,9 +23,10 @@
       skills: [
         { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
         { name: 'Kubernetes', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg' },
+        { name: 'AWS', icon: 'src/assets/skills-logos/aws.svg' },
         { name: 'Terraform', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg' },
-        { name: 'GitHub Actions', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
-        { name: 'AWS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg' }
+        { name: 'GitHub Actions', icon: 'src/assets/skills-logos/GitHub Actions.svg' },
+        
       ]
     },
     tools: {
@@ -34,7 +36,6 @@
         { name: 'VS Code', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
         { name: 'Vite', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg' },
         { name: 'Webpack', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg' },
-        { name: 'Playwright', icon: 'data:image/svg+xml,...' }, // You'll need to find a proper Playwright icon
         { name: 'Selenium', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg' },
         { name: 'GraphQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg' }
       ]
@@ -45,9 +46,9 @@
       skills: [
         { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
         { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
-        { name: 'Prisma', icon: 'data:image/svg+xml,...' }, // You'll need to find a proper Prisma icon
+        { name: 'Prisma', icon: 'src/assets/skills-logos/prisma.svg' }, // You'll need to find a proper Prisma icon
         { name: 'GraphQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg' },
-        { name: 'Pandas', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg' }
+        { name: 'Pandas', icon: 'src/assets/skills-logos/pandas.svg' }
       ]
     }
   };
@@ -63,20 +64,15 @@
 
   // Animation on scroll
   let skillsSection;
-  let categories = [];
   let visible = false;
-  
-  // Enhanced animation for initial load
-  let initialAnimation = true;
 
   onMount(() => {
-    // For scroll animations after initial load
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           visible = true;
-          initialAnimation = false; // Disable initial animation after first scroll into view
-          observer.unobserve(entry.target);
+        } else {
+          visible = false;
         }
       });
     }, { threshold: 0.1 });
@@ -93,11 +89,12 @@
   });
 </script>
 
-<section id="skills" bind:this={skillsSection} class:visible class:initial-animation={initialAnimation}>
+<section id="skills" bind:this={skillsSection} class:visible>
   <div class="background-blur"></div>
   <div class="background-glow"></div>
   <h2 class="section-title">
-    🚀 Skills
+    <i class="fas fa-code-branch section-icon"></i>
+    <span>Skills</span>
   </h2>
   
   <div class="categories-grid">
@@ -126,8 +123,8 @@
     background: transparent;
     border-radius: 20px;
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     overflow: hidden;
   }
@@ -166,8 +163,8 @@
   /* Add a second decorative gradient */
   .background-glow {
     position: absolute;
-    width: 250px;
-    height: 250px;
+    width: 260px;
+    height: 260px;
     background: radial-gradient(circle, rgba(120, 0, 255, 0.07) 0%, rgba(0, 198, 255, 0.03) 50%, transparent 70%);
     border-radius: 50%;
     z-index: -1;
@@ -205,12 +202,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 15px;
   }
 
-  .section-title i {
+  .section-icon {
     font-size: 2rem;
-    color: rgba(87, 50, 233, 0.8);
+    background: linear-gradient(45deg, #5732e9, #a194fd);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(87, 50, 233, 0.5);
+    filter: drop-shadow(0 2px 4px rgba(87, 50, 233, 0.2));
   }
 
   .categories-grid {
@@ -227,33 +229,13 @@
     display: flex;
     flex-direction: column;
     opacity: 0;
-    transform: translateY(15px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-    transition-delay: var(--delay, 0s);
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: var(--delay);
     position: relative;
   }
 
-  /* Enhanced category animation for initial load */
-  #skills.initial-animation .category {
-    animation: slideInCategory 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: var(--initial-delay, 0s);
-    transform: translateY(30px);
-    opacity: 0;
-    transition: none;
-  }
-
-  @keyframes slideInCategory {
-    0% {
-      transform: translateY(30px);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
-  .category.visible {
+  #skills.visible .category {
     opacity: 1;
     transform: translateY(0);
   }
@@ -315,13 +297,15 @@
 
   /* Special treatment for webdev category to ensure one row */
   .category:first-child .skills-card {
-    justify-content: space-between;
+    justify-content: flex-start;  /* Changed from space-between to flex-start */
+    gap: 25px;  /* Increased gap for better spacing */
   }
   
   .category:first-child .tech-item {
     width: auto;
     min-width: 0;
     flex: 0 0 auto;
+    margin-right: 5px;  /* Optional: adds a little extra space between items */
   }
 
   .skills-card:hover {
@@ -344,12 +328,6 @@
     z-index: 1;
     /* Removed opacity and transform that were used for animation */
   }
-
-  /* Removed individual tech-item animations */
-  /* Removed @keyframes placeItem */
-  /* Removed tech-item animation in #skills.initial-animation */
-  /* Removed scroll animation for tech items */
-  /* Removed @keyframes fadeIn for tech items */
 
   .tech-item:hover {
     transform: none; /* Remove the pop-up effect */
@@ -397,9 +375,9 @@
     height: 55px;
   }
 
-  .tech-item:hover .tech-icon img {
-    filter: brightness(1.3) drop-shadow(0 0 8px rgba(87, 50, 233, 0.5));
-    transform: none; /* Remove the scale effect */
+  .tech-icon img[alt="Flask"] {
+    width: 60px;
+    height: 60px;
   }
 
   /* GitHub & Bash specific styling for better visibility */
@@ -412,8 +390,6 @@
   .tech-icon img[alt="Bash"]:hover {
     filter: brightness(4) drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
   }
-
-
 
   /* Responsive design */
   @media (max-width: 992px) {
@@ -434,7 +410,7 @@
 
   @media (max-width: 768px) {
     #skills {
-      padding: 30px 15px 50px;
+      padding: 30px 15px 60px;
     }
     
     .categories-grid {
@@ -473,72 +449,6 @@
     .category-title {
       margin-bottom: 8px;
       font-size: 1.2rem;
-    }
-  }
-
-  /* Initial load animation - different from scroll animation */
-  #skills.initial-animation {
-    transition-delay: 0.5s; /* Reduced delay for faster initial appearance */
-    animation: fadeInSection 0.8s ease forwards;
-  }
-  
-  @keyframes fadeInSection {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* Add a subtle intro animation for the section title */
-  #skills.initial-animation .section-title {
-    animation: revealTitle 1s cubic-bezier(0.12, 0.93, 0.12, 0.93) forwards;
-    animation-delay: 0.7s;
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  
-  @keyframes revealTitle {
-    0% {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* Enhanced card animation */
-  #skills.initial-animation .skills-card {
-    animation: popCard 0.7s cubic-bezier(0.2, 0.85, 0.4, 1.275) forwards;
-    animation-delay: calc(var(--initial-delay, 0s) + 0.2s);
-    opacity: 0;
-    transform: translateY(15px) scale(0.95);
-  }
-  
-  /* Scroll-based animation for cards */
-  #skills:not(.initial-animation) .category.visible .skills-card {
-    animation: popCard 0.5s cubic-bezier(0.2, 0.85, 0.4, 1.275) forwards;
-    animation-delay: calc(var(--delay, 0s) + 0.2s);
-    opacity: 0;
-    transform: translateY(15px) scale(0.95);
-  }
-  
-  @keyframes popCard {
-    0% {
-      opacity: 0;
-      transform: translateY(15px) scale(0.95);
-    }
-    60% {
-      transform: translateY(-5px) scale(1.02);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
     }
   }
 </style>
