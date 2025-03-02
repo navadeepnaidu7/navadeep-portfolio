@@ -127,6 +127,7 @@
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     overflow: hidden;
+    margin-bottom: 100px;  /* Add space before footer */
   }
 
   #skills::before {

@@ -5,6 +5,7 @@
   import ScrollIndicator from './components/ScrollIndicator.svelte';
   import Skills from './components/Skills.svelte';
   import Loading from './components/Loading.svelte';
+  import Footer from './components/Footer.svelte';
   import './styles/global.css';
 
   let showScrollIndicator = true;
@@ -33,15 +34,32 @@
 {#if isLoading}
   <Loading onLoadingComplete={handleLoadingComplete} />
 {:else}
-  <div class="cursor-gradient"></div>
-  <Navbar />
-  <div id="home">
-    <Hero />
+  <div class="app-container">
+    <div class="cursor-gradient"></div>
+    <Navbar />
+    <main>
+      <div id="home">
+        <Hero />
+      </div>
+
+      {#if showScrollIndicator}
+        <ScrollIndicator />
+      {/if}
+
+      <Skills />
+    </main>
+    <Footer />
   </div>
-
-  {#if showScrollIndicator}
-    <ScrollIndicator />
-  {/if}
-
-  <Skills />
 {/if}
+
+<style>
+  .app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1;
+  }
+</style>
