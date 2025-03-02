@@ -4,6 +4,7 @@
   import Hero from './components/Hero.svelte';
   import ScrollIndicator from './components/ScrollIndicator.svelte';
   import Skills from './components/Skills.svelte';
+  import Projects from './components/Projects.svelte';
   import Loading from './components/Loading.svelte';
   import Footer from './components/Footer.svelte';
   import './styles/global.css';
@@ -47,6 +48,7 @@
       {/if}
 
       <Skills />
+      <Projects />
     </main>
     <Footer />
   </div>
