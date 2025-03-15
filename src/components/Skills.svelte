@@ -121,30 +121,33 @@
     padding: 40px 20px 60px;
     color: rgba(255, 255, 255, 0.8);
     background: transparent;
-    border-radius: 20px;
+    border-radius: 30px;
     opacity: 0;
     transform: translateY(50px);
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     overflow: hidden;
-    margin-bottom: 100px;  /* Add space before footer */
+    margin-bottom: 100px;  
+    isolation: isolate;
+    border: 1px solid rgba(255, 255, 255, 0.03);
   }
 
   #skills::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0%;
-    right: 0%;
-    height: 3px;
+    inset: 0;
+    padding: 1px;
     background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.059) 10%,
-      rgba(255, 255, 255, 0.059) 90%,
-      transparent 100%
+      180deg,
+      rgba(255, 255, 255, 0.15),
+      rgba(255, 255, 255, 0.08) 30%,
+      rgba(255, 255, 255, 0.03)
     );
-    border-radius: 26px;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    border-radius: 30px;
   }
 
   /* Add decorative elements */
