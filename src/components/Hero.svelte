@@ -3,7 +3,8 @@
     email: 'mailto:navadeepnaidu7@protonmail.com',
     github: 'https://github.com/navadeepnaidu7',
     linkedin: 'https://linkedin.com/in/navadeepnaidu',
-    twitter: 'https://x.com/Navadeep_naidu7'
+    twitter: 'https://x.com/Navadeep_naidu7',
+    medium: 'https://medium.com/@navadeepnaidu7'
   };
 
   import FloatingIcons from './FloatingIcons.svelte';
@@ -33,6 +34,8 @@
       <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" class="social-button twitter" aria-label="Twitter">
         <i class="fab fa-twitter"></i>
       </a>
+      <a href={socialLinks.medium} target="_blank" rel="noopener noreferrer" class="social-button medium" aria-label="Medium">
+        <i class="fab fa-medium"></i>
     </div>
   </div>
 
@@ -246,7 +249,7 @@
   .github:hover i { color: #ffffff; text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
   .linkedin:hover i { color: #0077b5; text-shadow: 0 0 15px rgba(0, 119, 181, 0.5); }
   .twitter:hover i { color: #1DA1F2; text-shadow: 0 0 15px rgba(29, 161, 242, 0.5); }
-
+  .medium:hover i { color: #ffffff; text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
   @keyframes floating {
     0% { transform: translateY(0px); }
     50% { transform: translateY(-4px); }

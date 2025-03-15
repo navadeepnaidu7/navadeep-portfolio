@@ -11,11 +11,14 @@
   <div class="footer-underline"></div>
   <div class="footer-content">
     <div class="copyright">
-      © {currentYear} Navadeep Naidu. All rights reserved.
+      Made with ❤️ by Navadeep Naidu
     </div>
     <div class="social-links">
       <a href={socialLinks.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
         <i class="fab fa-github"></i>
+      </a>
+      <a href={socialLinks.medium} target="_blank" rel="noopener noreferrer" aria-label="Medium">
+        <i class="fab fa-medium"></i>
       </a>
       <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
         <i class="fab fa-linkedin"></i>
@@ -23,6 +26,7 @@
       <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter">
         <i class="fab fa-twitter"></i>
       </a>
+
     </div>
   </div>
 </footer>
