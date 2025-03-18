@@ -3,7 +3,8 @@
   const socialLinks = {
     github: 'https://github.com/navadeepnaidu7',
     linkedin: 'https://linkedin.com/in/navadeepnaidu',
-    twitter: 'https://x.com/Navadeep_naidu7'
+    twitter: 'https://x.com/Navadeep_naidu7',
+    medium: 'https://medium.com/@navadeepnaidu7'
   };
 </script>
 
