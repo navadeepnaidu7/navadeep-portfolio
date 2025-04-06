@@ -56,7 +56,13 @@
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#resume">Resume</a></li>
+    <li>
+      <a 
+        href="https://drive.google.com/file/d/1ej8kQagn1jKxqDUhMF1i9rIryu2I1NSv/view?usp=drive_link" 
+        target="_blank" 
+        rel="noopener noreferrer"
+      >Resume</a>
+    </li>
     <li>
       <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" class="blog-button">
         Blog
