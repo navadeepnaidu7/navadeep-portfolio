@@ -3,6 +3,7 @@
   import Navbar from './components/Navbar.svelte';
   import Hero from './components/Hero.svelte';
   import ScrollIndicator from './components/ScrollIndicator.svelte';
+  import Experience from './components/Experience.svelte';
   import Skills from './components/Skills.svelte';
   import Projects from './components/Projects.svelte';
   import Loading from './components/Loading.svelte';
@@ -10,8 +11,7 @@
   import './styles/global.css';
 
   let showScrollIndicator = true;
-  let mouseX = 0;
-  let mouseY = 0;
+  
   let isLoading = true;
 
   function handleLoadingComplete() {
@@ -23,12 +23,7 @@
       showScrollIndicator = window.pageYOffset < 100;
     });
 
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      document.documentElement.style.setProperty('--mouse-x', `${mouseX}px`);
-      document.documentElement.style.setProperty('--mouse-y', `${mouseY}px`);
-    });
+    
   });
 </script>
 
@@ -36,7 +31,7 @@
   <Loading onLoadingComplete={handleLoadingComplete} />
 {:else}
   <div class="app-container">
-    <div class="cursor-gradient"></div>
+    
     <Navbar />
     <main>
       <div id="home">
@@ -47,6 +42,7 @@
         <ScrollIndicator />
       {/if}
 
+      <Experience />
       <Skills />
       <Projects />
     </main>
