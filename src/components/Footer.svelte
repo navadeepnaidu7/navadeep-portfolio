@@ -41,7 +41,7 @@
     <div class="footer-content">
         <div class="copyright">Made with ❤️ by Navadeep Naidu</div>
         <div class="live-time">
-            India, {indiaTime}
+            Hyderabad, India | {indiaTime}
         </div>
         <div class="social-links">
             <a
@@ -81,9 +81,11 @@
 </footer>
 
 <style>
+    /* Import IBM Plex Mono Bold for retro terminal look */
+    @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&display=swap");
     footer {
         width: 100%;
-        background: rgba(0, 0, 0, 0.75);
+        background: rgba(0, 0, 0, 0.73);
         backdrop-filter: blur(10px);
         margin-top: auto;
         position: relative;
@@ -129,13 +131,18 @@
     }
 
     .live-time {
-        color: rgba(255, 255, 255, 0.7);
-        font-size: 1rem;
-        font-weight: 400;
-        font-family: "Courier New", Courier, monospace;
+        color: rgba(222, 222, 222, 0.553);
+        font-size: 13px;
+        font-weight: 700;
+        font-family: "IBM Plex Mono", "Courier New", Courier, monospace;
         letter-spacing: 1px;
         flex: 1;
         text-align: center;
+        text-transform: uppercase;
+        background: rgba(0, 0, 0, 0.35);
+        padding: 6px 10px;
+        border-radius: 6px;
+        box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.4);
     }
 
     .social-links {
@@ -153,27 +160,65 @@
 
     .social-links a:hover {
         color: rgba(255, 255, 255, 0.9);
-        transform: scale(1);
+        /* transform: scale(1); */
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
         .footer-content {
             flex-direction: column;
-            gap: 10px;
+            gap: 15px;
             text-align: center;
-            padding: 15px 20px;
+            padding: 20px 25px;
+        }
+
+        .copyright,
+        .live-time,
+        .social-links {
+            flex: none;
+            text-align: center;
+            justify-content: center;
         }
 
         .copyright {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
 
         .live-time {
-            font-size: 0.9rem;
+            font-size: 12px;
+            padding: 8px 12px;
+        }
+
+        .social-links {
+            gap: 18px;
+        }
+
+        .social-links a {
+            font-size: 1.3rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .footer-content {
+            gap: 12px;
+            padding: 18px 15px;
+        }
+
+        .copyright {
+            font-size: 0.85rem;
+        }
+
+        .live-time {
+            font-size: 11px;
+            padding: 7px 10px;
+            letter-spacing: 0.5px;
         }
 
         .social-links {
             gap: 15px;
+        }
+
+        .social-links a {
+            font-size: 1.2rem;
         }
     }
 </style>

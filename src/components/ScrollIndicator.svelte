@@ -23,6 +23,7 @@
     transform: translateX(-50%);
     z-index: 100;
     cursor: pointer;
+    padding: 10px;
   }
 
   .chevron {
@@ -36,6 +37,30 @@
     }
     50% {
       transform: translateY(5px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .scroll-indicator {
+      bottom: 1rem;
+      padding: 8px;
+    }
+
+    .chevron {
+      width: 18px;
+      height: 9px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .scroll-indicator {
+      bottom: 1.5rem;
+      padding: 6px;
+    }
+
+    .chevron {
+      width: 16px;
+      height: 8px;
     }
   }
 </style>
