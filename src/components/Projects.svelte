@@ -361,32 +361,152 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
+    #projects {
+      padding: 35px 20px 50px;
+    }
+
+    .projects-container {
+      padding: 30px 20px;
+      gap: 35px;
+    }
+
     .project-card {
-      flex-direction: column;
+      min-height: 350px;
     }
 
     .project-image {
-      height: 300px;  
-      margin: 15px;   
+      flex: 0 0 400px;
     }
 
     .project-content {
-      padding: 30px;  
+      padding: 30px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    #projects {
+      padding: 30px 15px 40px;
+      margin-bottom: 60px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 25px;
+      gap: 10px;
+    }
+
+    .section-icon {
+      font-size: 1.6rem;
+    }
+
+    .projects-container {
+      padding: 20px 10px;
+      gap: 30px;
+    }
+
+    .project-card {
+      flex-direction: column;
+      min-height: auto;
+    }
+
+    .project-image {
+      flex: 0 0 250px;
+      height: 250px;
+      margin: 15px;
+    }
+
+    .project-links {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .project-content {
+      padding: 20px 25px 25px;
+    }
+
+    .project-content h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+
+    .project-content p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+
+    .tag {
+      padding: 6px 12px;
+      font-size: 0.8rem;
     }
   }
 
   @media (max-width: 480px) {
+    #projects {
+      padding: 25px 10px 30px;
+      margin-bottom: 40px;
+      border-radius: 20px;
+    }
+
     .section-title {
-      font-size: 2rem;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      gap: 8px;
+    }
+
+    .section-icon {
+      font-size: 1.4rem;
+    }
+
+    .projects-container {
+      padding: 15px 5px;
+      gap: 25px;
+    }
+
+    .project-card {
+      border-radius: 16px;
+    }
+
+    .project-image {
+      flex: 0 0 200px;
+      height: 200px;
+      margin: 12px;
+      border-radius: 12px;
+    }
+
+    .project-image img {
+      border-radius: 12px;
+    }
+
+    .project-links a {
+      width: 32px;
+      height: 32px;
+      font-size: 0.9rem;
+    }
+
+    .project-content {
+      padding: 15px 20px 20px;
     }
 
     .project-content h3 {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
+      margin-bottom: 12px;
     }
 
     .project-content p {
       font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .project-tags {
+      gap: 8px;
+    }
+
+    .tag {
+      padding: 5px 10px;
+      font-size: 0.75rem;
+      border-radius: 15px;
     }
   }
 </style>

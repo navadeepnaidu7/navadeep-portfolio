@@ -58,6 +58,8 @@
     padding: 20px;
     position: relative;
     z-index: 1;
+    max-width: 100%;
+    overflow: hidden;
   }
 
   .left-section {
@@ -70,6 +72,7 @@
     justify-content: center;
     position: relative;
     z-index: 5;
+    max-width: 100%;
   }
 
   .right-section {
@@ -81,6 +84,7 @@
     margin-left: auto;
     position: relative;
     z-index: 5;
+    max-width: 50%;
   }
 
   .profile-container {
@@ -114,12 +118,11 @@
   }
 
   .gradient-cloud {
-    position: absolute;
-    top: 50%;
-    left: 1%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background: conic-gradient(
       from 180deg at 50% 50%,
       #e9325d 0deg,
@@ -231,13 +234,13 @@
     mask-composite: exclude;
   }
 
-  .social-button:hover {
+  /* .social-button:hover {
     transform: translateY(-2px);
     box-shadow: 
       0 8px 15px rgba(0, 0, 0, 0.2),
       0 4px 6px rgba(0, 0, 0, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  }
+  } */
 
   .social-button i {
     position: relative;
@@ -272,41 +275,154 @@
     }
   }
 
+  @media (max-width: 1024px) {
+    main {
+      padding: 15px;
+      overflow-x: hidden;
+    }
+
+    .left-section {
+      padding: 30px 20px;
+      margin-right: 20px;
+    }
+
+    .right-section {
+      flex: 0.8;
+      padding-right: 20px;
+      max-width: 45%;
+    }
+
+    .greeting {
+      font-size: 3.5rem;
+    }
+
+    .sub-intro {
+      font-size: 1.2rem;
+    }
+  }
+
   @media (max-width: 768px) {
     main {
       flex-direction: column;
       text-align: center;
+      padding: 80px 20px 20px;
+      min-height: auto;
+      overflow-x: hidden;
     }
 
     .left-section {
       padding: 20px;
       margin-right: 0;
+      margin-bottom: 30px;
+      max-width: 100%;
     }
 
     .right-section {
       padding-right: 0;
       justify-content: center;
+      margin-left: 0;
+      order: -1;
+      margin-bottom: 30px;
+      max-width: 100%;
+    }
+
+    .profile-container {
+      width: 220px;
+      height: 220px;
+    }
+
+    .right-section img {
+      max-width: 220px;
     }
 
     .greeting {
-      font-size: 3rem;
+      font-size: 2.8rem;
+    }
+
+    .pre-title {
+      font-size: 1.4rem;
     }
 
     .sub-intro {
-      font-size: 1rem;
+      font-size: 1.1rem;
     }
 
     .pill-container {
       margin-left: 0;
       margin-bottom: 2rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .pill {
+      font-size: 0.9rem;
+      padding: 0.7rem 1.5rem;
     }
 
     .social-buttons {
       justify-content: center;
+      gap: 1rem;
     }
 
-    .profile-pic {
-      margin-left: 0;
+    .social-button {
+      width: 3rem;
+      height: 3rem;
+      font-size: 1.2rem;
+    }
+
+    .gradient-cloud {
+      width: 120%;
+      height: 120%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    main {
+      padding: 70px 15px 15px;
+    }
+
+    .left-section {
+      padding: 15px;
+    }
+
+    .profile-container {
+      width: 180px;
+      height: 180px;
+    }
+
+    .right-section img {
+      max-width: 180px;
+    }
+
+    .greeting {
+      font-size: 2.2rem;
+      margin: 0.4rem 0 1rem 0;
+    }
+
+    .pre-title {
+      font-size: 1.2rem;
+    }
+
+    .sub-intro {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .pill {
+      font-size: 0.85rem;
+      padding: 0.6rem 1.2rem;
+    }
+
+    .social-buttons {
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .social-button {
+      width: 2.8rem;
+      height: 2.8rem;
+      font-size: 1.1rem;
     }
   }
 </style>

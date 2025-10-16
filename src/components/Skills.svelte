@@ -398,6 +398,21 @@
   }
 
   /* Responsive design */
+  @media (max-width: 1024px) {
+    #skills {
+      padding: 35px 20px 50px;
+    }
+
+    .categories-grid {
+      gap: 22px;
+    }
+
+    .tech-item {
+      width: calc(20% - 10px);
+      min-width: 50px;
+    }
+  }
+
   @media (max-width: 992px) {
     .tech-item {
       width: calc(25% - 10px);
@@ -416,31 +431,95 @@
 
   @media (max-width: 768px) {
     #skills {
-      padding: 30px 15px 60px;
+      padding: 30px 15px 40px;
+      margin-bottom: 60px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 25px;
+      gap: 10px;
+    }
+
+    .section-icon {
+      font-size: 1.6rem;
     }
     
     .categories-grid {
       grid-template-columns: 1fr;
       gap: 20px;
+      padding: 0 5px;
+    }
+    
+    .category-title {
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+    }
+
+    .skills-card {
+      padding: 15px;
+      gap: 10px;
     }
     
     .tech-item {
       width: calc(33.33% - 10px);
+      min-width: 50px;
     }
     
     .category:first-child .tech-item {
       width: calc(33.33% - 10px);
     }
+
+    .tech-icon {
+      height: 55px;
+      width: 55px;
+    }
+
+    .tech-icon img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .tech-icon img[alt="Docker"] {
+      width: 50px;
+      height: 50px;
+    }
+
+    .tech-icon img[alt="Flask"] {
+      width: 55px;
+      height: 55px;
+    }
   }
 
   @media (max-width: 480px) {
+    #skills {
+      padding: 25px 10px 30px;
+      margin-bottom: 40px;
+      border-radius: 20px;
+    }
+
     .section-title {
       margin-bottom: 20px;
-      font-size: 2rem;
+      font-size: 1.6rem;
+      gap: 8px;
+    }
+
+    .section-icon {
+      font-size: 1.4rem;
+    }
+    
+    .categories-grid {
+      gap: 15px;
+    }
+
+    .category-title {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
     }
     
     .tech-item {
       width: calc(50% - 8px);
+      min-width: 45px;
     }
     
     .category:first-child .tech-item {
@@ -450,11 +529,48 @@
     .skills-card {
       padding: 12px;
       gap: 8px;
+      border-radius: 12px;
     }
-    
-    .category-title {
-      margin-bottom: 8px;
-      font-size: 1.2rem;
+
+    .tech-icon {
+      height: 50px;
+      width: 50px;
+      margin-bottom: 4px;
+    }
+
+    .tech-icon img {
+      width: 35px;
+      height: 35px;
+    }
+
+    .tech-icon img[alt="Docker"] {
+      width: 45px;
+      height: 45px;
+    }
+
+    .tech-icon img[alt="Flask"] {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .tech-item {
+      width: calc(50% - 6px);
+    }
+
+    .category:first-child .tech-item {
+      width: calc(50% - 6px);
+    }
+
+    .tech-icon {
+      height: 45px;
+      width: 45px;
+    }
+
+    .tech-icon img {
+      width: 32px;
+      height: 32px;
     }
   }
 
