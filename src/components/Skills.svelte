@@ -1,5 +1,11 @@
 <script>
   import { onMount } from 'svelte';
+  import expressjsIcon from '../assets/skills-logos/expressjs.svg';
+  import flaskIcon from '../assets/skills-logos/flask.svg';
+  import awsIcon from '../assets/skills-logos/aws.svg';
+  import githubActionsIcon from '../assets/skills-logos/GitHub Actions.svg';
+  import prismaIcon from '../assets/skills-logos/prisma.svg';
+  import pandasIcon from '../assets/skills-logos/pandas.svg';
   
   const skillsCategories = {
     webdev: {
@@ -12,9 +18,9 @@
         { name: 'HTML5', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
         { name: 'CSS3', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
         { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
-        { name: 'Express.js', icon: 'src/assets/skills-logos/expressjs.svg' },
+        { name: 'Express.js', icon: expressjsIcon },
         { name: 'FastAPI', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg' },
-        { name: 'Flask', icon: 'src/assets/skills-logos/flask.svg' } 
+        { name: 'Flask', icon: flaskIcon } 
       ]
     },
     devops: {
@@ -23,9 +29,9 @@
       skills: [
         { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
         { name: 'Kubernetes', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg' },
-        { name: 'AWS', icon: 'src/assets/skills-logos/aws.svg' },
+        { name: 'AWS', icon: awsIcon },
         { name: 'Terraform', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg' },
-        { name: 'GitHub Actions', icon: 'src/assets/skills-logos/GitHub Actions.svg' },
+        { name: 'GitHub Actions', icon: githubActionsIcon },
         
       ]
     },
@@ -47,9 +53,9 @@
       skills: [
         { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
         { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
-        { name: 'Prisma', icon: 'src/assets/skills-logos/prisma.svg' }, // You'll need to find a proper Prisma icon
+        { name: 'Prisma', icon: prismaIcon },
         { name: 'GraphQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg' },
-        { name: 'Pandas', icon: 'src/assets/skills-logos/pandas.svg' }
+        { name: 'Pandas', icon: pandasIcon }
       ]
     }
   };
