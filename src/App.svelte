@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import Navbar from './components/Navbar.svelte';
   import Hero from './components/Hero.svelte';
+  import About from './components/About.svelte';
   import ScrollIndicator from './components/ScrollIndicator.svelte';
   import Experience from './components/Experience.svelte';
   import Skills from './components/Skills.svelte';
@@ -42,6 +43,7 @@
         <ScrollIndicator />
       {/if}
 
+      <About />
       <Experience />
       <Skills />
       <Projects />

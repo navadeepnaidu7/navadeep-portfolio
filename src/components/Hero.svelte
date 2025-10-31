@@ -1,4 +1,7 @@
 <script>
+  import profileImage from '../assets/endurance.jpg';
+  import FloatingIcons from './FloatingIcons.svelte';
+
   const socialLinks = {
     email: 'mailto:navadeepnaidu7@protonmail.com',
     github: 'https://github.com/navadeepnaidu7',
@@ -6,8 +9,6 @@
     twitter: 'https://x.com/Navadeep_naidu7',
     medium: 'https://medium.com/@navadeepnaidu7'
   };
-
-  import FloatingIcons from './FloatingIcons.svelte';
 </script>
 
 <main>
@@ -42,7 +43,7 @@
   <div class="right-section">
     <div class="profile-container">
       <FloatingIcons />
-      <img src="/src/assets/endurance.jpg" alt="Profile Logo" class="profile-pic" />
+      <img src={profileImage} alt="Profile Logo" class="profile-pic" />
     </div>
   </div>
 </main>

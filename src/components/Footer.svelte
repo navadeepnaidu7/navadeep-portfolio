@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
     import { onMount, onDestroy } from "svelte";
 
     const currentYear = new Date().getFullYear();

@@ -1,5 +1,9 @@
 <script>
   import { onMount } from 'svelte';
+  import cicdImage from '../assets/project-images/ci-cd.png';
+  import portfolioImage from '../assets/project-images/portfolio.png';
+  // Using cicdImage as placeholder for fastapi until actual image is added
+  const fastapiImage = cicdImage;
 
   const projects = [
     {
@@ -10,7 +14,7 @@
         github: "https://github.com/yourusername/project1",
         live: "https://project1.demo.com"
       },
-      image: "/src/assets/project-images/ci-cd.png" 
+      image: cicdImage
     },
     {
       title: "Portfolio Website",
@@ -20,7 +24,7 @@
         github: "https://github.com/yourusername/portfolio",
         live: "https://yourportfolio.com"
       },
-      image: "src/assets/project-images/portfolio.png"
+      image: portfolioImage
     },
     {
       title: "FastAPI Backend Service",
@@ -29,7 +33,7 @@
       links: {
         github: "https://github.com/yourusername/fastapi-service",
       },
-      image: "src/assets/project-images/fastapi.png"
+      image: fastapiImage
     }
   ];
 
