@@ -60,33 +60,45 @@
   }
 
   onMount(() => {
-  words = content.map(() => ({ opacity: 0.2 }));
+    words = content.map(() => ({ opacity: 0.2 }));
     let lastScrollY = window.scrollY;
 
     const handleScroll = () => {
       if (sectionElement) {
+        const rect = sectionElement.getBoundingClientRect();
+        const sectionTop = rect.top;
+        const sectionHeight = rect.height;
         const windowHeight = window.innerHeight;
         const currentScrollY = window.scrollY;
         const direction = currentScrollY - lastScrollY;
         
+        // Calculate section progress (0 to 1)
+        // More generous calculation so it completes when section is fully visible
+        const sectionProgress = Math.max(0, Math.min(1.75, 
+          (windowHeight - sectionTop) / (windowHeight + sectionHeight * 0.2)
+        ));
+        
         content.forEach((_, index) => {
-          const wordElement = sectionElement.querySelector(`[data-word="${index}"]`);
-          if (wordElement) {
-            const wordRect = wordElement.getBoundingClientRect();
-            const wordCenter = wordRect.top + wordRect.height / 2;
-            const viewportCenter = windowHeight / 2;
-            const distance = Math.abs(wordCenter - viewportCenter);
-            const maxDistance = windowHeight / 2.5; 
-            
-            let opacity = 1 - (distance / maxDistance);
-          opacity = Math.pow(Math.max(0, Math.min(1, opacity)), 1.35);
-            const previousOpacity = words[index]?.opacity ?? 0.2;
-            if (direction >= 0) {
-              opacity = Math.max(previousOpacity, opacity);
-            }
-            opacity = Math.max(0.2, Math.min(1, opacity));
-            words[index] = { opacity };
+          // Calculate when this word should start revealing
+          const wordStartProgress = (index / content.length) * 0.65; // Scale down even more to complete earlier
+          const wordEndProgress = ((index + 1) / content.length) * 0.42;
+          
+          // Add a delay factor so words reveal sequentially
+          const revealProgress = Math.max(0, Math.min(1, 
+            (sectionProgress - wordStartProgress) / (wordEndProgress - wordStartProgress + 0.4)
+          ));
+          
+          let opacity = Math.pow(revealProgress, 0.6);
+          
+          const previousOpacity = words[index]?.opacity ?? 0.2;
+          
+          // Lock opacity when scrolling down
+          if (direction >= 0) {
+            opacity = Math.max(previousOpacity, opacity);
           }
+          
+          opacity = Math.max(0.15, Math.min(1, opacity));
+          words[index] = { opacity };
         });
 
         words = [...words];
@@ -130,7 +142,7 @@
   .about-section {
     position: relative;
     width: 100%;
-    padding: clamp(4.5rem, 8vw, 6rem) 2vw clamp(3.5rem, 7vw, 5.5rem);
+    padding: clamp(4.5rem, 8vw, 6rem) 2vw clamp(2rem, 4vw, 3rem);
     background: transparent;
   }
 
@@ -157,7 +169,7 @@
 
   .word {
     font-weight: 420;
-  transition: opacity 0.75s ease-out;
+    transition: opacity 0.5s ease-out, color 0.5s ease-out;
     display: inline;
   }
 
