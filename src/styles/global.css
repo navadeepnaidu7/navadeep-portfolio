@@ -8,7 +8,7 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   scroll-behavior: smooth;
-  background: rgb(3, 3, 0);
+  background: #030207;
   position: relative;
   overflow-x: hidden;
   width: 100%;
@@ -26,7 +26,6 @@ section {
   padding: 80px 20px;
   color: rgba(255, 255, 255, 0.8);
   background: #000000;
-  border-top: 1px solid #ccc;
 }
 
 section:nth-child(even) {
