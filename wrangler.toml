@@ -1,6 +1,5 @@
 name = "portfolio-website"
 type = "javascript"
-main = "dist/index.html"
 compatibility_date = "2025-11-01"
 
 [build]
@@ -8,5 +7,6 @@ command = "npm run build"
 
 [[assets]]
 directory = "dist"
-binding = "ASSETS"
+
+
 
