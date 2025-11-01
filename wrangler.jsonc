@@ -1,0 +1,12 @@
+{
+  "name": "portfolio-website",
+  "type": "javascript",
+  "compatibility_date": "2025-11-01",
+  "build": {
+    "command": "npm run build",
+    "cwd": "./"
+  },
+  "assets": {
+    "directory": "dist"
+  }
+}
