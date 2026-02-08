@@ -1,28 +1,28 @@
 <script>
-  import { tweened } from 'svelte/motion';
-  import { cubicOut } from 'svelte/easing';
-  import { onMount, onDestroy } from 'svelte';
+  import { tweened } from "svelte/motion";
+  import { cubicOut } from "svelte/easing";
+  import { onMount, onDestroy } from "svelte";
 
   const scrollProgress = tweened(0, {
     duration: 400,
-    easing: cubicOut
+    easing: cubicOut,
   });
 
   let lastScrollY = 0;
   let isVisible = true;
   let ticking = false;
   let menuOpen = false;
+  let blogDropdownOpen = false;
 
   const updateScrollProgress = () => {
     const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const docHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
     const progress = Math.min(Math.max((scrollTop / docHeight) * 100, 0), 100);
     scrollProgress.set(progress);
 
-    // Hide navbar when scrolling down, show when scrolling up
     isVisible = scrollTop < lastScrollY || scrollTop < 50;
     lastScrollY = scrollTop;
-    
     ticking = false;
   };
 
@@ -37,35 +37,64 @@
 
   const toggleMenu = () => {
     menuOpen = !menuOpen;
+    if (menuOpen) {
+      blogDropdownOpen = false;
+    }
   };
 
   const closeMenu = () => {
     menuOpen = false;
+    blogDropdownOpen = false;
   };
 
-  // Lock page scroll when mobile menu is open
+  const toggleBlogDropdown = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    blogDropdownOpen = !blogDropdownOpen;
+  };
+
+  const closeBlogDropdown = () => {
+    blogDropdownOpen = false;
+  };
+
+  const handleBlogKeydown = (e) => {
+    if (e.key === "Escape") {
+      closeBlogDropdown();
+    }
+  };
+
+  const handleClickOutside = (e) => {
+    if (blogDropdownOpen && !e.target.closest(".blog-container")) {
+      closeBlogDropdown();
+    }
+  };
+
   $: {
     if (menuOpen) {
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
     } else {
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
     }
   }
 
-  const BLOG_URL = 'https://medium.com/@navadeepnaidu7'; 
+  const MEDIUM_URL = "https://medium.com/@navadeepnaidu7";
+  const PERSONAL_BLOG_URL = "https://blog.navadeepnaidu.com";
 
   onMount(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    updateScrollProgress(); // Initial call
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("click", handleClickOutside);
+    window.addEventListener("keydown", handleBlogKeydown);
+    updateScrollProgress();
   });
-  
+
   onDestroy(() => {
-    window.removeEventListener('scroll', handleScroll);
-    // Ensure scroll is restored on unmount
-    document.documentElement.style.overflow = '';
-    document.body.style.overflow = '';
+    window.removeEventListener("scroll", handleScroll);
+    window.removeEventListener("click", handleClickOutside);
+    window.removeEventListener("keydown", handleBlogKeydown);
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
   });
 </script>
 
@@ -73,15 +102,18 @@
 
 <nav class:hidden={!isVisible}>
   <div class="logo">N²</div>
-  
-  <!-- Hamburger Menu Button (Mobile Only) -->
-  <button class="hamburger" class:open={menuOpen} on:click={toggleMenu} aria-label="Toggle menu">
+
+  <button
+    class="hamburger"
+    class:open={menuOpen}
+    on:click={toggleMenu}
+    aria-label="Toggle menu"
+  >
     <span></span>
     <span></span>
     <span></span>
   </button>
 
-  <!-- Navigation Menu -->
   <ul class:menu-open={menuOpen}>
     <li><a href="#ideasboard" on:click={closeMenu}>IdeaBoard</a></li>
     <li><a href="#skills" on:click={closeMenu}>Skills</a></li>
@@ -89,34 +121,86 @@
     <li><a href="#contact" on:click={closeMenu}>Contact</a></li>
     <li><a href="#about" on:click={closeMenu}>About</a></li>
     <li>
-      <a 
-        href="https://drive.google.com/file/d/1ej8kQagn1jKxqDUhMF1i9rIryu2I1NSv/view?usp=drive_link" 
-        target="_blank" 
+      <a
+        href="https://drive.google.com/file/d/1ej8kQagn1jKxqDUhMF1i9rIryu2I1NSv/view?usp=drive_link"
+        target="_blank"
         rel="noopener noreferrer"
-        on:click={closeMenu}
-      >Resume</a>
+        on:click={closeMenu}>Resume</a
+      >
     </li>
-    <li>
-      <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" class="blog-button" on:click={closeMenu}>
+    <li class="blog-container">
+      <button
+        class="blog-button"
+        on:click={toggleBlogDropdown}
+        aria-expanded={blogDropdownOpen}
+        aria-haspopup="true"
+      >
         <span class="label-desktop">Blog</span>
         <span class="label-mobile">Read my blog</span>
-        <svg class="external-link" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="7" y1="17" x2="17" y2="7"></line>
-          <polyline points="7 7 17 7 17 17"></polyline>
+        <svg
+          class="chevron-icon"
+          class:open={blogDropdownOpen}
+          xmlns="http://www.w3.org/2000/svg"
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="6 9 12 15 18 9"></polyline>
         </svg>
-      </a>
+      </button>
+
+      {#if blogDropdownOpen}
+        <div class="blog-dropdown" role="menu">
+          <a
+            href={PERSONAL_BLOG_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="dropdown-item"
+            role="menuitem"
+            on:click={closeMenu}
+          >
+            <div class="item-text">
+              <span class="item-title">Personal Blog</span>
+              <span class="item-desc">Focused reading experience</span>
+            </div>
+          </a>
+          <a
+            href={MEDIUM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="dropdown-item"
+            role="menuitem"
+            on:click={closeMenu}
+          >
+            <div class="item-text">
+              <span class="item-title">Medium</span>
+              <span class="item-desc">Community & discussions</span>
+            </div>
+          </a>
+        </div>
+      {/if}
     </li>
   </ul>
   <div class="nav-underline"></div>
 </nav>
 
-<!-- Overlay for mobile menu -->
 {#if menuOpen}
-  <div class="overlay" on:click={closeMenu} on:keydown={(e) => e.key === 'Escape' && closeMenu()} role="button" tabindex="0"></div>
+  <div
+    class="overlay"
+    on:click={closeMenu}
+    on:keydown={(e) => e.key === "Escape" && closeMenu()}
+    role="button"
+    tabindex="0"
+  ></div>
 {/if}
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+  @import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
 
   .progress-bar {
     position: fixed;
@@ -190,7 +274,7 @@
     left: 20px;
     top: 50%;
     transform: translateY(-50%);
-    font-family: 'VT323', monospace;
+    font-family: "VT323", monospace;
     font-size: 2rem;
     color: rgba(255, 255, 255, 0.9);
     letter-spacing: 1px;
@@ -201,37 +285,97 @@
 
   .logo:hover {
     color: #fff;
-    text-shadow: 
+    text-shadow:
       0 0 5px rgba(255, 255, 255, 0.5),
       0 0 10px rgba(255, 255, 255, 0.3),
       0 0 15px rgba(255, 255, 255, 0.2);
     transform: translateY(-50%) scale(1.1);
   }
 
+  /* Blog Dropdown - minimal style */
+  .blog-container {
+    position: relative;
+  }
+
   .blog-button {
     background: rgba(255, 255, 255, 0.9);
     color: #000 !important;
-    padding: 6px 12px !important;  /* reduced padding */
+    padding: 6px 12px !important;
     border-radius: 35px;
     display: flex;
     align-items: center;
-    gap: 4px;  /* reduced gap */
+    gap: 4px;
     transition: all 0.3s ease !important;
-    font-size: 0.9rem;  /* reduced font size */
+    font-size: 0.9rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
   }
 
   .blog-button:hover {
     background: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
   }
 
-  .external-link {
-    transition: transform 0.3s ease;
+  .chevron-icon {
+    transition: transform 0.2s ease;
   }
 
-  .blog-button:hover .external-link {
-    transform: translate(2px, -2px);
+  .chevron-icon.open {
+    transform: rotate(180deg);
+  }
+
+  .blog-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 220px;
+    background: #13111a;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    padding: 6px;
+    z-index: 1100;
+  }
+
+  .dropdown-item {
+    display: block;
+    padding: 12px 14px;
+    border-radius: 8px;
+    text-decoration: none !important;
+    transition: background 0.15s ease;
+  }
+
+  .dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .item-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .item-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.3;
+  }
+
+  .item-desc {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.45);
+    line-height: 1.3;
+  }
+
+  .dropdown-item:hover .item-title {
+    color: #fff;
+  }
+
+  .dropdown-item:hover .item-desc {
+    color: rgba(255, 255, 255, 0.6);
   }
 
   /* Hamburger Menu Button */
@@ -326,7 +470,9 @@
       z-index: 1000;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.4s ease, visibility 0.4s ease;
+      transition:
+        opacity 0.4s ease,
+        visibility 0.4s ease;
     }
 
     nav ul.menu-open {
@@ -346,13 +492,27 @@
       animation: fadeInUp 0.5s ease forwards;
     }
 
-    nav ul.menu-open li:nth-child(1) { animation-delay: 0.1s; }
-    nav ul.menu-open li:nth-child(2) { animation-delay: 0.15s; }
-    nav ul.menu-open li:nth-child(3) { animation-delay: 0.2s; }
-    nav ul.menu-open li:nth-child(4) { animation-delay: 0.25s; }
-    nav ul.menu-open li:nth-child(5) { animation-delay: 0.3s; }
-    nav ul.menu-open li:nth-child(6) { animation-delay: 0.35s; }
-    nav ul.menu-open li:nth-child(7) { animation-delay: 0.4s; }
+    nav ul.menu-open li:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+    nav ul.menu-open li:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+    nav ul.menu-open li:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+    nav ul.menu-open li:nth-child(4) {
+      animation-delay: 0.25s;
+    }
+    nav ul.menu-open li:nth-child(5) {
+      animation-delay: 0.3s;
+    }
+    nav ul.menu-open li:nth-child(6) {
+      animation-delay: 0.35s;
+    }
+    nav ul.menu-open li:nth-child(7) {
+      animation-delay: 0.4s;
+    }
 
     @keyframes fadeInUp {
       from {
@@ -387,6 +547,14 @@
       z-index: 1001;
     }
 
+    .blog-container {
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .blog-button {
       width: auto;
       max-width: 100%;
@@ -399,24 +567,59 @@
       margin-top: 15px;
       box-shadow: 0 2px 8px rgba(255, 255, 255, 0.15);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      gap: 6px;
+      gap: 8px;
       white-space: nowrap;
     }
 
     .blog-button:hover {
       background: #fff !important;
-      transform: translateX(5px);
+      transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(255, 255, 255, 0.25);
     }
 
-    .external-link {
+    .chevron-icon {
       width: 14px;
       height: 14px;
     }
 
-    /* Label swap: desktop shows 'Blog', mobile shows 'Read my blog' */
-    .label-desktop { display: none; }
-    .label-mobile { display: inline; }
+    .blog-dropdown {
+      position: static;
+      min-width: 0;
+      width: 100%;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 8px 0 0 0;
+      margin-top: 8px;
+    }
+
+    .dropdown-item {
+      padding: 14px 16px;
+      text-align: center;
+    }
+
+    .item-text {
+      align-items: center;
+    }
+
+    .item-title {
+      font-size: 1rem;
+    }
+
+    .item-desc {
+      font-size: 0.85rem;
+    }
+
+    .dropdown-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .label-desktop {
+      display: none;
+    }
+    .label-mobile {
+      display: inline;
+    }
 
     .nav-underline {
       display: none;
@@ -457,15 +660,18 @@
       font-size: 1rem !important;
     }
 
-    .external-link {
+    .chevron-icon {
       width: 12px;
       height: 12px;
     }
   }
 
-  /* On desktop: show short label */
   @media (min-width: 769px) {
-    .label-desktop { display: inline; }
-    .label-mobile { display: none; }
+    .label-desktop {
+      display: inline;
+    }
+    .label-mobile {
+      display: none;
+    }
   }
 </style>
