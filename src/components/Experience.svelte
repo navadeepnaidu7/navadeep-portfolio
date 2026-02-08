@@ -1,19 +1,22 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount } from "svelte";
 
   let experienceSection;
   let visible = false;
 
   onMount(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          visible = true;
-        } else {
-          visible = false;
-        }
-      });
-    }, { threshold: 0.1 });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            visible = true;
+          } else {
+            visible = false;
+          }
+        });
+      },
+      { threshold: 0.1 },
+    );
 
     if (experienceSection) {
       observer.observe(experienceSection);
@@ -41,11 +44,21 @@
         <p class="date-range">May 2025 – Oct 2025</p>
       </div>
       <div class="experience-details">
-        <p>Built backend systems and managed cloud infrastructure to keep services reliable and scalable.</p>
+        <p>
+          Built backend systems and managed cloud infrastructure to keep
+          services reliable and scalable.
+        </p>
         <ul class="responsibilities">
-          <li>Delivered API services and data pipelines for core product features.</li>
-          <li>Provisioned and maintained cloud resources with operational best practices.</li>
-          <li>Improved monitoring and deployment workflows for stable releases.</li>
+          <li>
+            Delivered API services and data pipelines for core product features.
+          </li>
+          <li>
+            Provisioned and maintained cloud resources with operational best
+            practices.
+          </li>
+          <li>
+            Improved monitoring and deployment workflows for stable releases.
+          </li>
         </ul>
       </div>
     </div>
@@ -55,16 +68,19 @@
 <style>
   #experience {
     position: relative;
-    padding: 40px 20px 60px;
-    color: rgba(255, 255, 255, 0.88);
+    padding: 48px 24px 64px;
+    color: rgba(255, 255, 255, 0.92);
     background: transparent;
     border-radius: 0;
     opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    transform: translateY(32px);
+    transition:
+      opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+      "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
     overflow: hidden;
-    margin-bottom: 100px;  
+    margin-bottom: 96px;
     isolation: isolate;
     border: none;
     min-height: auto;
@@ -77,22 +93,22 @@
 
   .section-title {
     text-align: left;
-    margin: 0 auto 24px;
+    margin: 0 auto 32px;
     max-width: 900px;
-    font-size: 2.1rem;
+    font-size: 2rem;
     font-weight: 600;
-    color: rgba(220, 220, 230, 0.9);
+    color: rgba(245, 245, 250, 0.95);
     position: relative;
-    letter-spacing: 0.2px;
+    letter-spacing: -0.02em;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 12px;
+    gap: 14px;
   }
 
   .section-icon {
-    font-size: 2rem;
-    color: rgba(235, 235, 245, 0.8);
+    font-size: 1.75rem;
+    color: rgba(255, 255, 255, 0.7);
   }
 
   .experience-container {
@@ -100,86 +116,160 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    gap: 0;
   }
 
   .experience-row {
     display: grid;
-    grid-template-columns: minmax(180px, 240px) 1fr;
-    gap: 30px;
-    padding: 24px 6px 18px;
+    grid-template-columns: 200px 1fr;
+    gap: 40px;
+    padding: 32px 0;
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    padding-left: 24px;
+    margin-left: 8px;
+    position: relative;
+    transition:
+      border-color 0.3s ease,
+      background 0.3s ease;
+  }
+
+  .experience-row:hover {
+    border-left-color: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .experience-row::before {
+    content: "";
+    position: absolute;
+    left: -5px;
+    top: 38px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transition: background 0.3s ease;
+  }
+
+  .experience-row:hover::before {
+    background: rgba(255, 255, 255, 0.7);
   }
 
   .experience-meta {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
   }
 
   .role {
     margin: 0;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 600;
-    color: rgba(240, 240, 245, 0.95);
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: -0.01em;
+    line-height: 1.4;
   }
 
   .company {
     margin: 0;
-    font-size: 0.95rem;
-    color: rgba(190, 190, 200, 0.75);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(200, 200, 210, 0.7);
   }
 
   .date-range {
-    margin: 0;
-    font-size: 0.85rem;
-    color: rgba(160, 160, 175, 0.7);
-    letter-spacing: 0.2px;
+    margin: 4px 0 0 0;
+    font-size: 0.8rem;
+    color: rgba(160, 160, 175, 0.6);
+    letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
   }
 
   .experience-details p {
-    margin: 0 0 12px 0;
-    font-size: 1rem;
-    line-height: 1.6;
-    color: rgba(210, 210, 220, 0.88);
+    margin: 0 0 16px 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(220, 220, 230, 0.85);
   }
 
   .responsibilities {
     list-style: none;
     padding: 0;
     margin: 0;
-    display: grid;
-    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .responsibilities li {
     position: relative;
-    padding-left: 18px;
-    font-size: 0.98rem;
-    color: rgba(200, 200, 210, 0.85);
-    line-height: 1.5;
+    padding-left: 16px;
+    font-size: 0.9rem;
+    color: rgba(200, 200, 215, 0.8);
+    line-height: 1.6;
   }
 
   .responsibilities li::before {
-    content: '—';
+    content: "";
     position: absolute;
     left: 0;
-    color: rgba(200, 200, 210, 0.5);
+    top: 9px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(200, 200, 210, 0.4);
   }
 
   @media (max-width: 768px) {
     #experience {
-      padding: 30px 15px 60px;
+      padding: 32px 16px 48px;
+      margin-bottom: 64px;
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      margin-bottom: 24px;
     }
 
     .experience-row {
       grid-template-columns: 1fr;
-      gap: 12px;
-      padding-top: 18px;
+      gap: 16px;
+      padding: 24px 0 24px 20px;
+      margin-left: 4px;
+    }
+
+    .experience-row::before {
+      top: 30px;
     }
 
     .role {
       font-size: 1rem;
+    }
+
+    .experience-details p {
+      font-size: 0.92rem;
+    }
+
+    .responsibilities li {
+      font-size: 0.88rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #experience {
+      padding: 24px 12px 40px;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      gap: 10px;
+    }
+
+    .section-icon {
+      font-size: 1.5rem;
+    }
+
+    .experience-row {
+      padding-left: 16px;
     }
   }
 </style>
