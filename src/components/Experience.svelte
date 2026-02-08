@@ -39,25 +39,23 @@
   <div class="experience-container">
     <div class="experience-row">
       <div class="experience-meta">
-        <p class="role">Backend Engineer · DevOps</p>
+        <p class="role">Software Engineering Intern</p>
         <p class="company">Inheights Enterprises Pvt. LTD</p>
         <p class="date-range">May 2025 – Oct 2025</p>
       </div>
       <div class="experience-details">
-        <p>
-          Built backend systems and managed cloud infrastructure to keep
-          services reliable and scalable.
-        </p>
         <ul class="responsibilities">
           <li>
-            Delivered API services and data pipelines for core product features.
+            Contributed to backend systems and API services for core product
+            features.
           </li>
           <li>
-            Provisioned and maintained cloud resources with operational best
-            practices.
+            Assisted in cloud infrastructure management and deployment
+            processes.
           </li>
           <li>
-            Improved monitoring and deployment workflows for stable releases.
+            Implemented monitoring improvements and automated deployment
+            workflows to enhance release stability.
           </li>
         </ul>
       </div>
@@ -72,11 +70,6 @@
     color: rgba(255, 255, 255, 0.92);
     background: transparent;
     border-radius: 0;
-    opacity: 0;
-    transform: translateY(32px);
-    transition:
-      opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-      transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
       "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
     overflow: hidden;
@@ -86,9 +79,51 @@
     min-height: auto;
   }
 
-  #experience.visible {
+  /* Title animation */
+  .section-title {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #experience.visible .section-title {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* Timeline line animation */
+  .experience-row {
+    --line-height: 0%;
+  }
+
+  #experience.visible .experience-row {
+    --line-height: 100%;
+  }
+
+  /* Content stagger animation */
+  .experience-meta,
+  .experience-details {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition:
+      opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .experience-meta {
+    transition-delay: 0.2s;
+  }
+
+  .experience-details {
+    transition-delay: 0.35s;
+  }
+
+  #experience.visible .experience-meta,
+  #experience.visible .experience-details {
+    opacity: 1;
+    transform: translateX(0);
   }
 
   .section-title {
@@ -128,14 +163,11 @@
     padding-left: 24px;
     margin-left: 8px;
     position: relative;
-    transition:
-      border-color 0.3s ease,
-      background 0.3s ease;
+    transition: border-color 0.3s ease;
   }
 
   .experience-row:hover {
-    border-left-color: rgba(255, 255, 255, 0.35);
-    background: rgba(255, 255, 255, 0.02);
+    border-left-color: rgba(255, 255, 255, 0.5);
   }
 
   .experience-row::before {
@@ -151,7 +183,7 @@
   }
 
   .experience-row:hover::before {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.8);
   }
 
   .experience-meta {
