@@ -10,7 +10,7 @@
   const skillsCategories = {
     webdev: {
       title: "Web & Backend Development",
-      emoji: "🖥",
+      blurb: "Interfaces, APIs, and scalable server logic.",
       skills: [
         { name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
         { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
@@ -25,7 +25,7 @@
     },
     devops: {
       title: "DevOps & Cloud",
-      emoji: "☸️",
+      blurb: "Infrastructure, delivery, and cloud platforms.",
       skills: [
         { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
         { name: 'Kubernetes', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg' },
@@ -37,7 +37,7 @@
     },
     tools: {
       title: "Tools & Automation",
-      emoji: "🛠",
+      blurb: "Workflow boosters and automation kits.",
       skills: [
         { name: 'VS Code', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
         { name: 'Vite', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg' },
@@ -49,7 +49,7 @@
     },
     databases: {
       title: "Databases & AI",
-      emoji: "📊",
+      blurb: "Data modeling, queries, and analytics.",
       skills: [
         { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
         { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
@@ -72,6 +72,7 @@
   // Animation on scroll
   let skillsSection;
   let visible = false;
+  let activeCategory = Object.keys(skillsCategories)[0];
 
   onMount(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -82,7 +83,7 @@
           visible = false;
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.25 });
 
     if (skillsSection) {
       observer.observe(skillsSection);
@@ -97,92 +98,80 @@
 </script>
 
 <section id="skills" bind:this={skillsSection} class:visible>
-  <div class="background-blur"></div>
-  <div class="background-glow"></div>
-  <h2 class="section-title">
-    <i class="fas fa-code-branch section-icon"></i>
-    <span>Skills</span>
-  </h2>
-  
-  <div class="categories-grid">
-    {#each Object.entries(skillsCategories) as [key, category]}
-      <div class="category" class:visible style="--delay: {0.2 * Object.keys(skillsCategories).indexOf(key)}s; --initial-delay: {1.2 + 0.2 * Object.keys(skillsCategories).indexOf(key)}s">
-        <h3 class="category-title">{category.emoji} {category.title}</h3>
-        <div class="skills-card">
-          {#each category.skills as skill, i}
-            <div class="tech-item" title={skill.name}>
-              <div class="tech-icon">
-                <img src={skill.icon} alt={skill.name} on:error={(e) => handleImageError(e, skill.name)} />
+  <div class="skills-shell">
+    <div class="section-heading">
+      <p class="section-kicker">Skills</p>
+      <h2 class="section-title">
+        <i class="fas fa-code-branch section-icon"></i>
+        <span>Skills</span>
+      </h2>
+      <p class="section-subtitle">Organized stacks that open into the tools I use daily.</p>
+    </div>
+    
+    <div class="skills-layout">
+      <nav class="skills-categories" aria-label="Skills categories">
+        {#each Object.entries(skillsCategories) as [key, category]}
+          <button
+            class="category-tab"
+            class:active={activeCategory === key}
+            on:click={() => (activeCategory = key)}
+            aria-expanded={activeCategory === key}
+            aria-controls={"skills-panel-" + key}
+            type="button"
+          >
+            <span class="tab-title">{category.title}</span>
+          </button>
+        {/each}
+      </nav>
+
+      <div class="skills-panels">
+        {#each Object.entries(skillsCategories) as [key, category]}
+          <div
+            id={"skills-panel-" + key}
+            class="skills-panel"
+            class:active={activeCategory === key}
+            aria-hidden={activeCategory !== key}
+          >
+            <div class="panel-header">
+              <div>
+                <h3 class="panel-title">{category.title}</h3>
+                <p class="panel-subtitle">{category.blurb}</p>
               </div>
             </div>
-          {/each}
-        </div>
+
+            <div class="skills-list">
+              {#each category.skills as skill}
+                <div class="skill-tile">
+                  <div class="skill-icon">
+                    <img src={skill.icon} alt={skill.name} on:error={(e) => handleImageError(e, skill.name)} />
+                  </div>
+                  <span class="skill-label">{skill.name}</span>
+                </div>
+              {/each}
+            </div>
+          </div>
+        {/each}
       </div>
-    {/each}
+    </div>
   </div>
 </section>
 
 <style>
   #skills {
     position: relative;
-    padding: 40px 20px 60px;
-    color: rgba(255, 255, 255, 0.8);
+    padding: 50px 20px 70px;
+    color: rgba(255, 255, 255, 0.9);
     background: transparent;
-    border-radius: 30px;
+    border-radius: 0;
     opacity: 0;
     transform: translateY(50px);
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
     overflow: hidden;
     margin-bottom: 100px;  
     isolation: isolate;
-    border: 1px solid rgba(255, 255, 255, 0.03);
-  }
-
-  #skills::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    padding: 1px;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.15),
-      rgba(255, 255, 255, 0.08) 30%,
-      rgba(255, 255, 255, 0.03)
-    );
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    border-radius: 30px;
-  }
-
-  /* Add decorative elements */
-  #skills::after {
-    content: '';
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(0, 114, 255, 0.08) 0%, rgba(0, 198, 255, 0.05) 35%, transparent 70%);
-    border-radius: 50%;
-    z-index: -1;
-    top: -100px;
-    right: -100px;
-    filter: blur(20px);
-  }
-  
-  /* Add a second decorative gradient */
-  .background-glow {
-    position: absolute;
-    width: 260px;
-    height: 260px;
-    background: radial-gradient(circle, rgba(120, 0, 255, 0.07) 0%, rgba(0, 198, 255, 0.03) 50%, transparent 70%);
-    border-radius: 50%;
-    z-index: -1;
-    bottom: -80px;
-    left: -80px;
-    filter: blur(30px);
+    border: none;
+    min-height: auto;
   }
 
   #skills.visible {
@@ -190,248 +179,212 @@
     transform: translateY(0);
   }
 
-  .background-blur {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
-    border-radius: 20px;
-    backdrop-filter: blur(80px);
-    background: rgba(10, 10, 20, 0.05);
+  .skills-shell {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-heading {
+    text-align: left;
+    margin: 0 auto 32px;
+    max-width: 1200px;
+  }
+
+  .section-kicker {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgba(200, 200, 210, 0.65);
+    margin: 0 0 12px 0;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 
   .section-title {
-    text-align: center;
-    margin-bottom: 35px;
+    margin: 0 0 12px 0;
     font-size: 2.4rem;
     font-weight: 600;
-    color: rgba(220, 220, 230, 0.9);
-    position: relative;
-    letter-spacing: 0.5px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: #f4f4f7;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 15px;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    letter-spacing: 0.2px;
   }
 
   .section-icon {
     font-size: 2rem;
-    background: linear-gradient(45deg, #5732e9, #a194fd);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 20px rgba(87, 50, 233, 0.5);
-    filter: drop-shadow(0 2px 4px rgba(87, 50, 233, 0.2));
+    color: rgba(235, 235, 245, 0.8);
   }
 
-  .categories-grid {
+  .section-subtitle {
+    max-width: 640px;
+    margin: 0;
+    font-size: 0.98rem;
+    color: rgba(200, 200, 210, 0.7);
+    line-height: 1.6;
+  }
+
+  .skills-layout {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, auto);
-    gap: 25px;
-    max-width: 1200px;
-    margin: 0 auto;
-    justify-content: center;
+    grid-template-columns: minmax(220px, 1fr) 2.2fr;
+    gap: 28px;
+    align-items: stretch;
   }
 
-  .category {
-    display: flex;
-    flex-direction: column;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    transition-delay: var(--delay);
-    position: relative;
+  .skills-categories {
+    display: grid;
+    gap: 14px;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    padding-right: 18px;
   }
 
-  #skills.visible .category {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .category-title {
-    margin: 0 0 15px 0;
-    font-size: 1.3rem;
+  .category-tab {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-left: 2px solid transparent;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.95);
     text-align: left;
-    padding-bottom: 8px;
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+    box-shadow: none;
+  }
+
+  .category-tab.active {
+    border-color: transparent;
+    border-left-color: rgba(255, 255, 255, 0.6);
+    background: transparent;
+    color: #ffffff;
+  }
+
+  .tab-title {
+    z-index: 1;
+  }
+
+  .skills-panels {
     position: relative;
-    display: inline-block;
+    min-height: 320px;
   }
 
-  /* Updated skills card to match social buttons */
-  .skills-card {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    padding: 18px;
-    background: rgba(18, 18, 18, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 
-      0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    position: relative;
-    overflow: hidden;
-    /* The card itself will now be responsible for the animation */
-    transform-origin: center bottom;
-  }
-  
-  /* Add border gradient effect like social buttons */
-  .skills-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 16px;
-    padding: 1px;
-    background: linear-gradient(
-      45deg,
-      transparent,
-      rgba(255, 255, 255, 0.1),
-      transparent
-    );
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    z-index: 0;
-  }
-
-  /* Special treatment for webdev category to ensure one row */
-  .category:first-child .skills-card {
-    justify-content: flex-start;  /* Changed from space-between to flex-start */
-    gap: 25px;  /* Increased gap for better spacing */
-  }
-  
-  .category:first-child .tech-item {
-    width: auto;
-    min-width: 0;
-    flex: 0 0 auto;
-    margin-right: 5px;  /* Optional: adds a little extra space between items */
-  }
-
-  .skills-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 
-      0 8px 15px rgba(0, 0, 0, 0.2),
-      0 4px 6px rgba(0, 0, 0, 0.1),
-      inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    border-color: rgba(87, 50, 233, 0.3);
-  }
-
-  .tech-item {
-    display: flex;
+  .skills-panel {
+    display: none;
     flex-direction: column;
+    gap: 20px;
+    background: transparent;
+    border-radius: 0;
+    padding: 6px 0 0;
+    border: none;
+    box-shadow: none;
+    animation: panelReveal 0.5s ease;
+  }
+
+  .skills-panel.active {
+    display: flex;
+  }
+
+  @keyframes panelReveal {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    width: calc(20% - 10px);
-    min-width: 55px;
-    position: relative;
-    z-index: 1;
-    /* Removed opacity and transform that were used for animation */
+    gap: 16px;
+    flex-wrap: wrap;
   }
 
-  .tech-item:hover {
-    transform: none; /* Remove the pop-up effect */
-  }
-  
-  .tech-item:hover::after {
-    content: '';
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    background: radial-gradient(circle, rgba(87, 50, 233, 0.15), transparent 70%);
-    border-radius: 50%;
-    z-index: -1;
-    animation: pulseGlow 2s infinite;
-  }
-  
-  @keyframes pulseGlow {
-    0% { opacity: 0.4; transform: scale(0.8); }
-    50% { opacity: 0.6; transform: scale(1.1); }
-    100% { opacity: 0.4; transform: scale(0.8); }
+  .panel-title {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 
-  .tech-icon {
-    height: 60px;
-    width: 60px;
+  .panel-subtitle {
+    margin: 6px 0 0 0;
+    font-size: 0.95rem;
+    color: rgba(200, 200, 210, 0.7);
+  }
+
+  .skills-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 16px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .skill-tile {
+    display: grid;
+    gap: 10px;
+    padding: 6px 0;
+    border-radius: 0;
+    background: transparent;
+    border: none;
+    text-align: center;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .skill-tile:hover {
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  .skill-icon {
+    height: 54px;
+    width: 54px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 5px;
-    position: relative;
-    z-index: 1;
   }
 
-  .tech-icon img {
-    width: 45px;
-    height: 45px;
+  .skill-icon img {
+    width: 40px;
+    height: 40px;
     object-fit: contain;
-    filter: brightness(1.1);
-    transition: all 0.3s ease;
-  }
-  
-  /* Docker logo a bit bigger than other SVGs */
-  .tech-icon img[alt="Docker"] {
-    width: 55px;
-    height: 55px;
+    filter: none;
   }
 
-  .tech-icon img[alt="Flask"] {
-    width: 60px;
-    height: 60px;
-  }
-
-  /* GitHub & Bash specific styling for better visibility */
-  .tech-icon img[alt="GitHub"], 
-  .tech-icon img[alt="Bash"] {
-    filter: brightness(3.5);
-  }
-  
-  .tech-icon img[alt="GitHub"]:hover, 
-  .tech-icon img[alt="Bash"]:hover {
-    filter: brightness(4) drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+  .skill-label {
+    font-size: 0.9rem;
+    color: rgba(240, 242, 255, 0.85);
   }
 
   /* Responsive design */
   @media (max-width: 1024px) {
     #skills {
-      padding: 35px 20px 50px;
-    }
-
-    .categories-grid {
-      gap: 22px;
-    }
-
-    .tech-item {
-      width: calc(20% - 10px);
-      min-width: 50px;
+      padding: 40px 18px 60px;
     }
   }
 
   @media (max-width: 992px) {
-    .tech-item {
-      width: calc(25% - 10px);
+    .skills-layout {
+      grid-template-columns: 1fr;
     }
-    
-    .category:first-child .skills-card {
-      flex-wrap: wrap;
-      justify-content: center;
+
+    .skills-categories {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border-right: none;
+      padding-right: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 14px;
     }
-    
-    .category:first-child .tech-item {
-      width: calc(25% - 10px);
-      min-width: 55px;
+
+    .skills-panels {
+      min-height: auto;
     }
   }
 
@@ -442,58 +395,23 @@
     }
 
     .section-title {
-      font-size: 2rem;
-      margin-bottom: 25px;
-      gap: 10px;
+      font-size: 2.1rem;
     }
 
-    .section-icon {
-      font-size: 1.6rem;
+    .section-subtitle {
+      font-size: 0.95rem;
     }
-    
-    .categories-grid {
+
+    .skills-categories {
       grid-template-columns: 1fr;
-      gap: 20px;
-      padding: 0 5px;
-    }
-    
-    .category-title {
-      font-size: 1.2rem;
-      margin-bottom: 12px;
     }
 
-    .skills-card {
-      padding: 15px;
-      gap: 10px;
-    }
-    
-    .tech-item {
-      width: calc(33.33% - 10px);
-      min-width: 50px;
-    }
-    
-    .category:first-child .tech-item {
-      width: calc(33.33% - 10px);
+    .skills-panel {
+      padding: 20px;
     }
 
-    .tech-icon {
-      height: 55px;
-      width: 55px;
-    }
-
-    .tech-icon img {
-      width: 40px;
-      height: 40px;
-    }
-
-    .tech-icon img[alt="Docker"] {
-      width: 50px;
-      height: 50px;
-    }
-
-    .tech-icon img[alt="Flask"] {
-      width: 55px;
-      height: 55px;
+    .skills-list {
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
     }
   }
 
@@ -501,90 +419,24 @@
     #skills {
       padding: 25px 10px 30px;
       margin-bottom: 40px;
-      border-radius: 20px;
+      border-radius: 0;
     }
 
     .section-title {
-      margin-bottom: 20px;
-      font-size: 1.6rem;
-      gap: 8px;
+      font-size: 1.8rem;
     }
 
-    .section-icon {
-      font-size: 1.4rem;
-    }
-    
-    .categories-grid {
-      gap: 15px;
+    .category-tab {
+      padding: 12px 14px;
     }
 
-    .category-title {
-      margin-bottom: 10px;
-      font-size: 1.1rem;
-    }
-    
-    .tech-item {
-      width: calc(50% - 8px);
-      min-width: 45px;
-    }
-    
-    .category:first-child .tech-item {
-      width: calc(50% - 8px);
-    }
-    
-    .skills-card {
-      padding: 12px;
-      gap: 8px;
-      border-radius: 12px;
+    .skills-panel {
+      padding: 18px;
     }
 
-    .tech-icon {
-      height: 50px;
-      width: 50px;
-      margin-bottom: 4px;
+    .skills-list {
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     }
-
-    .tech-icon img {
-      width: 35px;
-      height: 35px;
-    }
-
-    .tech-icon img[alt="Docker"] {
-      width: 45px;
-      height: 45px;
-    }
-
-    .tech-icon img[alt="Flask"] {
-      width: 50px;
-      height: 50px;
-    }
-  }
-
-  @media (max-width: 360px) {
-    .tech-item {
-      width: calc(50% - 6px);
-    }
-
-    .category:first-child .tech-item {
-      width: calc(50% - 6px);
-    }
-
-    .tech-icon {
-      height: 45px;
-      width: 45px;
-    }
-
-    .tech-icon img {
-      width: 32px;
-      height: 32px;
-    }
-  }
-
-  /* Target the tools category (third child in the grid) */
-  .category:nth-child(3) .skills-card {
-    justify-content: flex-start !important;
-    align-items: flex-start !important;
-    gap: 25px !important;
   }
 </style>
 

@@ -119,23 +119,15 @@
   }
 
   .gradient-cloud {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: conic-gradient(
-      from 180deg at 50% 50%,
-      #e9325d 0deg,
-      #2C1B80 120deg,
-      #140D40 240deg,
-      #5732e9 360deg
-    );
+    position: absolute;
+    inset: -40% -20% auto -20%;
+    height: 80%;
+    background: radial-gradient(circle at 30% 30%, rgba(87, 50, 233, 0.35), transparent 60%),
+      radial-gradient(circle at 70% 40%, rgba(255, 255, 255, 0.12), transparent 55%);
     pointer-events: none;
     z-index: 0;
-    filter: blur(250px);
-    opacity: 0.22;
-    animation: rotate 35s linear infinite;
+    filter: blur(140px);
+    opacity: 0.25;
   }
 
   .pill-container {
@@ -260,10 +252,6 @@
     100% { transform: translateY(0px); }
   }
 
-  @keyframes rotate {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to { transform: translate(-50%, -50%) rotate(360deg); }
-  }
 
   @keyframes fadeInSlide {
     from {

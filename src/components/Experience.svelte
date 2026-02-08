@@ -28,23 +28,26 @@
 </script>
 
 <section id="experience" bind:this={experienceSection} class:visible>
-  <div class="background-blur"></div>
-  <div class="background-glow"></div>
   <h2 class="section-title">
     <i class="fas fa-briefcase section-icon"></i>
     <span>Experience</span>
   </h2>
 
   <div class="experience-container">
-    <div class="job-card">
-      <h3>Software Engineer Intern</h3>
-      <h4>Inheights Enterprises Pvt. LTD</h4>
-      <p class="date-range">May 2025 - June 2025</p>
-      <ul class="responsibilities">
-        <li>Developed and maintained web applications using modern frameworks.</li>
-        <li>Collaborated with a team to design and implement new features.</li>
-        <li>Participated in code reviews and contributed to improving code quality.</li>
-      </ul>
+    <div class="experience-row">
+      <div class="experience-meta">
+        <p class="role">Backend Engineer · DevOps</p>
+        <p class="company">Inheights Enterprises Pvt. LTD</p>
+        <p class="date-range">May 2025 – Oct 2025</p>
+      </div>
+      <div class="experience-details">
+        <p>Built backend systems and managed cloud infrastructure to keep services reliable and scalable.</p>
+        <ul class="responsibilities">
+          <li>Delivered API services and data pipelines for core product features.</li>
+          <li>Provisioned and maintained cloud resources with operational best practices.</li>
+          <li>Improved monitoring and deployment workflows for stable releases.</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -53,61 +56,18 @@
   #experience {
     position: relative;
     padding: 40px 20px 60px;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.88);
     background: transparent;
-    border-radius: 30px;
-    opacity: 1; /* Temporarily set to 1 for visibility test */
+    border-radius: 0;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     overflow: hidden;
     margin-bottom: 100px;  
     isolation: isolate;
-    border: 1px solid rgba(255, 255, 255, 0.03);
-  }
-
-  #experience::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    padding: 1px;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.15),
-      rgba(255, 255, 255, 0.08) 30%,
-      rgba(255, 255, 255, 0.03)
-    );
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    border-radius: 30px;
-  }
-
-  /* Add decorative elements */
-  #experience::after {
-    content: '';
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(0, 114, 255, 0.08) 0%, rgba(0, 198, 255, 0.05) 35%, transparent 70%);
-    border-radius: 50%;
-    z-index: -1;
-    top: -100px;
-    right: -100px;
-    filter: blur(20px);
-  }
-  
-  /* Add a second decorative gradient */
-  .background-glow {
-    position: absolute;
-    width: 260px;
-    height: 260px;
-    background: radial-gradient(circle, rgba(120, 0, 255, 0.07) 0%, rgba(0, 198, 255, 0.03) 50%, transparent 70%);
-    border-radius: 50%;
-    z-index: -1;
-    bottom: -80px;
-    left: -80px;
-    filter: blur(30px);
+    border: none;
+    min-height: auto;
   }
 
   #experience.visible {
@@ -115,116 +75,96 @@
     transform: translateY(0);
   }
 
-  .background-blur {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
-    border-radius: 20px;
-    backdrop-filter: blur(80px);
-    background: rgba(10, 10, 20, 0.05);
-  }
-
   .section-title {
-    text-align: center;
-    margin-bottom: 35px;
-    font-size: 2.4rem;
+    text-align: left;
+    margin: 0 auto 24px;
+    max-width: 900px;
+    font-size: 2.1rem;
     font-weight: 600;
     color: rgba(220, 220, 230, 0.9);
     position: relative;
-    letter-spacing: 0.5px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    letter-spacing: 0.2px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 15px;
+    justify-content: flex-start;
+    gap: 12px;
   }
 
   .section-icon {
     font-size: 2rem;
-    background: linear-gradient(45deg, #5732e9, #a194fd);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 20px rgba(87, 50, 233, 0.5);
-    filter: drop-shadow(0 2px 4px rgba(87, 50, 233, 0.2));
+    color: rgba(235, 235, 245, 0.8);
   }
 
   .experience-container {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  .job-card {
-    background: rgba(18, 18, 18, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    backdrop-filter: blur(10px);
-    padding: 25px;
-    box-shadow:
-      0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  .experience-row {
+    display: grid;
+    grid-template-columns: minmax(180px, 240px) 1fr;
+    gap: 30px;
+    padding: 24px 6px 18px;
   }
 
-  .job-card:hover {
-    transform: translateY(-5px);
-    box-shadow:
-      0 8px 15px rgba(0, 0, 0, 0.2),
-      0 4px 6px rgba(0, 0, 0, 0.1),
-      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  .experience-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
-  .job-card h3 {
-    margin-top: 0;
-    margin-bottom: 5px;
-    font-size: 1.6rem;
-    color: rgba(255, 255, 255, 0.95);
+  .role {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: rgba(240, 240, 245, 0.95);
   }
 
-  .job-card h4 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-    color: rgba(170, 170, 180, 0.9);
+  .company {
+    margin: 0;
+    font-size: 0.95rem;
+    color: rgba(190, 190, 200, 0.75);
   }
 
-  .job-card .date-range {
-    font-size: 0.9rem;
-    color: rgba(150, 150, 160, 0.8);
-    margin-bottom: 15px;
+  .date-range {
+    margin: 0;
+    font-size: 0.85rem;
+    color: rgba(160, 160, 175, 0.7);
+    letter-spacing: 0.2px;
   }
 
-  .job-card .responsibilities {
+  .experience-details p {
+    margin: 0 0 12px 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(210, 210, 220, 0.88);
+  }
+
+  .responsibilities {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: grid;
+    gap: 8px;
   }
 
-  .job-card .responsibilities li {
-    margin-bottom: 8px;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: rgba(200, 200, 210, 0.9);
+  .responsibilities li {
     position: relative;
-    padding-left: 20px;
+    padding-left: 18px;
+    font-size: 0.98rem;
+    color: rgba(200, 200, 210, 0.85);
+    line-height: 1.5;
   }
 
-  .job-card .responsibilities li::before {
-    content: '\2022'; /* Bullet point */
-    color: #5732e9; /* Accent color */
-    font-weight: bold;
-    display: inline-block;
-    width: 1em;
-    margin-left: -1em;
+  .responsibilities li::before {
+    content: '—';
     position: absolute;
     left: 0;
+    color: rgba(200, 200, 210, 0.5);
   }
 
   @media (max-width: 768px) {
@@ -232,24 +172,14 @@
       padding: 30px 15px 60px;
     }
 
-    .job-card {
-      padding: 20px;
+    .experience-row {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      padding-top: 18px;
     }
 
-    .job-card h3 {
-      font-size: 1.4rem;
-    }
-
-    .job-card h4 {
-      font-size: 1.1rem;
-    }
-
-    .job-card .date-range {
-      font-size: 0.85rem;
-    }
-
-    .job-card .responsibilities li {
-      font-size: 0.9rem;
+    .role {
+      font-size: 1rem;
     }
   }
 </style>
