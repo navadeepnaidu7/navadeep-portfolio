@@ -10,11 +10,21 @@
   // Reorganized for better visual balance if needed, but keeping keys
   const skillsCategories = [
     {
-      id: "webdev",
-      title: "Web Development",
-      description: "Building websites & apps.",
-      span: 2, // span full width
+      id: "backend",
+      title: "Backend & Web Systems",
+      description: "High-performance architectures & scalable APIs.",
+      span: 2,
       skills: [
+        {
+          name: "Node.js",
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+        },
+        { name: "Express.js", icon: expressjsIcon },
+        {
+          name: "FastAPI",
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg",
+        },
+        { name: "Flask", icon: flaskIcon },
         {
           name: "JavaScript",
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
@@ -28,29 +38,15 @@
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg",
         },
         {
-          name: "Node.js",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
-        },
-        { name: "Express.js", icon: expressjsIcon },
-        {
-          name: "FastAPI",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg",
-        },
-        {
           name: "HTML5",
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
         },
-        {
-          name: "CSS3",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
-        },
-        { name: "Flask", icon: flaskIcon },
       ],
     },
     {
       id: "devops",
-      title: "DevOps",
-      description: "Deploying code.",
+      title: "Cloud & DevOps",
+      description: "Orchestration & CI/CD pipelines.",
       skills: [
         {
           name: "Docker",
@@ -66,12 +62,16 @@
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg",
         },
         { name: "GitHub Actions", icon: githubActionsIcon },
+        {
+          name: "Ansible",
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg",
+        },
       ],
     },
     {
       id: "databases",
-      title: "Databases",
-      description: "Storing data.",
+      title: "Data & Persistence",
+      description: "Optimized storage & complex queries.",
       skills: [
         {
           name: "PostgreSQL",
@@ -89,38 +89,33 @@
         { name: "Pandas", icon: pandasIcon },
       ],
     },
+  ];
+
+  const workflowTools = [
     {
-      id: "tools",
-      title: "My Tools",
-      description: "Things I use every day.",
-      span: 2,
-      skills: [
-        {
-          name: "VS Code",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
-        },
-        {
-          name: "Vite",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg",
-        },
-        {
-          name: "Webpack",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg",
-        },
-        {
-          name: "Figma",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
-        },
-        {
-          name: "Postman",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
-        },
-        {
-          name: "Selenium",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg",
-        },
-      ],
+      name: "VS Code",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
     },
+    {
+      name: "Figma",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+    },
+    {
+      name: "Postman",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
+    },
+    {
+      name: "Vite",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg",
+    },
+    {
+      name: "Claude Code",
+      icon: "https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_AI_symbol.svg",
+    },
+    {
+      name: "Linux",
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
+    }, // Placeholder for 'Workflow' vibe
   ];
 
   function handleImageError(event, techName) {
@@ -192,6 +187,22 @@
           </div>
         </div>
       {/each}
+    </div>
+
+    <!-- Minimal Workflow Strip -->
+    <div class="workflow-strip">
+      <span class="workflow-label">Workflow:</span>
+      <div class="workflow-icons">
+        {#each workflowTools as tool}
+          <div class="workflow-item" title={tool.name}>
+            <img
+              src={tool.icon}
+              alt={tool.name}
+              on:error={(e) => handleImageError(e, tool.name)}
+            />
+          </div>
+        {/each}
+      </div>
     </div>
   </div>
 </section>
@@ -341,6 +352,73 @@
     transform: translateY(0);
   }
 
+  /* Workflow Strip */
+  .workflow-strip {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: 0.4s;
+    padding: 20px 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 100px;
+    width: 100%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  #skills.visible .workflow-strip {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .workflow-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: none;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .workflow-icons {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .workflow-item {
+    width: 32px;
+    height: 32px;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+    filter: grayscale(100%);
+    cursor: default;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .workflow-item:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+    transform: scale(1.1);
+  }
+
+  .workflow-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
   /* Responsive */
   @media (max-width: 768px) {
     .bento-grid {
@@ -358,6 +436,13 @@
 
     .bento-card {
       padding: 24px;
+    }
+
+    .workflow-strip {
+      flex-direction: column;
+      gap: 12px;
+      border-radius: 20px;
+      width: 100%;
     }
   }
 </style>
