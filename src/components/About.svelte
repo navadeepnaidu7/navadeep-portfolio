@@ -1,54 +1,54 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount } from "svelte";
 
   let words = [];
   let sectionElement;
 
   const content = [
     { text: "I'm ", bold: false },
-    { text: 'a ', bold: false },
-    { text: 'backend ', bold: true },
-    { text: 'engineer ', bold: true },
-    { text: 'and ', bold: false },
-    { text: 'DevOps ', bold: true },
-    { text: 'enthusiast ', bold: true },
-    { text: 'who ', bold: false },
-    { text: 'loves ', bold: false },
-    { text: 'building ', bold: false },
-    { text: 'scalable ', bold: false },
-    { text: 'systems. ', bold: false },
-    { text: 'From ', bold: false },
-    { text: 'designing ', bold: false },
-    { text: 'robust ', bold: true },
-    { text: 'APIs ', bold: true },
-    { text: 'to ', bold: false },
-    { text: 'orchestrating ', bold: false },
-    { text: 'cloud ', bold: true },
-    { text: 'deployments, ', bold: true },
-    { text: 'I ', bold: false },
-    { text: 'turn ', bold: false },
-    { text: 'complex ', bold: false },
-    { text: 'infrastructure ', bold: false },
-    { text: 'challenges ', bold: false },
-    { text: 'into ', bold: false },
-    { text: 'elegant ', bold: false },
-    { text: 'solutions. ', bold: false },
-    { text: 'I ', bold: false },
-    { text: 'build ', bold: false },
-    { text: 'these ', bold: false },
-    { text: 'things ', bold: false },
-    { text: 'because ', bold: false },
-    { text: 'I ', bold: false },
-    { text: 'genuinely ', bold: false },
-    { text: 'enjoy ', bold: false },
-    { text: 'making ', bold: false },
-    { text: 'technology ', bold: false },
-    { text: 'work ', bold: false },
-    { text: 'smarter, ', bold: true },
-    { text: 'faster, ', bold: true },
-    { text: 'and ', bold: false },
-    { text: 'more ', bold: false },
-    { text: 'reliably.', bold: true }
+    { text: "a ", bold: false },
+    { text: "backend ", bold: true },
+    { text: "engineer ", bold: true },
+    { text: "and ", bold: false },
+    { text: "DevOps ", bold: true },
+    { text: "enthusiast ", bold: true },
+    { text: "who ", bold: false },
+    { text: "loves ", bold: false },
+    { text: "building ", bold: false },
+    { text: "scalable ", bold: false },
+    { text: "systems. ", bold: false },
+    { text: "From ", bold: false },
+    { text: "designing ", bold: false },
+    { text: "robust ", bold: true },
+    { text: "APIs ", bold: true },
+    { text: "to ", bold: false },
+    { text: "orchestrating ", bold: false },
+    { text: "cloud ", bold: true },
+    { text: "deployments, ", bold: true },
+    { text: "I ", bold: false },
+    { text: "turn ", bold: false },
+    { text: "complex ", bold: false },
+    { text: "infrastructure ", bold: false },
+    { text: "challenges ", bold: false },
+    { text: "into ", bold: false },
+    { text: "elegant ", bold: false },
+    { text: "solutions. ", bold: false },
+    { text: "I ", bold: false },
+    { text: "build ", bold: false },
+    { text: "these ", bold: false },
+    { text: "things ", bold: false },
+    { text: "because ", bold: false },
+    { text: "I ", bold: false },
+    { text: "genuinely ", bold: false },
+    { text: "enjoy ", bold: false },
+    { text: "making ", bold: false },
+    { text: "technology ", bold: false },
+    { text: "work ", bold: false },
+    { text: "smarter, ", bold: true },
+    { text: "faster, ", bold: true },
+    { text: "and ", bold: false },
+    { text: "more ", bold: false },
+    { text: "reliably.", bold: true },
   ];
 
   function getWordColor(opacity = 0.2, isBold = false) {
@@ -71,32 +71,41 @@
         const windowHeight = window.innerHeight;
         const currentScrollY = window.scrollY;
         const direction = currentScrollY - lastScrollY;
-        
+
         // Calculate section progress (0 to 1)
         // More generous calculation so it completes when section is fully visible
-        const sectionProgress = Math.max(0, Math.min(1.75, 
-          (windowHeight - sectionTop) / (windowHeight + sectionHeight * 0.2)
-        ));
-        
+        const sectionProgress = Math.max(
+          0,
+          Math.min(
+            1.75,
+            (windowHeight - sectionTop) / (windowHeight + sectionHeight * 0.2),
+          ),
+        );
+
         content.forEach((_, index) => {
           // Calculate when this word should start revealing
           const wordStartProgress = (index / content.length) * 0.65; // Scale down even more to complete earlier
           const wordEndProgress = ((index + 1) / content.length) * 0.42;
-          
+
           // Add a delay factor so words reveal sequentially
-          const revealProgress = Math.max(0, Math.min(1, 
-            (sectionProgress - wordStartProgress) / (wordEndProgress - wordStartProgress + 0.4)
-          ));
-          
+          const revealProgress = Math.max(
+            0,
+            Math.min(
+              1,
+              (sectionProgress - wordStartProgress) /
+                (wordEndProgress - wordStartProgress + 0.4),
+            ),
+          );
+
           let opacity = Math.pow(revealProgress, 0.6);
-          
+
           const previousOpacity = words[index]?.opacity ?? 0.2;
-          
+
           // Lock opacity when scrolling down
           if (direction >= 0) {
             opacity = Math.max(previousOpacity, opacity);
           }
-          
+
           opacity = Math.max(0.15, Math.min(1, opacity));
           words[index] = { opacity };
         });
@@ -106,11 +115,11 @@
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   });
 </script>
@@ -120,11 +129,15 @@
     <div class="copy-block">
       <p class="text">
         {#each content as segment, index}
-          <span 
-            class="word" 
+          <span
+            class="word"
             class:bold={segment.bold}
             data-word={index}
-            style="opacity: {words[index]?.opacity ?? 0.2}; color: {getWordColor(words[index]?.opacity ?? 0.2, segment.bold)}"
+            style="opacity: {words[index]?.opacity ??
+              0.2}; color: {getWordColor(
+              words[index]?.opacity ?? 0.2,
+              segment.bold,
+            )}"
           >
             {segment.text}
           </span>
@@ -162,14 +175,17 @@
     line-height: 1.85;
     letter-spacing: -0.012em;
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI",
+      Roboto, "Helvetica Neue", Arial, sans-serif;
     color: #f5f5f5;
     text-align: center;
   }
 
   .word {
     font-weight: 420;
-    transition: opacity 0.5s ease-out, color 0.5s ease-out;
+    transition:
+      opacity 0.5s ease-out,
+      color 0.5s ease-out;
     display: inline;
   }
 

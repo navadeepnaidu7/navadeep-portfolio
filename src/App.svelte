@@ -1,18 +1,17 @@
 <script>
-  import { onMount } from 'svelte';
-  import Navbar from './components/Navbar.svelte';
-  import Hero from './components/Hero.svelte';
-  import About from './components/About.svelte';
-  import ScrollIndicator from './components/ScrollIndicator.svelte';
-  import Experience from './components/Experience.svelte';
-  import Skills from './components/Skills.svelte';
-  import Projects from './components/Projects.svelte';
-  import Loading from './components/Loading.svelte';
-  import Footer from './components/Footer.svelte';
-  import './styles/global.css';
+  import { onMount } from "svelte";
+  import Navbar from "./components/Navbar.svelte";
+  import Hero from "./components/Hero.svelte";
+  import About from "./components/About.svelte";
+  import ScrollIndicator from "./components/ScrollIndicator.svelte";
+  import Experience from "./components/Experience.svelte";
+  import Skills from "./components/Skills.svelte";
+  import Loading from "./components/Loading.svelte";
+  import Footer from "./components/Footer.svelte";
+  import "./styles/global.css";
 
   let showScrollIndicator = true;
-  
+
   let isLoading = true;
 
   function handleLoadingComplete() {
@@ -20,11 +19,9 @@
   }
 
   onMount(() => {
-    window.addEventListener('scroll', () => {
+    window.addEventListener("scroll", () => {
       showScrollIndicator = window.pageYOffset < 100;
     });
-
-    
   });
 </script>
 
@@ -32,7 +29,6 @@
   <Loading onLoadingComplete={handleLoadingComplete} />
 {:else}
   <div class="app-container">
-    
     <Navbar />
     <main>
       <div id="home">
@@ -46,7 +42,6 @@
       <About />
       <Experience />
       <Skills />
-      <Projects />
     </main>
     <Footer />
   </div>

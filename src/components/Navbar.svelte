@@ -117,7 +117,6 @@
   <ul class:menu-open={menuOpen}>
     <li><a href="#ideasboard" on:click={closeMenu}>IdeaBoard</a></li>
     <li><a href="#skills" on:click={closeMenu}>Skills</a></li>
-    <li><a href="#projects" on:click={closeMenu}>Projects</a></li>
     <li><a href="#contact" on:click={closeMenu}>Contact</a></li>
     <li><a href="#about" on:click={closeMenu}>About</a></li>
     <li>

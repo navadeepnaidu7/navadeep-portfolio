@@ -4,14 +4,26 @@
   let experienceSection;
   let visible = false;
 
+  const experiences = [
+    {
+      role: "Software Engineering Intern",
+      company: "Inheights Enterprises Pvt. LTD",
+      period: "May 2025 – Oct 2025",
+      description: [
+        "Contributed to backend systems and API services for core product features.",
+        "Assisted in cloud infrastructure management and deployment processes.",
+        "Implemented monitoring improvements and automated deployment workflows.",
+      ],
+      tech: ["Node.js", "AWS", "Docker", "CI/CD"],
+    },
+  ];
+
   onMount(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             visible = true;
-          } else {
-            visible = false;
           }
         });
       },
@@ -31,277 +43,254 @@
 </script>
 
 <section id="experience" bind:this={experienceSection} class:visible>
-  <h2 class="section-title">
-    <i class="fas fa-briefcase section-icon"></i>
-    <span>Experience</span>
-  </h2>
+  <div class="content-wrapper">
+    <div class="header-group">
+      <h2 class="section-title">Experience</h2>
+    </div>
 
-  <div class="experience-container">
-    <div class="experience-row">
-      <div class="experience-meta">
-        <p class="role">Software Engineering Intern</p>
-        <p class="company">Inheights Enterprises Pvt. LTD</p>
-        <p class="date-range">May 2025 – Oct 2025</p>
-      </div>
-      <div class="experience-details">
-        <ul class="responsibilities">
-          <li>
-            Contributed to backend systems and API services for core product
-            features.
-          </li>
-          <li>
-            Assisted in cloud infrastructure management and deployment
-            processes.
-          </li>
-          <li>
-            Implemented monitoring improvements and automated deployment
-            workflows to enhance release stability.
-          </li>
-        </ul>
-      </div>
+    <div class="timeline">
+      {#each experiences as job, i}
+        <div class="timeline-item" style="--delay: {i * 0.2}s">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="job-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="role">{job.role}</h3>
+                  <p class="company">{job.company}</p>
+                </div>
+                <span class="period">{job.period}</span>
+              </div>
+
+              <ul class="responsibilities">
+                {#each job.description as item}
+                  <li>{item}</li>
+                {/each}
+              </ul>
+
+              {#if job.tech}
+                <div class="tech-stack">
+                  {#each job.tech as tech}
+                    <span class="tech-tag">{tech}</span>
+                  {/each}
+                </div>
+              {/if}
+            </div>
+          </div>
+        </div>
+      {/each}
     </div>
   </div>
 </section>
 
 <style>
   #experience {
+    padding: 100px 20px;
     position: relative;
-    padding: 48px 24px 64px;
-    color: rgba(255, 255, 255, 0.92);
-    background: transparent;
-    border-radius: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
-      "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
     overflow: hidden;
-    margin-bottom: 96px;
-    isolation: isolate;
-    border: none;
-    min-height: auto;
   }
 
-  /* Title animation */
-  .section-title {
+  .content-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .header-group {
+    margin-bottom: 60px;
     opacity: 0;
     transform: translateY(20px);
-    transition:
-      opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-      transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  #experience.visible .section-title {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Timeline line animation */
-  .experience-row {
-    --line-height: 0%;
-  }
-
-  #experience.visible .experience-row {
-    --line-height: 100%;
-  }
-
-  /* Content stagger animation */
-  .experience-meta,
-  .experience-details {
-    opacity: 0;
-    transform: translateX(-20px);
-    transition:
-      opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-      transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .experience-meta {
-    transition-delay: 0.2s;
-  }
-
-  .experience-details {
-    transition-delay: 0.35s;
-  }
-
-  #experience.visible .experience-meta,
-  #experience.visible .experience-details {
-    opacity: 1;
-    transform: translateX(0);
+    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .section-title {
-    text-align: left;
-    margin: 0 auto 32px;
-    max-width: 900px;
-    font-size: 2rem;
-    font-weight: 600;
-    color: rgba(245, 245, 250, 0.95);
-    position: relative;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    background: linear-gradient(to right, #fff, #a5a5a5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     letter-spacing: -0.02em;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 14px;
   }
 
-  .section-icon {
-    font-size: 1.75rem;
-    color: rgba(255, 255, 255, 0.7);
-  }
-
-  .experience-container {
-    max-width: 900px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .experience-row {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 40px;
-    padding: 32px 0;
-    border-left: 2px solid rgba(255, 255, 255, 0.1);
-    padding-left: 24px;
-    margin-left: 8px;
+  /* Timeline Construction */
+  .timeline {
     position: relative;
-    transition: border-color 0.3s ease;
+    padding-left: 30px;
   }
 
-  .experience-row:hover {
-    border-left-color: rgba(255, 255, 255, 0.5);
-  }
-
-  .experience-row::before {
+  .timeline::before {
     content: "";
     position: absolute;
-    left: -5px;
-    top: 38px;
-    width: 8px;
-    height: 8px;
+    left: 0;
+    top: 10px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.05) 90%,
+      transparent
+    );
+    border-radius: 2px;
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 60px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--delay);
+  }
+
+  .timeline-marker {
+    position: absolute;
+    left: -35px; /* Adjust based on timeline padding */
+    top: 24px;
+    width: 12px;
+    height: 12px;
+    background: #000;
+    border: 2px solid rgba(255, 255, 255, 0.4);
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-    transition: background 0.3s ease;
+    z-index: 2;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 1); /* fake gap */
   }
 
-  .experience-row:hover::before {
-    background: rgba(255, 255, 255, 0.8);
+  .timeline-item:hover .timeline-marker {
+    background: #fff;
+    border-color: #fff;
+    box-shadow:
+      0 0 15px rgba(255, 255, 255, 0.4),
+      0 0 0 4px rgba(0, 0, 0, 1);
   }
 
-  .experience-meta {
+  .job-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 32px;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    backdrop-filter: blur(10px);
+  }
+
+  .job-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.3);
+  }
+
+  .card-header {
     display: flex;
-    flex-direction: column;
-    gap: 6px;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    gap: 20px;
   }
 
   .role {
-    margin: 0;
-    font-size: 1.05rem;
+    font-size: 1.25rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.95);
+    color: #fff;
+    margin: 0 0 4px 0;
     letter-spacing: -0.01em;
-    line-height: 1.4;
   }
 
   .company {
-    margin: 0;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: rgba(200, 200, 210, 0.7);
-  }
-
-  .date-range {
-    margin: 4px 0 0 0;
-    font-size: 0.8rem;
-    color: rgba(160, 160, 175, 0.6);
-    letter-spacing: 0.02em;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .experience-details p {
-    margin: 0 0 16px 0;
     font-size: 0.95rem;
-    line-height: 1.7;
-    color: rgba(220, 220, 230, 0.85);
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+  }
+
+  .period {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 12px;
+    border-radius: 100px;
+    white-space: nowrap;
   }
 
   .responsibilities {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0 0 24px 0;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
   }
 
   .responsibilities li {
-    position: relative;
-    padding-left: 16px;
-    font-size: 0.9rem;
-    color: rgba(200, 200, 215, 0.8);
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.75);
     line-height: 1.6;
+    padding-left: 20px;
+    position: relative;
   }
 
   .responsibilities li::before {
-    content: "";
+    content: "•";
     position: absolute;
     left: 0;
-    top: 9px;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: rgba(200, 200, 210, 0.4);
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 20px;
+  }
+
+  .tech-tag {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 10px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+  }
+
+  .job-card:hover .tech-tag {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Visibility State */
+  #experience.visible .header-group {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #experience.visible .timeline-item {
+    opacity: 1;
+    transform: translateX(0);
   }
 
   @media (max-width: 768px) {
-    #experience {
-      padding: 32px 16px 48px;
-      margin-bottom: 64px;
+    .card-header {
+      flex-direction: column;
+      gap: 12px;
     }
 
-    .section-title {
-      font-size: 1.75rem;
-      margin-bottom: 24px;
+    .period {
+      align-self: flex-start;
     }
 
-    .experience-row {
-      grid-template-columns: 1fr;
-      gap: 16px;
-      padding: 24px 0 24px 20px;
-      margin-left: 4px;
+    .timeline {
+      padding-left: 20px;
     }
 
-    .experience-row::before {
-      top: 30px;
+    .timeline-marker {
+      left: -26px;
     }
 
-    .role {
-      font-size: 1rem;
-    }
-
-    .experience-details p {
-      font-size: 0.92rem;
-    }
-
-    .responsibilities li {
-      font-size: 0.88rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    #experience {
-      padding: 24px 12px 40px;
-    }
-
-    .section-title {
-      font-size: 1.5rem;
-      gap: 10px;
-    }
-
-    .section-icon {
-      font-size: 1.5rem;
-    }
-
-    .experience-row {
-      padding-left: 16px;
+    .job-card {
+      padding: 24px;
     }
   }
 </style>

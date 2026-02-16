@@ -32,7 +32,7 @@ section:nth-child(even) {
   background: #000000;
 }
 
-section, #home, #projects, #about, #contact {
+section, #home, #about, #contact {
   position: relative;
   z-index: 2;
 }
