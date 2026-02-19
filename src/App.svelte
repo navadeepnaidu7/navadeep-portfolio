@@ -11,7 +11,6 @@
   import "./styles/global.css";
 
   let showScrollIndicator = true;
-
   let isLoading = true;
 
   function handleLoadingComplete() {

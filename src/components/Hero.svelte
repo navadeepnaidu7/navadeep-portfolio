@@ -32,7 +32,7 @@
   }
 
   /* Scramble/Decrypt Effect Logic */
-  const greetings = ["HELLO", "HOLA", "NAMASTE", "BONJOUR", "CIAO"];
+  const greetings = ["HELLO", "HOLA", "NAMASTE","NAMASKARAM", "BONJOUR", "CIAO", "VANAKKAM", "KONNICHIWA"];
   let displayedText = "HELLO";
   let interval;
   let cycleInterval;

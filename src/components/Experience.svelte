@@ -27,7 +27,7 @@
           }
         });
       },
-      { threshold: 0.1 },
+      { threshold: 0.7 },
     );
 
     if (experienceSection) {
@@ -85,7 +85,7 @@
 
 <style>
   #experience {
-    padding: 100px 20px;
+    padding: 60px 20px 100px;
     position: relative;
     overflow: hidden;
   }
@@ -129,11 +129,18 @@
     width: 2px;
     background: linear-gradient(
       to bottom,
-      rgba(255, 255, 255, 0.1),
-      rgba(255, 255, 255, 0.05) 90%,
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.08) 70%,
       transparent
     );
     border-radius: 2px;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+  }
+
+  #experience.visible .timeline::before {
+    transform: scaleY(1);
   }
 
   .timeline-item {
@@ -147,7 +154,7 @@
 
   .timeline-marker {
     position: absolute;
-    left: -35px; /* Adjust based on timeline padding */
+    left: -35px;
     top: 24px;
     width: 12px;
     height: 12px;
@@ -155,8 +162,28 @@
     border: 2px solid rgba(255, 255, 255, 0.4);
     border-radius: 50%;
     z-index: 2;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 0 4px rgba(0, 0, 0, 1); /* fake gap */
+    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 1);
+    transform: scale(0);
+  }
+
+  #experience.visible .timeline-marker {
+    transform: scale(1);
+    animation: markerPulse 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.8s;
+  }
+
+  @keyframes markerPulse {
+    0% {
+      box-shadow: 0 0 0 4px rgba(0, 0, 0, 1);
+    }
+    50% {
+      box-shadow:
+        0 0 0 4px rgba(0, 0, 0, 1),
+        0 0 12px rgba(255, 255, 255, 0.3);
+    }
+    100% {
+      box-shadow: 0 0 0 4px rgba(0, 0, 0, 1);
+    }
   }
 
   .timeline-item:hover .timeline-marker {

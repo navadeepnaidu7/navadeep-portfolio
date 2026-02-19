@@ -150,7 +150,7 @@
   .about-section {
     position: relative;
     width: 100%;
-    padding: clamp(4.5rem, 8vw, 6rem) 2vw clamp(2rem, 4vw, 3rem);
+    padding: clamp(4.5rem, 8vw, 6rem) 2vw clamp(1rem, 2vw, 1.5rem);
     background: transparent;
   }
 
