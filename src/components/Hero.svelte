@@ -1,7 +1,6 @@
 <script>
   import { onMount, onDestroy } from "svelte";
   import profileImage from "../assets/endurance.jpg";
-  import FloatingIcons from "./FloatingIcons.svelte";
   import StarField from "./StarField.svelte";
 
   const socialLinks = {
@@ -157,7 +156,6 @@
 
   <div class="right-section">
     <div class="profile-container">
-      <FloatingIcons />
       <img src={profileImage} alt="Profile Logo" class="profile-pic" />
     </div>
   </div>
@@ -182,10 +180,10 @@
     align-items: center;
     justify-content: space-between;
     padding: 20px;
+    padding-bottom: 80px;
     position: relative;
-    z-index: 1;
+    z-index: 0;
     max-width: 100%;
-    overflow: hidden;
   }
 
   .left-section {
@@ -247,10 +245,12 @@
 
   .tech-landscape {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: -50px; /* Subtle bleed into next section */
     pointer-events: none;
     z-index: 0;
-    overflow: hidden;
   }
 
   .fog-layer {

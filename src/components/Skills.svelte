@@ -38,8 +38,8 @@
           icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg",
         },
         {
-          name: "HTML5",
-          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+          name: "GoLang",
+          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg",
         },
       ],
     },
@@ -159,7 +159,7 @@
 <section id="skills" bind:this={skillsSection} class:visible>
   <div class="content-wrapper">
     <div class="header-group">
-      <h2 class="section-title">My Tech Stack</h2>
+      <h2 class="section-title">Technologies I Use to Build Scalable Systems</h2>
     </div>
 
     <!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -251,7 +251,7 @@
   }
 
   .section-title {
-    font-family: "Cormorant Garamond", Georgia, serif;
+    font-family: "Cormorant Garamond", serif;
     font-size: 3.2rem;
     font-weight: 300;
     color: #fff;
@@ -260,6 +260,7 @@
   }
 
   .section-subtitle {
+    font-family: "Cormorant Garamond", serif;
     font-size: 1.1rem;
     color: rgba(255, 255, 255, 0.6);
     margin: 0 auto;

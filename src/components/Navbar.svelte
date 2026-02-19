@@ -242,8 +242,8 @@
 
   nav a {
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.607);
-    font-weight: bold;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 600;
     padding: 5px 10px;
     transition: color 0.3s ease;
   }
