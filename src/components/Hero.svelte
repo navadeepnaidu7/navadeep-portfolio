@@ -1,7 +1,8 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import profileImage from "../assets/endurance.jpg";
   import FloatingIcons from "./FloatingIcons.svelte";
+  import StarField from "./StarField.svelte";
 
   const socialLinks = {
     email: "mailto:navadeepnaidu7@protonmail.com",
@@ -31,21 +32,71 @@
     }
   }
 
+  /* Scramble/Decrypt Effect Logic */
+  const greetings = ["HELLO", "HOLA", "NAMASTE", "BONJOUR", "CIAO"];
+  let displayedText = "HELLO";
+  let interval;
+  let cycleInterval;
+
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  function scrambleText(targetText) {
+    let iteration = 0;
+
+    clearInterval(interval);
+
+    interval = setInterval(() => {
+      displayedText = targetText
+        .split("")
+        .map((letter, index) => {
+          if (index < iteration) {
+            return targetText[index];
+          }
+          return letters[Math.floor(Math.random() * 26)];
+        })
+        .join("");
+
+      if (iteration >= targetText.length) {
+        clearInterval(interval);
+      }
+
+      iteration += 1 / 3;
+    }, 30);
+  }
+
   onMount(() => {
     fetchLatestPost();
+
+    let index = 0;
+    cycleInterval = setInterval(() => {
+      index = (index + 1) % greetings.length;
+      scrambleText(greetings[index]);
+    }, 4000);
+  });
+
+  onDestroy(() => {
+    clearInterval(interval);
+    clearInterval(cycleInterval);
   });
 </script>
 
 <main>
-  <div class="gradient-cloud"></div>
+  <div class="tech-landscape">
+    <StarField />
+    <div class="fog-layer layer-1"></div>
+    <div class="fog-layer layer-2"></div>
+    <div class="fog-layer layer-3"></div>
+  </div>
   <div class="left-section">
-    <div class="pill-container">
-      <span class="pill">Code · Automate · Scale</span>
-    </div>
     <div class="introduction">
-      <span class="pre-title">Hello👋🏼, I'm</span>
-      <h1 class="greeting">Navadeep Naidu</h1>
-      <p class="sub-intro">
+      <span class="pre-title reveal" style="--i: 0">
+        <span class="scramble-text">{displayedText}</span>
+      </span>
+      <div class="name-wrapper reveal" style="--i: 1">
+        <span class="small-im">I'm</span>
+        <h1 class="greeting">Navadeep Naidu</h1>
+      </div>
+      <p class="sub-intro reveal" style="--i: 2">
         Building scalable backends & automating DevOps workflows, powering the
         infrastructure behind great software.
       </p>
@@ -55,8 +106,9 @@
         href={socialLinks.email}
         target="_blank"
         rel="noopener noreferrer"
-        class="social-button email"
+        class="social-button email reveal"
         aria-label="Email"
+        style="--i: 3"
       >
         <i class="fa-solid fa-envelope"></i>
       </a>
@@ -64,8 +116,9 @@
         href={socialLinks.github}
         target="_blank"
         rel="noopener noreferrer"
-        class="social-button github"
+        class="social-button github reveal"
         aria-label="GitHub"
+        style="--i: 3.1"
       >
         <i class="fab fa-github"></i>
       </a>
@@ -73,8 +126,9 @@
         href={socialLinks.linkedin}
         target="_blank"
         rel="noopener noreferrer"
-        class="social-button linkedin"
+        class="social-button linkedin reveal"
         aria-label="LinkedIn"
+        style="--i: 3.2"
       >
         <i class="fab fa-linkedin"></i>
       </a>
@@ -82,8 +136,9 @@
         href={socialLinks.twitter}
         target="_blank"
         rel="noopener noreferrer"
-        class="social-button twitter"
+        class="social-button twitter reveal"
         aria-label="Twitter"
+        style="--i: 3.3"
       >
         <i class="fab fa-twitter"></i>
       </a>
@@ -91,8 +146,9 @@
         href={socialLinks.medium}
         target="_blank"
         rel="noopener noreferrer"
-        class="social-button medium"
+        class="social-button medium reveal"
         aria-label="Medium"
+        style="--i: 3.4"
       >
         <i class="fab fa-medium"></i>
       </a>
@@ -189,50 +245,132 @@
       0 0 0 2px rgba(255, 255, 255, 0.2);
   }
 
-  .gradient-cloud {
+  .tech-landscape {
     position: absolute;
-    inset: -40% -20% auto -20%;
-    height: 80%;
-    background: radial-gradient(
-        circle at 30% 30%,
-        rgba(87, 50, 233, 0.35),
-        transparent 60%
-      ),
-      radial-gradient(
-        circle at 70% 40%,
-        rgba(255, 255, 255, 0.12),
-        transparent 55%
-      );
+    inset: 0;
     pointer-events: none;
     z-index: 0;
-    filter: blur(140px);
+    overflow: hidden;
+  }
+
+  .fog-layer {
+    position: absolute;
+    filter: blur(100px);
+    opacity: 0.6;
+    animation: nebulaFlow 20s infinite alternate ease-in-out;
+    border-radius: 50%;
+    will-change: transform;
+    transform: translateZ(0); /* Force GPU acceleration */
+  }
+
+  /* Deep Blue Base - mimic the "ground" or deep space */
+  .layer-1 {
+    bottom: -20%;
+    left: -10%;
+    width: 80%;
+    height: 60%;
+    background: radial-gradient(
+      circle at center,
+      #1b1b42 0%,
+      #0a0a2a 70%,
+      transparent 100%
+    );
+    opacity: 0.7;
+    animation-duration: 25s;
+    filter: blur(80px);
+  }
+
+  /* Purple "Mountain" - main feature */
+  .layer-2 {
+    bottom: -10%;
+    right: -10%;
+    width: 70%;
+    height: 70%;
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      #2d1b4e 0deg,
+      #5732e9 120deg,
+      transparent 240deg
+    );
+    opacity: 0.5;
+    animation-delay: -5s;
+    filter: blur(120px);
+    transform: rotate(-15deg);
+  }
+
+  /* Cyan Highlight - the "mist" or data stream */
+  .layer-3 {
+    bottom: 10%;
+    left: 20%;
+    width: 40%;
+    height: 40%;
+    background: radial-gradient(circle at center, #4cc9f0 0%, transparent 60%);
     opacity: 0.25;
+    animation-duration: 18s;
+    animation-delay: -10s;
+    filter: blur(90px);
+    mix-blend-mode: screen;
   }
 
-  .pill-container {
-    margin-bottom: 3rem;
-    animation: fadeInSlide 0.8s ease-out;
-    margin-left: -0.2rem;
+  @keyframes nebulaFlow {
+    0% {
+      transform: scale(1) translate(0, 0) rotate(0deg);
+    }
+    100% {
+      transform: scale(1.1) translate(20px, -10px) rotate(2deg);
+    }
   }
 
-  .pill {
-    background: rgba(87, 50, 233, 0.1);
-    border: 1px solid rgba(87, 50, 233, 0.2);
-    padding: 0.8rem 1.8rem;
-    border-radius: 50px;
-    font-size: 1rem;
-    font-family: "Inter", sans-serif;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.9);
-    letter-spacing: 0.8px;
+  /* Fluid reveal – Apple-style staggered entrance */
+  .reveal {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(24px);
+    animation: fluidReveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: calc(0.15s + var(--i) * 0.15s);
+  }
+
+  @keyframes fluidReveal {
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
   }
 
   .pre-title {
-    font-family: "Roboto", san-serif;
-    font-size: 1.6rem;
-    color: rgba(255, 255, 255, 0.7);
+    font-family: "Inter", sans-serif;
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.55);
     font-weight: 400;
-    animation: fadeInSlide 0.8s ease-out 0.1s backwards;
+    letter-spacing: -0.01em;
+    display: block;
+  }
+
+  .scramble-text {
+    color: #fff;
+    font-family: "Space Mono", monospace;
+    font-weight: 500;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .name-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px; /* Tighter gap */
+    margin: 0.5rem 0 1.2rem -4px; /* Slight negative margin for optical alignment */
+  }
+
+  .small-im {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 400;
+    margin-top: 0.6rem; /* Push down to align with top of H1 */
+    line-height: 1;
   }
 
   .greeting {
@@ -240,13 +378,9 @@
     font-style: initial;
     font-size: 4rem;
     font-weight: 700;
-    margin: 0.5rem 0 1.2rem 0;
-    background: linear-gradient(45deg, #fff, #5732e9);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    margin: 0;
+    color: #ffffff;
     letter-spacing: 0.02em;
-    animation: fadeInSlide 0.8s ease-out 0.2s backwards;
   }
 
   .sub-intro {
@@ -257,16 +391,16 @@
     line-height: 1.6;
     font-weight: 300;
     margin-top: 0.8rem;
-    animation: fadeInSlide 0.8s ease-out 0.4s backwards;
   }
 
   .social-buttons {
     display: flex;
-    gap: 1.2rem;
-    margin-top: 1rem;
+    gap: 1rem;
+    margin-top: 1.5rem;
     justify-content: flex-start;
     margin-right: auto;
     max-width: 100%;
+    flex-wrap: wrap;
   }
 
   .social-button {
@@ -355,7 +489,7 @@
     color: rgba(255, 255, 255, 0.4);
     margin: 0;
     z-index: 5;
-    animation: fadeInSlide 0.8s ease-out 0.6s backwards;
+    animation: placeOnWall 1.2s cubic-bezier(0.22, 1, 0.36, 1) 1s backwards;
   }
 
   .latest-article a {
@@ -383,14 +517,16 @@
     }
   }
 
-  @keyframes fadeInSlide {
-    from {
+  @keyframes placeOnWall {
+    0% {
       opacity: 0;
-      transform: translateY(20px);
+      transform: scale(1.15);
+      filter: blur(10px);
     }
-    to {
+    100% {
       opacity: 1;
-      transform: translateY(0);
+      transform: scale(1);
+      filter: blur(0);
     }
   }
 
@@ -454,8 +590,20 @@
       max-width: 220px;
     }
 
+    .name-wrapper {
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 0.5rem;
+    }
+
+    .small-im {
+      font-size: 0.9rem;
+      margin-top: 0.7rem; /* Adjusted for smaller H1 */
+    }
+
     .greeting {
       font-size: 2.8rem;
+      margin: 0;
     }
 
     .pre-title {
@@ -464,18 +612,6 @@
 
     .sub-intro {
       font-size: 1.1rem;
-    }
-
-    .pill-container {
-      margin-left: 0;
-      margin-bottom: 2rem;
-      display: flex;
-      justify-content: center;
-    }
-
-    .pill {
-      font-size: 0.9rem;
-      padding: 0.7rem 1.5rem;
     }
 
     .social-buttons {
@@ -525,11 +661,6 @@
     .sub-intro {
       font-size: 1rem;
       line-height: 1.5;
-    }
-
-    .pill {
-      font-size: 0.85rem;
-      padding: 0.6rem 1.2rem;
     }
 
     .social-buttons {
