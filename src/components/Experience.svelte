@@ -14,7 +14,7 @@
         "Assisted in cloud infrastructure management and deployment processes.",
         "Implemented monitoring improvements and automated deployment workflows.",
       ],
-      tech: ["Node.js", "AWS", "Docker", "CI/CD"],
+      tech: ["Backend Dev", "CI/CD", "Deployment"],
     },
   ];
 

@@ -11,8 +11,8 @@
   const skillsCategories = [
     {
       id: "backend",
-      title: "Backend & Web Systems",
-      description: "High-performance architectures & scalable APIs.",
+      title: "What I build with",
+      description: "Frameworks, languages & the full stack.",
       span: 2,
       skills: [
         {
@@ -45,8 +45,8 @@
     },
     {
       id: "devops",
-      title: "Cloud & DevOps",
-      description: "Orchestration & CI/CD pipelines.",
+      title: "How I ship it",
+      description: "Infrastructure, pipelines & the cloud.",
       skills: [
         {
           name: "Docker",
@@ -70,8 +70,8 @@
     },
     {
       id: "databases",
-      title: "Data & Persistence",
-      description: "Optimized storage & complex queries.",
+      title: "Where I store it",
+      description: "Databases, ORMs & data tools.",
       skills: [
         {
           name: "PostgreSQL",
@@ -89,33 +89,17 @@
         { name: "Pandas", icon: pandasIcon },
       ],
     },
-  ];
-
-  const workflowTools = [
     {
-      name: "VS Code",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
+      id: "projects",
+      title: "Currently building",
+      description: "What I'm working on right now.",
+      span: 2,
+      projects: [
+        { name: "Project Alpha", url: "#" },
+        { name: "Project Beta", url: "#" },
+        { name: "Project Gamma", url: "#" },
+      ],
     },
-    {
-      name: "Figma",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
-    },
-    {
-      name: "Postman",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
-    },
-    {
-      name: "Vite",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg",
-    },
-    {
-      name: "Claude Code",
-      icon: "https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_AI_symbol.svg",
-    },
-    {
-      name: "Linux",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
-    }, // Placeholder for 'Workflow' vibe
   ];
 
   function handleImageError(event, techName) {
@@ -129,6 +113,24 @@
 
   let skillsSection;
   let visible = false;
+  let rafId = null;
+
+  function handleMouseMove(e) {
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => {
+      const cards = document.querySelectorAll(".bento-card");
+      for (const card of cards) {
+        if (card instanceof HTMLElement) {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty("--mouse-x", `${x}px`);
+          card.style.setProperty("--mouse-y", `${y}px`);
+        }
+      }
+      rafId = null;
+    });
+  }
 
   onMount(() => {
     const observer = new IntersectionObserver(
@@ -157,52 +159,72 @@
 <section id="skills" bind:this={skillsSection} class:visible>
   <div class="content-wrapper">
     <div class="header-group">
-      <h2 class="section-title">Skills</h2>
-      <p class="section-subtitle">My tech stack & tools.</p>
+      <h2 class="section-title">My Tech Stack</h2>
     </div>
 
-    <div class="bento-grid">
+    <!-- svelte-ignore a11y_no_static_element_interactions -->
+    <div class="bento-grid" role="presentation" on:mousemove={handleMouseMove}>
       {#each skillsCategories as category, i}
         <div
           class="bento-card {category.span === 2 ? 'span-2' : ''}"
           style="--delay: {i * 0.1}s"
         >
-          <div class="card-header">
-            <h3>{category.title}</h3>
-            <p>{category.description}</p>
-          </div>
-          <div class="skills-cluster">
-            {#each category.skills as skill}
-              <div class="skill-pill">
-                <div class="icon-wrapper">
-                  <img
-                    src={skill.icon}
-                    alt={skill.name}
-                    on:error={(e) => handleImageError(e, skill.name)}
-                  />
-                </div>
-                <span>{skill.name}</span>
+          <div
+            class="card-content {category.id === 'projects'
+              ? 'project-content'
+              : ''}"
+          >
+            <div class="card-header">
+              <h3>{category.title}</h3>
+              <p>{category.description}</p>
+            </div>
+            {#if category.id === "projects"}
+              <div class="project-links">
+                {#each category.projects as project}
+                  <a
+                    href={project.url}
+                    class="project-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span>{project.name}</span>
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M4 12L12 4M12 4H5M12 4V11"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </a>
+                {/each}
               </div>
-            {/each}
+            {:else}
+              <div class="skills-cluster">
+                {#each category.skills as skill}
+                  <div class="skill-pill">
+                    <div class="icon-wrapper">
+                      <img
+                        src={skill.icon}
+                        alt={skill.name}
+                        on:error={(e) => handleImageError(e, skill.name)}
+                      />
+                    </div>
+                    <span>{skill.name}</span>
+                  </div>
+                {/each}
+              </div>
+            {/if}
           </div>
         </div>
       {/each}
-    </div>
-
-    <!-- Minimal Workflow Strip -->
-    <div class="workflow-strip">
-      <span class="workflow-label">Workflow:</span>
-      <div class="workflow-icons">
-        {#each workflowTools as tool}
-          <div class="workflow-item" title={tool.name}>
-            <img
-              src={tool.icon}
-              alt={tool.name}
-              on:error={(e) => handleImageError(e, tool.name)}
-            />
-          </div>
-        {/each}
-      </div>
     </div>
   </div>
 </section>
@@ -229,15 +251,12 @@
   }
 
   .section-title {
-    font-size: 2.5rem;
-    font-weight: 700;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 3.2rem;
+    font-weight: 300;
     color: #fff;
-    margin: 0 0 16px 0;
-    background: linear-gradient(to right, #fff, #a5a5a5);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: -0.02em;
+    margin: 0 0 12px 0;
+    letter-spacing: 0.02em;
   }
 
   .section-subtitle {
@@ -257,25 +276,68 @@
   }
 
   .bento-card {
-    background: rgba(255, 255, 255, 0.03);
+    position: relative;
+    background: rgba(15, 15, 15, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 24px;
-    padding: 32px;
-    backdrop-filter: blur(10px);
-    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    backdrop-filter: blur(12px);
+    transition:
+      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.3s ease,
+      opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
     opacity: 0;
     transform: translateY(30px);
     transition-delay: var(--delay);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    --mouse-x: -1000px;
+    --mouse-y: -1000px;
+  }
+
+  /* Glowing Border – soft, wide radial that only shows through the 1px border ring */
+  .bento-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: radial-gradient(
+      600px circle at var(--mouse-x) var(--mouse-y),
+      rgba(255, 255, 255, 0.35),
+      rgba(255, 255, 255, 0.08) 25%,
+      transparent 50%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: 2;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+  }
+
+  .bento-grid:hover .bento-card::before {
+    opacity: 1;
+  }
+
+  .card-content {
+    position: relative;
+    border-radius: inherit;
+    padding: 32px;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     gap: 24px;
   }
 
   .bento-card:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.15);
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.1);
   }
 
   .span-2 {
@@ -283,11 +345,13 @@
   }
 
   .card-header h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
+    font-size: 1.55rem;
+    font-weight: 300;
     color: #fff;
     margin: 0 0 8px 0;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.02em;
   }
 
   .card-header p {
@@ -341,6 +405,60 @@
     color: rgba(255, 255, 255, 0.85);
   }
 
+  /* Projects card – horizontal bar with links */
+  .project-content {
+    flex-direction: row;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .project-content .card-header {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .project-links {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+
+  .project-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 100px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+  }
+
+  .project-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  .project-link svg {
+    opacity: 0.5;
+    transition: all 0.25s ease;
+  }
+
+  .project-link:hover svg {
+    opacity: 1;
+    transform: translate(2px, -2px);
+  }
+
   /* Animation States */
   #skills.visible .header-group {
     opacity: 1;
@@ -350,73 +468,6 @@
   #skills.visible .bento-card {
     opacity: 1;
     transform: translateY(0);
-  }
-
-  /* Workflow Strip */
-  .workflow-strip {
-    margin-top: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 30px;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    transition-delay: 0.4s;
-    padding: 20px 40px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 100px;
-    width: 100%;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-  }
-
-  #skills.visible .workflow-strip {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .workflow-label {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.8);
-    text-transform: none;
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-  }
-
-  .workflow-icons {
-    display: flex;
-    gap: 24px;
-    align-items: center;
-    width: 100%;
-    justify-content: space-around;
-  }
-
-  .workflow-item {
-    width: 32px;
-    height: 32px;
-    opacity: 0.7;
-    transition: all 0.2s ease;
-    filter: grayscale(100%);
-    cursor: default;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .workflow-item:hover {
-    opacity: 1;
-    filter: grayscale(0%);
-    transform: scale(1.1);
-  }
-
-  .workflow-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
   }
 
   /* Responsive */
@@ -434,15 +485,18 @@
       font-size: 2rem;
     }
 
-    .bento-card {
+    .card-content {
       padding: 24px;
     }
 
-    .workflow-strip {
+    .project-content {
       flex-direction: column;
-      gap: 12px;
-      border-radius: 20px;
-      width: 100%;
+      gap: 20px;
+    }
+
+    .project-content .card-header {
+      white-space: normal;
+      text-align: center;
     }
   }
 </style>

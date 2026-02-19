@@ -72,8 +72,6 @@
         const currentScrollY = window.scrollY;
         const direction = currentScrollY - lastScrollY;
 
-        // Calculate section progress (0 to 1)
-        // More generous calculation so it completes when section is fully visible
         const sectionProgress = Math.max(
           0,
           Math.min(
@@ -83,11 +81,9 @@
         );
 
         content.forEach((_, index) => {
-          // Calculate when this word should start revealing
-          const wordStartProgress = (index / content.length) * 0.65; // Scale down even more to complete earlier
+          const wordStartProgress = (index / content.length) * 0.65;
           const wordEndProgress = ((index + 1) / content.length) * 0.42;
 
-          // Add a delay factor so words reveal sequentially
           const revealProgress = Math.max(
             0,
             Math.min(
@@ -101,7 +97,6 @@
 
           const previousOpacity = words[index]?.opacity ?? 0.2;
 
-          // Lock opacity when scrolling down
           if (direction >= 0) {
             opacity = Math.max(previousOpacity, opacity);
           }

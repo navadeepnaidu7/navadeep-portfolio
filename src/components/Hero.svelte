@@ -1,14 +1,39 @@
 <script>
-  import profileImage from '../assets/endurance.jpg';
-  import FloatingIcons from './FloatingIcons.svelte';
+  import { onMount } from "svelte";
+  import profileImage from "../assets/endurance.jpg";
+  import FloatingIcons from "./FloatingIcons.svelte";
 
   const socialLinks = {
-    email: 'mailto:navadeepnaidu7@protonmail.com',
-    github: 'https://github.com/navadeepnaidu7',
-    linkedin: 'https://linkedin.com/in/navadeepnaidu',
-    twitter: 'https://x.com/Navadeep_naidu7',
-    medium: 'https://medium.com/@navadeepnaidu7'
+    email: "mailto:navadeepnaidu7@protonmail.com",
+    github: "https://github.com/navadeepnaidu7",
+    linkedin: "https://linkedin.com/in/navadeepnaidu",
+    twitter: "https://x.com/Navadeep_naidu7",
+    medium: "https://medium.com/@navadeepnaidu7",
   };
+
+  let latestPost = null;
+
+  async function fetchLatestPost() {
+    try {
+      const res = await fetch("https://blog.navadeepnaidu.com/rss.xml");
+      const text = await res.text();
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(text, "text/xml");
+      const firstItem = xml.querySelector("item");
+      if (firstItem) {
+        latestPost = {
+          title: firstItem.querySelector("title")?.textContent ?? "",
+          link: firstItem.querySelector("link")?.textContent ?? "#",
+        };
+      }
+    } catch (e) {
+      console.warn("Could not fetch RSS feed:", e);
+    }
+  }
+
+  onMount(() => {
+    fetchLatestPost();
+  });
 </script>
 
 <main>
@@ -20,23 +45,57 @@
     <div class="introduction">
       <span class="pre-title">Hello👋🏼, I'm</span>
       <h1 class="greeting">Navadeep Naidu</h1>
-      <p class="sub-intro">Building scalable backends & automating DevOps workflows, powering the infrastructure behind great software.</p>
+      <p class="sub-intro">
+        Building scalable backends & automating DevOps workflows, powering the
+        infrastructure behind great software.
+      </p>
     </div>
     <div class="social-buttons">
-      <a href={socialLinks.email} target="_blank" rel="noopener noreferrer" class="social-button email" aria-label="Email">
+      <a
+        href={socialLinks.email}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="social-button email"
+        aria-label="Email"
+      >
         <i class="fa-solid fa-envelope"></i>
       </a>
-      <a href={socialLinks.github} target="_blank" rel="noopener noreferrer" class="social-button github" aria-label="GitHub">
+      <a
+        href={socialLinks.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="social-button github"
+        aria-label="GitHub"
+      >
         <i class="fab fa-github"></i>
       </a>
-      <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" class="social-button linkedin" aria-label="LinkedIn">
+      <a
+        href={socialLinks.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="social-button linkedin"
+        aria-label="LinkedIn"
+      >
         <i class="fab fa-linkedin"></i>
       </a>
-      <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" class="social-button twitter" aria-label="Twitter">
+      <a
+        href={socialLinks.twitter}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="social-button twitter"
+        aria-label="Twitter"
+      >
         <i class="fab fa-twitter"></i>
       </a>
-      <a href={socialLinks.medium} target="_blank" rel="noopener noreferrer" class="social-button medium" aria-label="Medium">
+      <a
+        href={socialLinks.medium}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="social-button medium"
+        aria-label="Medium"
+      >
         <i class="fab fa-medium"></i>
+      </a>
     </div>
   </div>
 
@@ -46,10 +105,20 @@
       <img src={profileImage} alt="Profile Logo" class="profile-pic" />
     </div>
   </div>
+
+  {#if latestPost}
+    <p class="latest-article">
+      Read my latest article: <a
+        href={latestPost.link}
+        target="_blank"
+        rel="noopener noreferrer">{latestPost.title}</a
+      >
+    </p>
+  {/if}
 </main>
 
 <style>
-  @import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+  @import url("https://fonts.cdnfonts.com/css/sf-pro-display");
 
   main {
     display: flex;
@@ -100,19 +169,21 @@
     width: 100%;
     height: auto;
     border-radius: 50%;
-    box-shadow: 
+    box-shadow:
       0 4px 20px rgba(0, 157, 255, 0.2),
       0 0 0 1px rgba(255, 255, 255, 0.1);
     background-color: #ffffff;
     animation: floating 3s ease-in-out infinite;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
     position: relative;
     z-index: 3;
   }
 
   .right-section img:hover {
     transform: scale(1.1) rotate(5deg);
-    box-shadow: 
+    box-shadow:
       0 8px 40px rgba(0, 157, 255, 0.4),
       0 0 20px rgba(0, 157, 255, 0.3),
       0 0 0 2px rgba(255, 255, 255, 0.2);
@@ -122,8 +193,16 @@
     position: absolute;
     inset: -40% -20% auto -20%;
     height: 80%;
-    background: radial-gradient(circle at 30% 30%, rgba(87, 50, 233, 0.35), transparent 60%),
-      radial-gradient(circle at 70% 40%, rgba(255, 255, 255, 0.12), transparent 55%);
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(87, 50, 233, 0.35),
+        transparent 60%
+      ),
+      radial-gradient(
+        circle at 70% 40%,
+        rgba(255, 255, 255, 0.12),
+        transparent 55%
+      );
     pointer-events: none;
     z-index: 0;
     filter: blur(140px);
@@ -139,17 +218,17 @@
   .pill {
     background: rgba(87, 50, 233, 0.1);
     border: 1px solid rgba(87, 50, 233, 0.2);
-    padding: 0.8rem 1.8rem; 
+    padding: 0.8rem 1.8rem;
     border-radius: 50px;
     font-size: 1rem;
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     font-weight: 500;
     color: rgba(255, 255, 255, 0.9);
     letter-spacing: 0.8px;
   }
 
   .pre-title {
-    font-family: 'Roboto', san-serif;
+    font-family: "Roboto", san-serif;
     font-size: 1.6rem;
     color: rgba(255, 255, 255, 0.7);
     font-weight: 400;
@@ -157,7 +236,7 @@
   }
 
   .greeting {
-    font-family: 'SF Pro Display', sans-serif;
+    font-family: "SF Pro Display", sans-serif;
     font-style: initial;
     font-size: 4rem;
     font-weight: 700;
@@ -171,7 +250,7 @@
   }
 
   .sub-intro {
-    font-family: 'SF Pro Display', sans-serif;
+    font-family: "SF Pro Display", sans-serif;
     font-style: italic;
     font-size: 1.3rem;
     color: rgba(255, 255, 255, 0.6);
@@ -204,14 +283,14 @@
     background: rgba(18, 18, 18, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
-    box-shadow: 
+    box-shadow:
       0 4px 6px -1px rgba(0, 0, 0, 0.1),
       0 2px 4px -1px rgba(0, 0, 0, 0.06),
       inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
 
   .social-button::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     border-radius: 16px;
@@ -222,7 +301,9 @@
       rgba(255, 255, 255, 0.1),
       transparent
     );
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
   }
@@ -241,17 +322,66 @@
     transition: all 0.3s ease;
   }
 
-  .email:hover i { color: #5732e9; text-shadow: 0 0 15px rgba(87, 50, 233, 0.5); }
-  .github:hover i { color: #ffffff; text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
-  .linkedin:hover i { color: #0077b5; text-shadow: 0 0 15px rgba(0, 119, 181, 0.5); }
-  .twitter:hover i { color: #1DA1F2; text-shadow: 0 0 15px rgba(29, 161, 242, 0.5); }
-  .medium:hover i { color: #ffffff; text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); }
-  @keyframes floating {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-4px); }
-    100% { transform: translateY(0px); }
+  .email:hover i {
+    color: #5732e9;
+    text-shadow: 0 0 15px rgba(87, 50, 233, 0.5);
+  }
+  .github:hover i {
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  }
+  .linkedin:hover i {
+    color: #0077b5;
+    text-shadow: 0 0 15px rgba(0, 119, 181, 0.5);
+  }
+  .twitter:hover i {
+    color: #1da1f2;
+    text-shadow: 0 0 15px rgba(29, 161, 242, 0.5);
+  }
+  .medium:hover i {
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
   }
 
+  .latest-article {
+    position: absolute;
+    bottom: 53px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0;
+    z-index: 5;
+    animation: fadeInSlide 0.8s ease-out 0.6s backwards;
+  }
+
+  .latest-article a {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(255, 255, 255, 0.25);
+    transition: all 0.2s ease;
+  }
+
+  .latest-article a:hover {
+    color: #fff;
+    text-decoration-color: rgba(255, 255, 255, 0.6);
+  }
+
+  @keyframes floating {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
 
   @keyframes fadeInSlide {
     from {
