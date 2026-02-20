@@ -291,33 +291,52 @@
     transform: translateY(-50%) scale(1.1);
   }
 
-  /* Blog Dropdown - minimal style */
+  /* Blog Dropdown - Apple-style frosted glass */
   .blog-container {
     position: relative;
+    display: flex;
+    align-items: center;
   }
 
   .blog-button {
-    background: rgba(255, 255, 255, 0.9);
-    color: #000 !important;
-    padding: 6px 12px !important;
-    border-radius: 35px;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.8) !important;
+    padding: 6px 14px !important;
+    border-radius: 20px;
     display: flex;
     align-items: center;
-    gap: 4px;
-    transition: all 0.3s ease !important;
+    gap: 6px;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
     font-size: 0.9rem;
-    font-weight: bold;
-    border: none;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     cursor: pointer;
     font-family: inherit;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .blog-button:hover {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 1) !important;
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: scale(1.02);
+  }
+
+  .blog-button:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.3);
+    outline-offset: 4px;
+  }
+
+  .blog-button:active {
+    transform: scale(0.96);
   }
 
   .chevron-icon {
-    transition: transform 0.2s ease;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0.7;
   }
 
   .chevron-icon.open {
@@ -326,47 +345,51 @@
 
   .blog-dropdown {
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 12px);
     right: 0;
-    min-width: 220px;
-    background: #13111a;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    min-width: 200px;
+    background: rgba(25, 25, 25, 0.75);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 16px 40px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
     padding: 6px;
     z-index: 1100;
   }
 
   .dropdown-item {
     display: block;
-    padding: 12px 14px;
+    padding: 10px 14px;
     border-radius: 8px;
     text-decoration: none !important;
-    transition: background 0.15s ease;
+    transition: background 0.2s ease;
   }
 
   .dropdown-item:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.08);
   }
 
   .item-text {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 3px;
   }
 
   .item-title {
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 500;
     color: rgba(255, 255, 255, 0.95);
-    line-height: 1.3;
+    line-height: 1.2;
   }
 
   .item-desc {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.45);
-    line-height: 1.3;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.2;
   }
 
   .dropdown-item:hover .item-title {
@@ -374,7 +397,7 @@
   }
 
   .dropdown-item:hover .item-desc {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.7);
   }
 
   /* Hamburger Menu Button */
@@ -559,21 +582,33 @@
       max-width: 100%;
       padding: 12px 20px !important;
       font-size: 1.1rem !important;
-      background: rgba(255, 255, 255, 0.9) !important;
-      color: #000 !important;
+      background: rgba(255, 255, 255, 0.08) !important;
+      color: rgba(255, 255, 255, 0.9) !important;
       border-radius: 35px !important;
       justify-content: center;
       margin-top: 15px;
-      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       gap: 8px;
       white-space: nowrap;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .blog-button:hover {
-      background: #fff !important;
+      background: rgba(255, 255, 255, 0.12) !important;
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.25);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .blog-button:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.3);
+      outline-offset: 4px;
+    }
+
+    .blog-button:active {
+      transform: translateY(0) scale(0.96);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
 
     .chevron-icon {
