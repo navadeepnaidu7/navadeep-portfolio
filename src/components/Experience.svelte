@@ -27,7 +27,7 @@
           }
         });
       },
-      { threshold: 0.7 },
+      { threshold: 0.15, rootMargin: "0px 0px -50px 0px" },
     );
 
     if (experienceSection) {
@@ -284,8 +284,8 @@
 
   .header-group {
     opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translateY(30px);
+    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .section-title {
@@ -341,13 +341,13 @@
     justify-content: center;
     z-index: 1;
     opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+    transform: translateY(30px) scale(0.96);
+    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
   }
 
   #experience.visible .system-orchestration {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 
   .connection-lines {
@@ -447,11 +447,6 @@
     animation: floatVertical 4s ease-in-out infinite alternate-reverse;
   }
 
-  .coin-node {
-    /* Central API */
-    display: none; /* Removed from the outer absolute div group to avoid duplicating the central core, or you can keep it instead of the server icon */
-  }
-
   .coin-postgres {
     top: 50px;
     right: 20px;
@@ -497,7 +492,7 @@
     border-radius: 2px;
     transform: scaleY(0);
     transform-origin: top;
-    transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
   }
 
   #experience.visible .timeline::before {
@@ -508,8 +503,8 @@
     position: relative;
     margin-bottom: 60px;
     opacity: 0;
-    transform: translateX(-20px);
-    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translateX(-30px);
+    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
     transition-delay: var(--delay);
   }
 
@@ -523,14 +518,14 @@
     border: 2px solid rgba(255, 255, 255, 0.4);
     border-radius: 50%;
     z-index: 2;
-    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: 0 0 0 4px rgba(0, 0, 0, 1);
     transform: scale(0);
   }
 
   #experience.visible .timeline-marker {
     transform: scale(1);
-    animation: markerPulse 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.8s;
+    animation: markerPulse 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s;
   }
 
   @keyframes markerPulse {
@@ -560,7 +555,7 @@
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 16px;
     padding: 32px;
-    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     backdrop-filter: blur(10px);
   }
 
