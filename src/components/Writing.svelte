@@ -105,6 +105,15 @@
 </script>
 
 <section id="writing" bind:this={writingSection}>
+  <div class="cosmos-background">
+    <!-- Soft flowing aura backgrounds -->
+    <div class="nebula n-purple"></div>
+    <div class="nebula n-blue"></div>
+    <div class="nebula n-pink"></div>
+
+    <!-- Subtle rotating galaxy effect -->
+    <div class="galaxy-core"></div>
+  </div>
   <div class="ambient-glow"></div>
 
   <div class="container" class:animate={visible}>
@@ -229,10 +238,108 @@
     );
   }
 
+  .cosmos-background {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .nebula {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.4;
+    animation: drift 25s infinite alternate ease-in-out;
+    transform: translateZ(0); /* Hardware accel */
+  }
+
+  .n-purple {
+    top: -10%;
+    left: 10%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(
+      circle,
+      rgba(138, 43, 226, 0.12),
+      transparent 60%
+    );
+  }
+
+  .n-blue {
+    bottom: 10%;
+    right: -10%;
+    width: 70%;
+    height: 70%;
+    background: radial-gradient(
+      circle,
+      rgba(76, 201, 240, 0.12),
+      transparent 60%
+    );
+    animation-delay: -12s;
+    animation-direction: alternate-reverse;
+  }
+
+  @keyframes drift {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    100% {
+      transform: translate(30px, -40px) scale(1.05);
+    }
+  }
+
+  .n-pink {
+    top: 40%;
+    left: 40%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(
+      circle,
+      rgba(236, 72, 153, 0.08),
+      transparent 60%
+    );
+    animation-delay: -7s;
+  }
+
+  /* Rotating Galaxy Background */
+  .galaxy-core {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    transform-origin: center center;
+    background: conic-gradient(
+      from 0deg at 50% 50%,
+      transparent 0deg,
+      rgba(138, 43, 226, 0.04) 90deg,
+      transparent 180deg,
+      rgba(59, 130, 246, 0.04) 270deg,
+      transparent 360deg
+    );
+    animation: rotateGalaxy 120s linear infinite;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @keyframes rotateGalaxy {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
   .container {
     max-width: 1120px;
     margin: 0 auto;
     width: 100%;
+    position: relative;
+    z-index: 1;
   }
 
   /* ── Typography Intro ── */

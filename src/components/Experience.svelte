@@ -56,164 +56,187 @@
         </div>
 
         <div class="graphic-container hidden-mobile">
-          <div class="glow"></div>
+          <div class="glow-bg"></div>
 
-          <div class="system-orchestration">
-            <div class="central-core">
-              <div class="core-pulse"></div>
-              <svg viewBox="0 0 24 24" fill="none" class="core-icon">
-                <rect
-                  x="2"
-                  y="2"
-                  width="20"
-                  height="8"
-                  rx="2"
-                  ry="2"
-                  stroke="currentColor"
-                  stroke-width="2"
-                ></rect>
-                <rect
-                  x="2"
-                  y="14"
-                  width="20"
-                  height="8"
-                  rx="2"
-                  ry="2"
-                  stroke="currentColor"
-                  stroke-width="2"
-                ></rect>
-                <line
-                  x1="6"
-                  y1="6"
-                  x2="6.01"
-                  y2="6"
-                  stroke="currentColor"
-                  stroke-width="2"
-                ></line>
-                <line
-                  x1="6"
-                  y1="18"
-                  x2="6.01"
-                  y2="18"
-                  stroke="currentColor"
-                  stroke-width="2"
-                ></line>
-              </svg>
-            </div>
+          <div class="diagram-wrapper">
+            <!-- Connection Lines -->
+            <svg class="connection-svg" viewBox="0 0 400 350">
+              <defs>
+                <filter
+                  id="glow-dot"
+                  x="-50%"
+                  y="-50%"
+                  width="200%"
+                  height="200%"
+                >
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+                <linearGradient
+                  id="line-gradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                >
+                  <stop offset="0%" stop-color="rgba(255,255,255,0.05)" />
+                  <stop offset="50%" stop-color="rgba(255,255,255,0.2)" />
+                  <stop offset="100%" stop-color="rgba(255,255,255,0.05)" />
+                </linearGradient>
+              </defs>
 
-            <!-- SVG connection lines between nodes in a pipeline -->
-            <svg class="connection-lines" viewBox="0 0 400 400">
-              <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#4cc9f0" stop-opacity="0.1" />
-                <stop offset="50%" stop-color="#4cc9f0" stop-opacity="0.6" />
-                <stop offset="100%" stop-color="#b5179e" stop-opacity="0.1" />
-              </linearGradient>
-              <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="3" result="blur" />
-                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-              </filter>
-
-              <!-- Paths mapping the structured flow -->
-              <!-- Python (Dev) -> Node.js (API) -->
+              <!-- Lines -->
               <path
-                d="M80 150 Q 150 150 200 200"
-                stroke="url(#lineGrad)"
-                stroke-width="1.5"
-                fill="none"
-                stroke-dasharray="4 4"
+                d="M 64 50 C 113 50, 113 155, 162 155"
+                class="diagram-line"
               />
-              <!-- Docker (Container) -> Node.js (API) -->
               <path
-                d="M80 250 Q 150 250 200 200"
-                stroke="url(#lineGrad)"
-                stroke-width="1.5"
-                fill="none"
-                stroke-dasharray="4 4"
+                d="M 54 120 C 108 120, 108 155, 162 155"
+                class="diagram-line"
               />
-              <!-- Node.js (API) -> Postgres (DB) -->
               <path
-                d="M200 200 Q 250 200 320 150"
-                stroke="url(#lineGrad)"
-                stroke-width="1.5"
-                fill="none"
-                stroke-dasharray="4 4"
+                d="M 54 190 C 108 190, 108 155, 162 155"
+                class="diagram-line"
               />
-              <!-- Node.js (API) -> Cloud (End Product) -->
               <path
-                d="M200 200 Q 250 200 320 250"
-                stroke="url(#lineGrad)"
-                stroke-width="1.5"
-                fill="none"
-                stroke-dasharray="4 4"
+                d="M 64 260 C 113 260, 113 155, 162 155"
+                class="diagram-line"
               />
 
-              <!-- Animated data pulses on paths indicating direction -->
-              <circle r="2" fill="#fff" filter="url(#glow)">
+              <path
+                d="M 218 155 L 290 155"
+                class="diagram-line highlight-line"
+              />
+
+              <!-- Animated Dots -->
+              <circle r="2.5" fill="#fff" filter="url(#glow-dot)">
                 <animateMotion
-                  dur="2s"
+                  dur="3s"
                   repeatCount="indefinite"
-                  path="M80 150 Q 150 150 200 200"
+                  path="M 64 50 C 113 50, 113 155, 162 155"
+                  begin="0s"
                 />
               </circle>
-              <circle r="2" fill="#fff" filter="url(#glow)">
+              <circle r="2.5" fill="#fff" filter="url(#glow-dot)">
                 <animateMotion
-                  dur="2s"
+                  dur="3s"
                   repeatCount="indefinite"
-                  path="M80 250 Q 150 250 200 200"
-                  begin="0.5s"
+                  path="M 54 120 C 108 120, 108 155, 162 155"
+                  begin="0.75s"
                 />
               </circle>
-              <circle r="2" fill="#fff" filter="url(#glow)">
+              <circle r="2.5" fill="#fff" filter="url(#glow-dot)">
                 <animateMotion
-                  dur="2s"
+                  dur="3s"
                   repeatCount="indefinite"
-                  path="M200 200 Q 250 200 320 150"
-                  begin="1s"
-                />
-              </circle>
-              <circle r="2" fill="#fff" filter="url(#glow)">
-                <animateMotion
-                  dur="2s"
-                  repeatCount="indefinite"
-                  path="M200 200 Q 250 200 320 250"
+                  path="M 54 190 C 108 190, 108 155, 162 155"
                   begin="1.5s"
+                />
+              </circle>
+              <circle r="2.5" fill="#fff" filter="url(#glow-dot)">
+                <animateMotion
+                  dur="3s"
+                  repeatCount="indefinite"
+                  path="M 64 260 C 113 260, 113 155, 162 155"
+                  begin="2.25s"
+                />
+              </circle>
+
+              <circle r="3" fill="#3b82f6" filter="url(#glow-dot)">
+                <animateMotion
+                  dur="1.5s"
+                  repeatCount="indefinite"
+                  path="M 218 155 L 290 155"
+                  begin="0s"
                 />
               </circle>
             </svg>
 
-            <!-- Tech Coins -->
-            <div class="tech-coin coin-docker">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.184-.186h-2.12a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.082.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 00-.75.748 11.376 11.376 0 00.692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 003.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288Z"
-                />
-              </svg>
+            <!-- Building Nodes -->
+            <div class="node left-node n1">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><polyline points="4 17 10 11 4 5" /><line
+                  x1="12"
+                  x2="20"
+                  y1="19"
+                  y2="19"
+                /></svg
+              >
+            </div>
+            <div class="node left-node n2">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path
+                  d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+                /><path d="m3.3 7 8.7 5 8.7-5" /><path d="M12 22V12" /></svg
+              >
+            </div>
+            <div class="node left-node n3">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><ellipse cx="12" cy="5" rx="9" ry="3" /><path
+                  d="M3 5V19A9 3 0 0 0 21 19V5"
+                /><path d="M3 12A9 3 0 0 0 21 12" /></svg
+              >
+            </div>
+            <div class="node left-node n4">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path d="M18 16 l 4 -4 l -4 -4" /><path
+                  d="M6 8 l -4 4 l 4 4"
+                /><path d="M14.5 4 l -5 16" /></svg
+              >
             </div>
 
-            <div class="tech-coin coin-python">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"
-                />
-              </svg>
+            <!-- Deploying Node -->
+            <div class="node center-node">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><rect width="8" height="8" x="3" y="3" rx="2" /><path
+                  d="M7 11v4a2 2 0 0 0 2 2h4"
+                /><rect width="8" height="8" x="13" y="13" rx="2" /></svg
+              >
             </div>
 
-            <!-- Cloud End Product Coin -->
-            <div class="tech-coin coin-cloud">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"
-                />
-              </svg>
+            <!-- Managing Node -->
+            <div class="node right-node">
+              <div class="right-node-inner">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M21.1 21.1 L2.9 21.1 L12 5.3 Z" />
+                </svg>
+              </div>
             </div>
 
-            <div class="tech-coin coin-postgres">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M23.5594 14.7228a.5269.5269 0 0 0-.0563-.1191c-.139-.2632-.4768-.3418-1.0074-.2321-1.6533.3411-2.2935.1312-2.5256-.0191 1.342-2.0482 2.445-4.522 3.0411-6.8297.2714-1.0507.7982-3.5237.1222-4.7316a1.5641 1.5641 0 0 0-.1509-.235C21.6931.9086 19.8007.0248 17.5099.0005c-1.4947-.0158-2.7705.3461-3.1161.4794a9.449 9.449 0 0 0-.5159-.0816 8.044 8.044 0 0 0-1.3114-.1278c-1.1822-.0184-2.2038.2642-3.0498.8406-.8573-.3211-4.7888-1.645-7.2219.0788C.9359 2.1526.3086 3.8733.4302 6.3043c.0409.818.5069 3.334 1.2423 5.7436.4598 1.5065.9387 2.7019 1.4334 3.582.553.9942 1.1259 1.5933 1.7143 1.7895.4474.1491 1.1327.1441 1.8581-.7279.8012-.9635 1.5903-1.8258 1.9446-2.2069.4351.2355.9064.3625 1.39.3772a.0569.0569 0 0 0 .0004.0041 11.0312 11.0312 0 0 0-.2472.3054c-.3389.4302-.4094.5197-1.5002.7443-.3102.064-1.1344.2339-1.1464.8115-.0025.1224.0329.2309.0919.3268.2269.4231.9216.6097 1.015.6331 1.3345.3335 2.5044.092 3.3714-.6787-.017 2.231.0775 4.4174.3454 5.0874.2212.5529.7618 1.9045 2.4692 1.9043.2505 0 .5263-.0291.8296-.0941 1.7819-.3821 2.5557-1.1696 2.855-2.9059.1503-.8707.4016-2.8753.5388-4.1012.0169-.0703.0357-.1207.057-.1362.0007-.0005.0697-.0471.4272.0307a.3673.3673 0 0 0 .0443.0068l.2539.0223.0149.001c.8468.0384 1.9114-.1426 2.5312-.4308.6438-.2988 1.8057-1.0323 1.5951-1.6698zM2.371 11.8765c-.7435-2.4358-1.1779-4.8851-1.2123-5.5719-.1086-2.1714.4171-3.6829 1.5623-4.4927 1.8367-1.2986 4.8398-.5408 6.108-.13-.0032.0032-.0066.0061-.0098.0094-2.0238 2.044-1.9758 5.536-1.9708 5.7495-.0002.0823.0066.1989.0162.3593.0348.5873.0996 1.6804-.0735 2.9184-.1609 1.1504.1937 2.2764.9728 3.0892.0806.0841.1648.1631.2518.2374-.3468.3714-1.1004 1.1926-1.9025 2.1576-.5677.6825-.9597.5517-1.0886.5087-.3919-.1307-.813-.5871-1.2381-1.3223-.4796-.839-.9635-2.0317-1.4155-3.5126zm6.0072 5.0871c-.1711-.0428-.3271-.1132-.4322-.1772.0889-.0394.2374-.0902.4833-.1409 1.2833-.2641 1.4815-.4506 1.9143-1.0002.0992-.126.2116-.2687.3673-.4426a.3549.3549 0 0 0 .0737-.1298c.1708-.1513.2724-.1099.4369-.0417.156.0646.3078.26.3695.4752.0291.1016.0619.2945-.0452.4444-.9043 1.2658-2.2216 1.2494-3.1676 1.0128zm2.094-3.988-.0525.141c-.133.3566-.2567.6881-.3334 1.003-.6674-.0021-1.3168-.2872-1.8105-.8024-.6279-.6551-.9131-1.5664-.7825-2.5004.1828-1.3079.1153-2.4468.079-3.0586-.005-.0857-.0095-.1607-.0122-.2199.2957-.2621 1.6659-.9962 2.6429-.7724.4459.1022.7176.4057.8305.928.5846 2.7038.0774 3.8307-.3302 4.7363-.084.1866-.1633.3629-.2311.5454zm7.3637 4.5725c-.0169.1768-.0358.376-.0618.5959l-.146.4383a.3547.3547 0 0 0-.0182.1077c-.0059.4747-.054.6489-.115.8693-.0634.2292-.1353.4891-.1794 1.0575-.11 1.4143-.8782 2.2267-2.4172 2.5565-1.5155.3251-1.7843-.4968-2.0212-1.2217a6.5824 6.5824 0 0 0-.0769-.2266c-.2154-.5858-.1911-1.4119-.1574-2.5551.0165-.5612-.0249-1.9013-.3302-2.6462.0044-.2932.0106-.5909.019-.8918a.3529.3529 0 0 0-.0153-.1126 1.4927 1.4927 0 0 0-.0439-.208c-.1226-.4283-.4213-.7866-.7797-.9351-.1424-.059-.4038-.1672-.7178-.0869.067-.276.1831-.5875.309-.9249l.0529-.142c.0595-.16.134-.3257.213-.5012.4265-.9476 1.0106-2.2453.3766-5.1772-.2374-1.0981-1.0304-1.6343-2.2324-1.5098-.7207.0746-1.3799.3654-1.7088.5321a5.6716 5.6716 0 0 0-.1958.1041c.0918-1.1064.4386-3.1741 1.7357-4.4823a4.0306 4.0306 0 0 1 .3033-.276.3532.3532 0 0 0 .1447-.0644c.7524-.5706 1.6945-.8506 2.802-.8325.4091.0067.8017.0339 1.1742.081 1.939.3544 3.2439 1.4468 4.0359 2.3827.8143.9623 1.2552 1.9315 1.4312 2.4543-1.3232-.1346-2.2234.1268-2.6797.779-.9926 1.4189.543 4.1729 1.2811 5.4964.1353.2426.2522.4522.2889.5413.2403.5825.5515.9713.7787 1.2552.0696.087.1372.1714.1885.245-.4008.1155-1.1208.3825-1.0552 1.717-.0123.1563-.0423.4469-.0834.8148-.0461.2077-.0702.4603-.0994.7662zm.8905-1.6211c-.0405-.8316.2691-.9185.5967-1.0105a2.8566 2.8566 0 0 0 .135-.0406 1.202 1.202 0 0 0 .1342.103c.5703.3765 1.5823.4213 3.0068.1344-.2016.1769-.5189.3994-.9533.6011-.4098.1903-1.0957.333-1.7473.3636-.7197.0336-1.0859-.0807-1.1721-.151zm.5695-9.2712c-.0059.3508-.0542.6692-.1054 1.0017-.055.3576-.112.7274-.1264 1.1762-.0142.4368.0404.8909.0932 1.3301.1066.887.216 1.8003-.2075 2.7014a3.5272 3.5272 0 0 1-.1876-.3856c-.0527-.1276-.1669-.3326-.3251-.6162-.6156-1.1041-2.0574-3.6896-1.3193-4.7446.3795-.5427 1.3408-.5661 2.1781-.463zm.2284 7.0137a12.3762 12.3762 0 0 0-.0853-.1074l-.0355-.0444c.7262-1.1995.5842-2.3862.4578-3.4385-.0519-.4318-.1009-.8396-.0885-1.2226.0129-.4061.0666-.7543.1185-1.0911.0639-.415.1288-.8443.1109-1.3505.0134-.0531.0188-.1158.0118-.1902-.0457-.4855-.5999-1.938-1.7294-3.253-.6076-.7073-1.4896-1.4972-2.6889-2.0395.5251-.1066 1.2328-.2035 2.0244-.1859 2.0515.0456 3.6746.8135 4.8242 2.2824a.908.908 0 0 1 .0667.1002c.7231 1.3556-.2762 6.2751-2.9867 10.5405zm-8.8166-6.1162c-.025.1794-.3089.4225-.6211.4225a.5821.5821 0 0 1-.0809-.0056c-.1873-.026-.3765-.144-.5059-.3156-.0458-.0605-.1203-.178-.1055-.2844.0055-.0401.0261-.0985.0925-.1488.1182-.0894.3518-.1226.6096-.0867.3163.0441.6426.1938.6113.4186zm7.9305-.4114c.0111.0792-.049.201-.1531.3102-.0683.0717-.212.1961-.4079.2232a.5456.5456 0 0 1-.075.0052c-.2935 0-.5414-.2344-.5607-.3717-.024-.1765.2641-.3106.5611-.352.297-.0414.6111.0088.6356.1851z"
-                />
-              </svg>
-            </div>
+            <!-- Labels -->
+            <div class="diagram-label label-building">Building</div>
+            <div class="diagram-label label-deploying">Deploying</div>
+            <div class="diagram-label label-managing">Managing</div>
           </div>
         </div>
       </div>
@@ -313,161 +336,199 @@
   .graphic-container {
     position: relative;
     margin-top: 40px;
-    height: 300px;
+    height: 350px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .glow {
+  .glow-bg {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 250px;
-    height: 250px;
-    background: rgba(76, 201, 240, 0.15); /* Tech blue glow matching Hero */
-    filter: blur(70px);
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(
+      circle,
+      rgba(59, 130, 246, 0.12) 0%,
+      transparent 70%
+    );
     transform: translate(-50%, -50%);
     border-radius: 50%;
     z-index: 0;
   }
 
-  .system-orchestration {
+  .diagram-wrapper {
     position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 400px;
+    height: 350px;
     z-index: 1;
     opacity: 0;
     transform: translateY(30px) scale(0.96);
     transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
   }
 
-  #experience.visible .system-orchestration {
+  #experience.visible .diagram-wrapper {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
 
-  .connection-lines {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    height: 400px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .central-core {
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    background: rgba(25, 25, 25, 0.8);
-    border: 1px solid rgba(76, 201, 240, 0.4);
-    border-radius: 20px; /* Squircle */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-    box-shadow:
-      0 10px 30px rgba(0, 0, 0, 0.5),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-
-  .core-pulse {
+  .connection-svg {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 20px;
-    box-shadow: 0 0 20px rgba(76, 201, 240, 0.5);
-    animation: corePulse 2s ease-in-out infinite alternate;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
   }
 
-  .core-icon {
-    width: 32px;
-    height: 32px;
-    color: #fff;
+  .diagram-line {
+    stroke: url(#line-gradient);
+    stroke-width: 1.5;
+    fill: none;
   }
 
-  @keyframes corePulse {
-    0% {
-      opacity: 0.5;
-      transform: scale(1);
+  .highlight-line {
+    stroke: rgba(59, 130, 246, 0.4);
+    stroke-dasharray: 4 4;
+    animation: dashScroll 20s linear infinite;
+  }
+
+  @keyframes dashScroll {
+    to {
+      stroke-dashoffset: -1000;
     }
-    100% {
-      opacity: 1;
-      transform: scale(1.05);
-    }
   }
 
-  .tech-coin {
+  .node {
     position: absolute;
-    width: 60px;
-    height: 60px;
-    background: rgba(30, 30, 30, 0.6);
+    background: rgba(30, 30, 35, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px; /* Squircle */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 2;
+    color: rgba(255, 255, 255, 0.8);
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s ease;
+  }
+
+  .node:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  }
+
+  .left-node {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+  }
+
+  .left-node svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .n1 {
+    top: 50px;
+    left: 40px;
+  }
+  .n2 {
+    top: 120px;
+    left: 30px;
+  }
+  .n3 {
+    top: 190px;
+    left: 30px;
+  }
+  .n4 {
+    top: 260px;
+    left: 40px;
+  }
+
+  .center-node {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    top: 155px;
+    left: 190px;
+    background: rgba(40, 40, 45, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .center-node svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .right-node {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    top: 155px;
+    left: 330px;
+    background: linear-gradient(
+      135deg,
+      rgba(30, 58, 138, 0.8),
+      rgba(37, 99, 235, 0.8)
+    );
+    border: 1px solid rgba(96, 165, 250, 0.4);
     box-shadow:
-      0 8px 24px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    transition: all 0.3s ease;
+      0 0 30px rgba(59, 130, 246, 0.3),
+      inset 0 0 20px rgba(255, 255, 255, 0.1);
   }
 
-  .tech-coin svg {
-    width: 30px;
-    height: 30px;
-    opacity: 0.9;
+  .right-node-inner {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+    animation: nodePulse 2s infinite alternate ease-in-out;
   }
 
-  /* Structured Node Positions */
-  .coin-python {
-    top: 50px;
-    left: 20px;
-    color: #ffbc00;
-    animation: floatVertical 4s ease-in-out infinite alternate;
+  .right-node-inner svg {
+    width: 34px;
+    height: 34px;
   }
 
-  .coin-docker {
-    bottom: 50px;
-    left: 20px;
-    color: #2496ed;
-    animation: floatVertical 4s ease-in-out infinite alternate-reverse;
-  }
-
-  .coin-postgres {
-    top: 50px;
-    right: 20px;
-    color: #336791;
-    animation: floatVertical 4s ease-in-out infinite alternate 1s;
-  }
-
-  .coin-cloud {
-    bottom: 50px;
-    right: 20px;
-    color: #b5179e; /* Pinkish cloud theme */
-    animation: floatVertical 4s ease-in-out infinite alternate-reverse 1s;
-  }
-
-  @keyframes floatVertical {
+  @keyframes nodePulse {
     0% {
-      transform: translateY(-8px);
+      transform: scale(0.95);
+      opacity: 0.9;
     }
     100% {
-      transform: translateY(8px);
+      transform: scale(1.05);
+      opacity: 1;
     }
+  }
+
+  .diagram-label {
+    position: absolute;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.4);
+    transform: translateX(-50%);
+    top: 310px;
+  }
+
+  .label-building {
+    left: 40px;
+  }
+  .label-deploying {
+    left: 190px;
+  }
+  .label-managing {
+    left: 330px;
+    color: rgba(96, 165, 250, 0.6);
   }
 
   /* Timeline Construction */
