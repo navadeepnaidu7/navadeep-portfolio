@@ -6,6 +6,7 @@
   import ScrollIndicator from "./components/ScrollIndicator.svelte";
   import Experience from "./components/Experience.svelte";
   import Skills from "./components/Skills.svelte";
+  import Writing from "./components/Writing.svelte";
   import Loading from "./components/Loading.svelte";
   import Footer from "./components/Footer.svelte";
   import "./styles/global.css";
@@ -40,6 +41,7 @@
 
       <About />
       <Experience />
+      <Writing />
       <Skills />
     </main>
     <Footer />

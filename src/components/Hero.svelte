@@ -32,7 +32,16 @@
   }
 
   /* Scramble/Decrypt Effect Logic */
-  const greetings = ["HELLO", "HOLA", "NAMASTE","NAMASKARAM", "BONJOUR", "CIAO", "VANAKKAM", "KONNICHIWA"];
+  const greetings = [
+    "HELLO",
+    "HOLA",
+    "NAMASTE",
+    "NAMASKARAM",
+    "BONJOUR",
+    "CIAO",
+    "VANAKKAM",
+    "KONNICHIWA",
+  ];
   let displayedText = "HELLO";
   let interval;
   let cycleInterval;
@@ -172,8 +181,6 @@
 </main>
 
 <style>
-  @import url("https://fonts.cdnfonts.com/css/sf-pro-display");
-
   main {
     display: flex;
     min-height: 100vh;

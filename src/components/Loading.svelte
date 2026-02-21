@@ -1,13 +1,15 @@
 <script>
-  import { onMount } from 'svelte';
-  import { fade } from 'svelte/transition';
-  
+  import { onMount } from "svelte";
+  import { fade } from "svelte/transition";
+
   export let onLoadingComplete;
-  
+
   onMount(() => {
-    setTimeout(() => {
+    const minDelay = new Promise((r) => setTimeout(r, 2000));
+    const fontsReady = document.fonts.ready;
+    Promise.all([minDelay, fontsReady]).then(() => {
       onLoadingComplete();
-    }, 2000);
+    });
   });
 </script>
 
@@ -39,7 +41,7 @@
   }
 
   .logo {
-    font-family: 'VT323', monospace;
+    font-family: "VT323", monospace;
     font-size: 4rem;
     color: #fff;
     margin-bottom: 2rem;
@@ -61,13 +63,26 @@
   }
 
   @keyframes load {
-    from { width: 0; }
-    to { width: 100%; }
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
   }
 
   @keyframes pulse {
-    0% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.95); }
-    100% { opacity: 1; transform: scale(1); }
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 </style>
