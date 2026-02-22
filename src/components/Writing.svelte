@@ -4,6 +4,8 @@
   let articles = [];
   let writingSection;
   let visible = false;
+  let galleryContainer;
+  let activeCardIndex = 0;
 
   // CSS-based "Cosmos Art" to completely fill the cards on hover
   const artStyles = [
@@ -22,6 +24,31 @@
       day: "numeric",
       year: "numeric",
     });
+  }
+
+  function handleScroll() {
+    if (typeof window === "undefined" || !galleryContainer || window.innerWidth > 768) return;
+    
+    const containerRect = galleryContainer.getBoundingClientRect();
+    const containerCenter = containerRect.left + containerRect.width / 2;
+    let minDistance = Infinity;
+    let newActive = activeCardIndex;
+
+    const cards = galleryContainer.querySelectorAll('.gallery-card');
+    cards.forEach((card, index) => {
+      const rect = card.getBoundingClientRect();
+      const cardCenter = rect.left + rect.width / 2;
+      const distance = Math.abs(containerCenter - cardCenter);
+      
+      if (distance < minDistance) {
+        minDistance = distance;
+        newActive = index;
+      }
+    });
+
+    if (activeCardIndex !== newActive) {
+      activeCardIndex = newActive;
+    }
   }
 
   async function fetchArticles() {
@@ -142,14 +169,14 @@
     </div>
 
     <!-- Smooth Elastic Gallery with Dynamic Art -->
-    <div class="elastic-gallery">
+    <div class="elastic-gallery" bind:this={galleryContainer} on:scroll={handleScroll}>
       {#each articles as article, i}
         <!-- svelte-ignore a11y_no_static_element_interactions -->
         <a
           href={article.link}
           target="_blank"
           rel="noopener noreferrer"
-          class="gallery-card"
+          class="gallery-card {activeCardIndex === i ? 'mobile-active' : ''}"
           style="--delay: {0.2 + i * 0.1}s; --card-art: {article.art};"
         >
           <!-- Art Background: Mesh Gradient + CSS Noise Filter -->
@@ -780,10 +807,28 @@
       width: calc(100% - 48px);
     }
 
-    .reveal-content {
+    .gallery-card.mobile-active .reveal-content {
       opacity: 1;
       visibility: visible;
       transform: translateY(0);
+      transition-delay: 0.1s;
+    }
+
+    .gallery-card.mobile-active .card-bg {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    .gallery-card.mobile-active .noise-overlay {
+      opacity: 0.15;
+    }
+
+    .gallery-card.mobile-active .meta-row {
+      opacity: 0.9;
+    }
+
+    .gallery-card.mobile-active .title {
+      color: #ffffff;
     }
   }
 

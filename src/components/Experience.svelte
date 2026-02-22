@@ -6,8 +6,8 @@
 
   const experiences = [
     {
-      role: "Software Engineering Intern",
-      company: "Inheights Enterprises Pvt. LTD",
+      company: "Localaid (Inheights Enterprises)",
+      role: "Software Engineer Intern",
       period: "May 2025 – Oct 2025",
       description: [
         "Contributed to backend systems and API services for core product features.",

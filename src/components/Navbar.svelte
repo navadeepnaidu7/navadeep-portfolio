@@ -101,7 +101,7 @@
 <div class="progress-bar" style="width: {$scrollProgress}%;"></div>
 
 <nav class:hidden={!isVisible}>
-  <div class="logo">N²</div>
+  <div class="logo"><a href="/" style="color: inherit; text-decoration: none; padding: 0;">N²</a></div>
 
   <button
     class="hamburger"
@@ -115,11 +115,12 @@
   </button>
 
   <ul class:menu-open={menuOpen}>
-    <li><a href="#ideasboard" on:click={closeMenu}>IdeaBoard</a></li>
-    <li><a href="#writing" on:click={closeMenu}>Writing</a></li>
-    <li><a href="#skills" on:click={closeMenu}>Skills</a></li>
-    <li><a href="#contact" on:click={closeMenu}>Contact</a></li>
-    <li><a href="#about" on:click={closeMenu}>About</a></li>
+    <li><a href="/#ideasboard" on:click={closeMenu}>IdeaBoard</a></li>
+    <li><a href="/#writing" on:click={closeMenu}>Writing</a></li>
+    <li><a href="/work" on:click={closeMenu}>Work</a></li>
+    <li><a href="/#skills" on:click={closeMenu}>Skills</a></li>
+    <li><a href="/#contact" on:click={closeMenu}>Contact</a></li>
+    <li><a href="/#about" on:click={closeMenu}>About</a></li>
     <li>
       <a
         href="https://drive.google.com/file/d/1ej8kQagn1jKxqDUhMF1i9rIryu2I1NSv/view?usp=drive_link"
@@ -585,6 +586,11 @@
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
     }
 
+    /* Target only the list items to avoid styling the logo incorrectly in mobile */
+    nav ul a {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+    }
+
     nav a:hover, nav a:active {
       color: rgba(255, 255, 255, 1);
       background: transparent;
@@ -596,6 +602,14 @@
       font-size: 1.6rem;
       left: 15px;
       z-index: 1001;
+    }
+    
+    .logo a {
+      padding: 0;
+      font-size: inherit;
+      font-family: inherit;
+      width: auto;
+      letter-spacing: inherit;
     }
 
     .blog-container {
@@ -703,7 +717,7 @@
       padding: 100px 24px 40px;
     }
 
-    nav a {
+    nav ul a {
       padding: 14px 0;
       font-size: 2rem;
     }
