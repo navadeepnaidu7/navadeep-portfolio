@@ -773,7 +773,7 @@
     .gallery-card {
       flex: 0 0 88%;
       scroll-snap-align: center;
-      background: #26262a;
+      background: #101014;
     }
 
     .fixed-content {

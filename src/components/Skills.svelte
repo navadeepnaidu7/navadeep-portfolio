@@ -259,15 +259,6 @@
     letter-spacing: 0.02em;
   }
 
-  .section-subtitle {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.6);
-    margin: 0 auto;
-    max-width: 500px;
-    line-height: 1.5;
-  }
-
   /* Bento Grid */
   .bento-grid {
     display: grid;
@@ -310,6 +301,9 @@
       transparent 50%
     );
     -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
       linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;

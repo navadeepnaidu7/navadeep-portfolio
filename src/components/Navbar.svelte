@@ -404,9 +404,7 @@
   /* Hamburger Menu Button */
   .hamburger {
     display: none;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 26px;
+    width: 28px;
     height: 22px;
     background: transparent;
     border: none;
@@ -414,31 +412,49 @@
     padding: 0;
     z-index: 1002;
     position: absolute;
-    right: 15px;
+    right: 20px;
     top: 50%;
     transform: translateY(-50%);
   }
 
   .hamburger span {
+    position: absolute;
+    left: 0;
     width: 100%;
-    height: 2.5px;
-    background: #ffffff;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-    position: relative;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  .hamburger span:nth-child(1) {
+    top: 2px;
+  }
+
+  .hamburger span:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .hamburger span:nth-child(3) {
+    bottom: 2px;
   }
 
   .hamburger.open span:nth-child(1) {
-    transform: rotate(45deg) translate(6px, 6px);
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    background: #fff;
   }
 
   .hamburger.open span:nth-child(2) {
     opacity: 0;
-    transform: translateX(20px);
+    transform: translateY(-50%) scale(0);
   }
 
   .hamburger.open span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
+    bottom: 50%;
+    transform: translateY(50%) rotate(-45deg);
+    background: #fff;
   }
 
   /* Overlay */
@@ -467,7 +483,7 @@
   /* Mobile menu styles */
   @media (max-width: 768px) {
     nav {
-      padding: 12px 15px;
+      padding: 16px 20px;
     }
 
     .hamburger {
@@ -484,18 +500,20 @@
       right: 0;
       width: 100%;
       height: 100vh;
-      background: rgb(3, 3, 0);
+      background: rgba(10, 10, 12, 0.98);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 80px 40px 40px;
-      gap: 0;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 100px 32px 40px;
+      gap: 16px;
       z-index: 1000;
       opacity: 0;
       visibility: hidden;
       transition:
-        opacity 0.4s ease,
-        visibility 0.4s ease;
+        opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        visibility 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     nav ul.menu-open {
@@ -505,10 +523,15 @@
 
     nav li {
       width: 100%;
-      max-width: 400px;
+      max-width: 100%;
       opacity: 0;
       transform: translateY(20px);
       transition: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    nav li:last-child {
+      border-bottom: none;
     }
 
     nav ul.menu-open li {
@@ -549,19 +572,24 @@
     }
 
     nav a {
+      display: block;
       width: 100%;
-      padding: 18px 20px;
-      font-size: 1.3rem;
-      text-align: center;
-      border-radius: 12px;
+      padding: 16px 0;
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      text-align: left;
+      border-radius: 0;
       transition: all 0.3s ease;
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(255, 255, 255, 0.95);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
     }
 
-    nav a:hover {
+    nav a:hover, nav a:active {
       color: rgba(255, 255, 255, 1);
-      background: rgba(255, 255, 255, 0.05);
-      transform: translateX(5px);
+      background: transparent;
+      transform: none;
+      opacity: 0.7;
     }
 
     .logo {
@@ -572,44 +600,44 @@
 
     .blog-container {
       width: 100%;
-      max-width: 400px;
+      max-width: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
+      margin-bottom: 20px;
     }
 
     .blog-button {
-      width: auto;
+      width: 100%;
       max-width: 100%;
-      padding: 12px 20px !important;
-      font-size: 1.1rem !important;
-      background: rgba(255, 255, 255, 0.08) !important;
-      color: rgba(255, 255, 255, 0.9) !important;
-      border-radius: 35px !important;
-      justify-content: center;
-      margin-top: 15px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      gap: 8px;
+      padding: 16px 0 !important;
+      font-size: 2.2rem !important;
+      font-weight: 600 !important;
+      letter-spacing: -0.02em !important;
+      background: transparent !important;
+      color: rgba(255, 255, 255, 0.95) !important;
+      border: none !important;
+      border-radius: 0 !important;
+      justify-content: flex-start;
+      margin-top: 0;
+      box-shadow: none !important;
+      gap: 12px;
       white-space: nowrap;
       outline: none;
       -webkit-tap-highlight-color: transparent;
+      transition: opacity 0.3s ease !important;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
     }
 
-    .blog-button:hover {
-      background: rgba(255, 255, 255, 0.12) !important;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    .blog-button:hover, .blog-button:active {
+      background: transparent !important;
+      transform: none !important;
+      box-shadow: none !important;
+      opacity: 0.7 !important;
     }
 
     .blog-button:focus-visible {
-      outline: 2px solid rgba(255, 255, 255, 0.3);
-      outline-offset: 4px;
-    }
-
-    .blog-button:active {
-      transform: translateY(0) scale(0.96);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      outline: none;
     }
 
     .chevron-icon {
@@ -629,24 +657,29 @@
     }
 
     .dropdown-item {
-      padding: 14px 16px;
-      text-align: center;
+      padding: 12px 0 12px 16px;
+      text-align: left;
+      border-radius: 0;
     }
 
     .item-text {
-      align-items: center;
+      align-items: flex-start;
     }
 
     .item-title {
-      font-size: 1rem;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.85);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
     }
 
     .item-desc {
-      font-size: 0.85rem;
+      display: none;
     }
 
     .dropdown-item:hover {
-      background: rgba(255, 255, 255, 0.05);
+      background: transparent;
+      opacity: 0.7;
     }
 
     .label-desktop {
@@ -663,41 +696,41 @@
 
   @media (max-width: 480px) {
     nav {
-      padding: 10px;
+      padding: 16px 20px;
     }
 
     nav ul {
-      padding: 70px 30px 40px;
+      padding: 100px 24px 40px;
     }
 
     nav a {
-      padding: 16px 18px;
-      font-size: 1.2rem;
+      padding: 14px 0;
+      font-size: 2rem;
     }
 
     .logo {
-      font-size: 1.4rem;
-      left: 10px;
+      font-size: 1.5rem;
+      left: 20px;
     }
 
     .hamburger {
-      width: 24px;
+      width: 26px;
       height: 20px;
-      right: 10px;
-    }
-
-    .hamburger span {
-      height: 2px;
+      right: 20px;
     }
 
     .blog-button {
-      padding: 11px 18px !important;
-      font-size: 1rem !important;
+      padding: 14px 0 !important;
+      font-size: 2rem !important;
+    }
+
+    .item-title {
+      font-size: 1.3rem;
     }
 
     .chevron-icon {
-      width: 12px;
-      height: 12px;
+      width: 16px;
+      height: 16px;
     }
   }
 

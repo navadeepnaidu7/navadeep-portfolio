@@ -127,6 +127,7 @@
     margin: 0.25rem 0 1rem 0; /* Adjusted margins */
     background: linear-gradient(45deg, #ffffff, #a8a8a8);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 

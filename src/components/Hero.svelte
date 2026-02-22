@@ -567,13 +567,14 @@
     main {
       flex-direction: column;
       text-align: center;
-      padding: 80px 20px 20px;
-      min-height: auto;
+      padding: 100px 20px 40px;
+      min-height: 100vh;
       overflow-x: hidden;
+      justify-content: center;
     }
 
     .left-section {
-      padding: 20px;
+      padding: 20px 0;
       margin-right: 0;
       margin-bottom: 30px;
       max-width: 100%;
@@ -584,7 +585,7 @@
       justify-content: center;
       margin-left: 0;
       order: -1;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       max-width: 100%;
     }
 
@@ -630,11 +631,6 @@
       width: 3rem;
       height: 3rem;
       font-size: 1.2rem;
-    }
-
-    .gradient-cloud {
-      width: 120%;
-      height: 120%;
     }
   }
 
