@@ -5,12 +5,14 @@
   let writingSection;
   let visible = false;
 
-  // CSS-based "Beautiful Art" Mesh Gradients (Minimal & Universal)
-  // These look like high-end fluid digital art without relying on stock images.
+  // CSS-based "Cosmos Art" to completely fill the cards on hover
   const artStyles = [
-    "radial-gradient(ellipse at 10% 20%, rgba(85, 60, 154, 0.45) 0%, transparent 60%), radial-gradient(ellipse at 90% 80%, rgba(30, 80, 150, 0.45) 0%, transparent 60%)",
-    "radial-gradient(ellipse at 80% 10%, rgba(154, 60, 100, 0.4) 0%, transparent 60%), radial-gradient(ellipse at 20% 90%, rgba(40, 110, 140, 0.4) 0%, transparent 60%)",
-    "radial-gradient(ellipse at 50% 0%, rgba(60, 140, 110, 0.4) 0%, transparent 60%), radial-gradient(ellipse at 50% 100%, rgba(110, 70, 150, 0.4) 0%, transparent 60%)",
+    // Rich indigo / cosmic purple fill
+    "radial-gradient(120% 120% at 0% 0%, #1e1b4b 0%, #312e81 40%, #4c1d95 80%, #0f172a 100%)",
+    // Deep starry night / teal and blue fill
+    "radial-gradient(120% 120% at 100% 100%, #0f172a 0%, #1e3a8a 40%, #172554 80%, #020617 100%)",
+    // Dark nebula / amethyst and dark navy fill
+    "radial-gradient(120% 120% at 50% 100%, #2e1065 0%, #4c1d95 40%, #1e1b4b 80%, #020617 100%)",
   ];
 
   function formatDate(dateStr) {
@@ -106,13 +108,21 @@
 
 <section id="writing" bind:this={writingSection}>
   <div class="cosmos-background">
-    <!-- Soft flowing aura backgrounds -->
-    <div class="nebula n-purple"></div>
-    <div class="nebula n-blue"></div>
-    <div class="nebula n-pink"></div>
-
-    <!-- Subtle rotating galaxy effect -->
-    <div class="galaxy-core"></div>
+    <!-- Astrolabe / Celestial Map overlay: ancient tool to map the cosmos, 
+         representing structured observation and writing -->
+    <div class="astrolabe-wrapper">
+      <div class="astrolabe-ring ring-1"></div>
+      <div class="astrolabe-ring ring-2"></div>
+      <div class="astrolabe-ring ring-3"></div>
+      <div class="astrolabe-ring ring-4"></div>
+      <!-- Center glowing focal point -->
+      <div class="astrolabe-core"></div>
+    </div>
+    
+    <!-- Faint, giant intersecting arcs scattered around to make it dynamic but not distracting -->
+    <div class="orbital-arc arc-a"></div>
+    <div class="orbital-arc arc-b"></div>
+    <div class="orbital-arc arc-c"></div>
   </div>
   <div class="ambient-glow"></div>
 
@@ -123,7 +133,7 @@
         <h2 class="main-line">I Build.</h2>
       </div>
       <div class="line-mask serif-mask">
-        <h2 class="serif-line">Then I write it down.</h2>
+        <h2 class="serif-line">And I write it down.</h2>
       </div>
       <p class="sub-text">
         Thoughts on software, systems, and clear thinking. Good solutions don't
@@ -246,92 +256,119 @@
     z-index: 0;
   }
 
-  .nebula {
+  /* ── Celestial Astrolabe (Maps the Cosmos) ── */
+  .astrolabe-wrapper {
+    position: absolute;
+    top: 5%;
+    right: -15%;
+    width: 800px;
+    height: 800px;
+    opacity: 0.15;
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+
+  .astrolabe-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .ring-1 {
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-left-color: transparent;
+    animation: slow-spin 90s linear infinite;
+  }
+
+  .ring-2 {
+    width: 80%;
+    height: 80%;
+    border: 1px dashed rgba(255, 255, 255, 0.3);
+    animation: slow-spin 60s linear infinite reverse;
+  }
+
+  .ring-3 {
+    width: 60%;
+    height: 60%;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    animation: slow-spin 120s linear infinite;
+  }
+
+  .ring-4 {
+    width: 30%;
+    height: 30%;
+    border: 2px dotted rgba(255, 255, 255, 0.6);
+    animation: slow-spin 40s linear infinite reverse;
+  }
+
+  .astrolabe-core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.6);
+  }
+
+  @keyframes slow-spin {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  /* ── Random Intersecting Orbital Arcs ── */
+  .orbital-arc {
     position: absolute;
     border-radius: 50%;
-    filter: blur(90px);
-    opacity: 0.4;
-    animation: drift 25s infinite alternate ease-in-out;
-    transform: translateZ(0); /* Hardware accel */
-  }
-
-  .n-purple {
-    top: -10%;
-    left: 10%;
-    width: 60%;
-    height: 60%;
-    background: radial-gradient(
-      circle,
-      rgba(138, 43, 226, 0.12),
-      transparent 60%
-    );
-  }
-
-  .n-blue {
-    bottom: 10%;
-    right: -10%;
-    width: 70%;
-    height: 70%;
-    background: radial-gradient(
-      circle,
-      rgba(76, 201, 240, 0.12),
-      transparent 60%
-    );
-    animation-delay: -12s;
-    animation-direction: alternate-reverse;
-  }
-
-  @keyframes drift {
-    0% {
-      transform: translate(0, 0) scale(1);
-    }
-    100% {
-      transform: translate(30px, -40px) scale(1.05);
-    }
-  }
-
-  .n-pink {
-    top: 40%;
-    left: 40%;
-    width: 60%;
-    height: 60%;
-    background: radial-gradient(
-      circle,
-      rgba(236, 72, 153, 0.08),
-      transparent 60%
-    );
-    animation-delay: -7s;
-  }
-
-  /* Rotating Galaxy Background */
-  .galaxy-core {
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    transform-origin: center center;
-    background: conic-gradient(
-      from 0deg at 50% 50%,
-      transparent 0deg,
-      rgba(138, 43, 226, 0.04) 90deg,
-      transparent 180deg,
-      rgba(59, 130, 246, 0.04) 270deg,
-      transparent 360deg
-    );
-    animation: rotateGalaxy 120s linear infinite;
-    mix-blend-mode: screen;
+    border: 1px solid rgba(255, 255, 255, 0.04);
     pointer-events: none;
-    z-index: 0;
+    mix-blend-mode: screen;
   }
 
-  @keyframes rotateGalaxy {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+  .arc-a {
+    width: 140vw;
+    height: 140vw;
+    top: -60%;
+    left: -20%;
+    border-left-color: rgba(255, 255, 255, 0.1);
+    transform: rotate(15deg);
+    animation: slow-orbit 180s linear infinite;
+  }
+
+  .arc-b {
+    width: 120vw;
+    height: 120vw;
+    bottom: -50%;
+    right: -30%;
+    border-top-color: rgba(255, 255, 255, 0.08);
+    transform: rotate(-35deg);
+    animation: slow-orbit 240s linear infinite reverse;
+  }
+
+  .arc-c {
+    width: 180vw;
+    height: 180vw;
+    top: 10%;
+    left: -50%;
+    border-bottom-color: rgba(255, 255, 255, 0.05);
+    animation: slow-orbit 200s linear infinite;
+  }
+
+  @keyframes slow-orbit {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   .container {
@@ -421,24 +458,28 @@
     overflow: hidden;
     text-decoration: none;
     color: inherit;
-    /* Ultra smooth, faster Bezier curve to fix jerkiness */
+    /* Clean transition on flex and transform for 60fps feel */
     transition:
-      flex 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+      flex 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
       opacity 0.4s ease,
-      background 0.4s ease;
+      box-shadow 0.4s ease,
+      transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    
+    will-change: flex, transform;
 
     opacity: 0;
     transform: translateY(30px);
 
-    background: #26262a; /* Noticeably lighter grey to pop out from dark background */
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+    /* Solid dark background without glass/border edges for rest state */
+    background: #101014;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
 
   .container.animate .gallery-card {
     opacity: 1;
     transform: translateY(0);
     transition:
-      flex 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+      flex 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
       opacity 0.6s ease var(--delay),
       transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) var(--delay);
   }
@@ -446,16 +487,15 @@
   /* Hover Expansion */
   .gallery-card:hover {
     flex: 2.5; /* Expand factor */
-    background: #323238; /* Distinct lighter grey on hover */
     box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.15) inset,
-      0 20px 40px rgba(0, 0, 0, 0.5);
+      0 20px 40px rgba(0, 0, 0, 0.6),
+      0 0 30px rgba(255, 255, 255, 0.05);
   }
 
   @media (min-width: 769px) {
-    /* Dim un-hovered cards to emphasize focus smoothly */
+    /* Dim un-hovered cards slightly purely using opacity, not filters, for pure 60fps */
     .elastic-gallery:hover .gallery-card:not(:hover) {
-      filter: brightness(0.7);
+      opacity: 0.6;
     }
   }
 
@@ -464,27 +504,37 @@
     position: absolute;
     inset: 0;
     background: var(--card-art);
-    opacity: 0.15;
+    /* Hidden completely at rest to keep the dark clean look */
+    opacity: 0; 
+    /* No heavy saturate/brightness filters, purely opacity for 60fps smooth fade */
     transition:
-      opacity 0.4s ease,
-      transform 0.8s ease;
+      opacity 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+      transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
     pointer-events: none;
     transform: scale(1);
+    will-change: opacity, transform;
   }
 
   .gallery-card:hover .card-bg {
-    opacity: 0.4;
+    /* Reveal the beautiful full-fill gradient cleanly */
+    opacity: 1; 
     transform: scale(1.05); /* Soft, beautiful zoom */
   }
 
-  /* SVG Noise for Texture (makes it feel like real art, not flat colors) */
+  /* SVG Noise for Texture */
   .noise-overlay {
     position: absolute;
     inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.04;
+    opacity: 0;
     mix-blend-mode: overlay;
     pointer-events: none;
+    transition: opacity 0.5s ease;
+    will-change: opacity;
+  }
+
+  .gallery-card:hover .noise-overlay {
+    opacity: 0.15; /* Grainy texture becomes visible on hover */
   }
 
   /* ── Content Alignment (Fixes Uneven Titles) ── */
