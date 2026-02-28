@@ -24,4 +24,7 @@ dist-ssr
 *.sw?
 .vscode
 .env
+.dev.vars
 .agents
+.wrangler
+migrations

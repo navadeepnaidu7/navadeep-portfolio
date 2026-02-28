@@ -8,5 +8,8 @@ command = "npm run build"
 [[assets]]
 directory = "dist"
 
-
+[[d1_databases]]
+binding = "DB"
+database_name = "portfolio-visitors"
+database_id = "<YOUR_D1_DATABASE_ID>"
 

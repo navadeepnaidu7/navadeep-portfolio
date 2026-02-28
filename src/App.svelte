@@ -10,6 +10,7 @@
   import Work from "./components/Work.svelte";
   import WorkFullPage from "./pages/WorkFullPage.svelte";
   import ProjectDetailPage from "./pages/ProjectDetailPage.svelte";
+  import BoardPage from "./pages/BoardPage.svelte";
   import Loading from "./components/Loading.svelte";
   import Footer from "./components/Footer.svelte";
   import "./styles/global.css";
@@ -28,16 +29,17 @@
   }
 
   onMount(() => {
-    window.addEventListener("scroll", () => {
+    function handleScroll() {
       showScrollIndicator = window.pageYOffset < 100;
-    });
+    }
 
+    window.addEventListener("scroll", handleScroll);
     window.addEventListener("popstate", handleNavigation);
     
     // Intercept clicks on internal links to handle routing
-    document.body.addEventListener("click", e => {
-      const a = e.target.closest("a");
-      if (a && a.href && a.href.startsWith(window.location.origin) && !a.hasAttribute("data-sveltekit-noscroll") && !a.getAttribute("href").startsWith("#") && !a.getAttribute("href").includes("drive.google.com")) {
+    function handleClick(e) {
+      const a = /** @type {HTMLElement} */ (e.target).closest("a");
+      if (a && a.href && a.href.startsWith(window.location.origin) && !a.hasAttribute("data-sveltekit-noscroll") && !a.hasAttribute("data-external") && !a.getAttribute("href").startsWith("#") && !a.getAttribute("href").startsWith("/api/") && !a.getAttribute("href").includes("drive.google.com")) {
         // If it's just a hash link from home, let it scroll normally if we are on home
         if (a.getAttribute("href").startsWith("/#") && currentPath === "/") {
             e.preventDefault();
@@ -59,10 +61,14 @@
             }, 100);
         }
       }
-    });
+    }
+
+    document.body.addEventListener("click", handleClick);
 
     return () => {
+      window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("popstate", handleNavigation);
+      document.body.removeEventListener("click", handleClick);
     }
   });
 </script>
@@ -91,6 +97,8 @@
         <WorkFullPage />
       {:else if currentPath.startsWith("/work/")}
         <ProjectDetailPage slug={currentPath.split("/")[2]} />
+      {:else if currentPath === "/board" || currentPath === "/board/"}
+        <BoardPage />
       {/if}
     </main>
     <Footer />
