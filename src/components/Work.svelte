@@ -89,7 +89,7 @@
 
       <!-- ── Interactive Knowledge Graph ── -->
       <div class="bento-cell graph-cell">
-        <ForceGraph />
+        <ForceGraph {visible} />
       </div>
 
       <!-- Remaining project cards -->

@@ -1,8 +1,11 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, afterUpdate } from "svelte";
+
+  export let visible = false;
 
   let canvas;
   let cleanup;
+  let triggerBloom; // function set by init(), called when visible flips
 
   const NODES = [
     { id: 'systems',   label: 'Systems',       type: 'core',    color: '#818cf8' },
@@ -73,6 +76,29 @@
     let dragId = null;
     let animId;
 
+    // ── Bloom state ──
+    let bloomProgress = 0;   // 0 = collapsed at center, 1 = fully expanded
+    let bloomStartTime = 0;
+    const BLOOM_DURATION = 1800; // ms
+    let hasBloomedOnce = false;
+
+    // ── Stars (space background) ──
+    let stars = [];
+    const STAR_COUNT = 45;
+    function generateStars() {
+      stars = [];
+      for (let i = 0; i < STAR_COUNT; i++) {
+        stars.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: Math.random() * 1.2 + 0.3,
+          twinkleSpeed: Math.random() * 2 + 1,
+          twinkleOffset: Math.random() * Math.PI * 2,
+          baseAlpha: Math.random() * 0.25 + 0.08,
+        });
+      }
+    }
+
     // ── Sizing ──
     function resize() {
       const rect = container.getBoundingClientRect();
@@ -90,6 +116,7 @@
     }
 
     resize();
+    generateStars();
 
     // ── Build nodes ──
     const nodeMap = {};
@@ -119,6 +146,14 @@
 
     // Warm up physics so the graph starts settled
     for (let i = 0; i < 80; i++) simulate();
+
+    // ── Bloom trigger ──
+    triggerBloom = () => {
+      if (hasBloomedOnce) return;
+      hasBloomedOnce = true;
+      bloomProgress = 0;
+      bloomStartTime = Date.now();
+    };
 
     // ── Physics simulation ──
     function simulate() {
@@ -172,18 +207,58 @@
     // ── Canvas rendering ──
     function draw() {
       ctx.clearRect(0, 0, width, height);
+
+      // ── Update bloom progress ──
+      if (bloomStartTime > 0 && bloomProgress < 1) {
+        bloomProgress = Math.min(1, (Date.now() - bloomStartTime) / BLOOM_DURATION);
+      }
+      // Eased bloom (cubic ease-out)
+      const bp = 1 - Math.pow(1 - bloomProgress, 3);
+
       const hov = hoveredId;
       const conn = hov ? adjacency[hov] : null;
       const time = Date.now() * 0.002;
+      const cx = width / 2, cy = height / 2;
+
+      // ── Draw space background ──
+      // Subtle nebula glow
+      const nebulaGrad = ctx.createRadialGradient(cx * 0.6, cy * 0.4, 0, cx * 0.6, cy * 0.4, width * 0.5);
+      nebulaGrad.addColorStop(0, `rgba(99, 102, 241, ${0.02 * bp})`);
+      nebulaGrad.addColorStop(0.5, `rgba(139, 92, 246, ${0.01 * bp})`);
+      nebulaGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = nebulaGrad;
+      ctx.fillRect(0, 0, width, height);
+
+      const nebulaGrad2 = ctx.createRadialGradient(cx * 1.4, cy * 1.3, 0, cx * 1.4, cy * 1.3, width * 0.4);
+      nebulaGrad2.addColorStop(0, `rgba(6, 182, 212, ${0.015 * bp})`);
+      nebulaGrad2.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = nebulaGrad2;
+      ctx.fillRect(0, 0, width, height);
+
+      // Stars
+      for (const s of stars) {
+        const twinkle = Math.sin(time * s.twinkleSpeed + s.twinkleOffset) * 0.5 + 0.5;
+        const alpha = s.baseAlpha * (0.5 + twinkle * 0.5) * bp;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+        ctx.fill();
+      }
 
       // Draw edges
       for (const { source: s, target: t } of edges) {
         const isLit = hov && (s.id === hov || t.id === hov);
         const isDim = hov && !isLit;
 
+        // Bloom-interpolated positions
+        const sx = cx + (s.x - cx) * bp;
+        const sy = cy + (s.y - cy) * bp;
+        const tx = cx + (t.x - cx) * bp;
+        const ty = cy + (t.y - cy) * bp;
+
         ctx.beginPath();
-        ctx.moveTo(s.x, s.y);
-        ctx.lineTo(t.x, t.y);
+        ctx.moveTo(sx, sy);
+        ctx.lineTo(tx, ty);
 
         if (isLit) {
           ctx.strokeStyle = `rgba(${hexToRgb(s.color)}, 0.55)`;
@@ -211,15 +286,19 @@
         const isDim = hov && !isHov && !isCon;
         const pulse = n.type === 'core' ? (Math.sin(time) * 0.12 + 1) : 1;
         const r = (isHov ? n.radius * 1.6 : isCon ? n.radius * 1.25 : n.radius) * pulse;
-        const a = isDim ? 0.18 : 1;
+        const a = isDim ? 0.18 : bp;
+
+        // Bloom-interpolated position
+        const nx = cx + (n.x - cx) * bp;
+        const ny = cy + (n.y - cy) * bp;
 
         // Outer glow
         if (!isDim) {
           ctx.beginPath();
           const glowR = r * 3.5;
-          ctx.arc(n.x, n.y, glowR, 0, Math.PI * 2);
-          const glow = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, glowR);
-          const glowA = isHov ? 0.3 : n.type === 'core' ? (0.1 + Math.sin(time) * 0.04) : 0.08;
+          ctx.arc(nx, ny, glowR, 0, Math.PI * 2);
+          const glow = ctx.createRadialGradient(nx, ny, 0, nx, ny, glowR);
+          const glowA = (isHov ? 0.3 : n.type === 'core' ? (0.1 + Math.sin(time) * 0.04) : 0.08) * bp;
           glow.addColorStop(0, `rgba(${hexToRgb(n.color)}, ${glowA})`);
           glow.addColorStop(1, 'rgba(0,0,0,0)');
           ctx.fillStyle = glow;
@@ -228,8 +307,8 @@
 
         // Node circle
         ctx.beginPath();
-        ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
-        const grad = ctx.createRadialGradient(n.x - r * 0.3, n.y - r * 0.3, 0, n.x, n.y, r);
+        ctx.arc(nx, ny, r * bp, 0, Math.PI * 2);
+        const grad = ctx.createRadialGradient(nx - r * 0.3, ny - r * 0.3, 0, nx, ny, r);
         grad.addColorStop(0, `rgba(255,255,255,${0.9 * a})`);
         grad.addColorStop(1, `rgba(${hexToRgb(n.color)},${a})`);
         ctx.fillStyle = grad;
@@ -237,9 +316,10 @@
 
         // Label
         const showLabel = n.type !== 'leaf' || isHov || isCon;
-        if (showLabel) {
-          const la = isDim ? 0.12 : isHov ? 0.95
-            : n.type === 'core' ? 0.7 : n.type === 'primary' ? 0.5 : 0.38;
+        if (showLabel && bp > 0.3) {
+          const labelFade = Math.min(1, (bp - 0.3) / 0.7); // labels fade in after 30% bloom
+          const la = (isDim ? 0.12 : isHov ? 0.95
+            : n.type === 'core' ? 0.7 : n.type === 'primary' ? 0.5 : 0.38) * labelFade;
           ctx.font = n.type === 'core'
             ? '600 11px "SF Pro Display","Inter",sans-serif'
             : n.type === 'primary'
@@ -248,7 +328,7 @@
           ctx.fillStyle = `rgba(255,255,255,${la})`;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'top';
-          ctx.fillText(n.label, n.x, n.y + r + 6);
+          ctx.fillText(n.label, nx, ny + r + 6);
         }
       }
     }
@@ -262,9 +342,13 @@
 
     // ── Mouse interaction ──
     function nodeAt(mx, my) {
+      const bp2 = 1 - Math.pow(1 - bloomProgress, 3);
+      const ccx = width / 2, ccy = height / 2;
       for (let i = nodes.length - 1; i >= 0; i--) {
         const n = nodes[i];
-        const dx = mx - n.x, dy = my - n.y;
+        const nx = ccx + (n.x - ccx) * bp2;
+        const ny = ccy + (n.y - ccy) * bp2;
+        const dx = mx - nx, dy = my - ny;
         const hr = Math.max(n.radius * 2.5, 14);
         if (dx * dx + dy * dy < hr * hr) return n;
       }
@@ -314,7 +398,7 @@
     canvas.addEventListener('mouseup', onUp);
     canvas.addEventListener('mouseleave', onLeave);
 
-    const ro = new ResizeObserver(() => resize());
+    const ro = new ResizeObserver(() => { resize(); generateStars(); });
     ro.observe(container);
 
     tick();
@@ -334,6 +418,9 @@
     cleanup = init();
     return () => { if (cleanup) cleanup(); };
   });
+
+  // Watch for visible prop change to trigger bloom
+  $: if (visible && triggerBloom) triggerBloom();
 </script>
 
 <canvas class="force-graph" bind:this={canvas}></canvas>
