@@ -2,7 +2,6 @@
   "version": 1,
   "include": ["/*"],
   "exclude": [
-    "/api/*",
     "/assets/*",
     "/*.js",
     "/*.css",
@@ -14,13 +13,5 @@
     "/*.ico",
     "/*.woff",
     "/*.woff2"
-  ],
-  "rules": [
-    {
-      "type": "rewrite",
-      "include": ["/*"],
-      "exclude": ["/assets/*", "/api/*"],
-      "destination": "/index.html"
-    }
   ]
 }
