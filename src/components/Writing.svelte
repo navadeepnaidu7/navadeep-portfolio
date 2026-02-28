@@ -512,11 +512,13 @@
   }
 
   /* Hover Expansion */
-  .gallery-card:hover {
-    flex: 2.5; /* Expand factor */
-    box-shadow:
-      0 20px 40px rgba(0, 0, 0, 0.6),
-      0 0 30px rgba(255, 255, 255, 0.05);
+  @media (hover: hover) and (pointer: fine) {
+    .gallery-card:hover {
+      flex: 2.5; /* Expand factor */
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.6),
+        0 0 30px rgba(255, 255, 255, 0.05);
+    }
   }
 
   @media (min-width: 769px) {
@@ -542,10 +544,12 @@
     will-change: opacity, transform;
   }
 
-  .gallery-card:hover .card-bg {
-    /* Reveal the beautiful full-fill gradient cleanly */
-    opacity: 1; 
-    transform: scale(1.05); /* Soft, beautiful zoom */
+  @media (hover: hover) and (pointer: fine) {
+    .gallery-card:hover .card-bg {
+      /* Reveal the beautiful full-fill gradient cleanly */
+      opacity: 1; 
+      transform: scale(1.05); /* Soft, beautiful zoom */
+    }
   }
 
   /* SVG Noise for Texture */
@@ -560,8 +564,10 @@
     will-change: opacity;
   }
 
-  .gallery-card:hover .noise-overlay {
-    opacity: 0.15; /* Grainy texture becomes visible on hover */
+  @media (hover: hover) and (pointer: fine) {
+    .gallery-card:hover .noise-overlay {
+      opacity: 0.15; /* Grainy texture becomes visible on hover */
+    }
   }
 
   /* ── Content Alignment (Fixes Uneven Titles) ── */
@@ -592,8 +598,10 @@
     transition: opacity 0.4s ease;
   }
 
-  .gallery-card:hover .meta-row {
-    opacity: 0.9;
+  @media (hover: hover) and (pointer: fine) {
+    .gallery-card:hover .meta-row {
+      opacity: 0.9;
+    }
   }
 
   .category {
@@ -628,8 +636,10 @@
     transition: color 0.4s ease;
   }
 
-  .gallery-card:hover .title {
-    color: #ffffff;
+  @media (hover: hover) and (pointer: fine) {
+    .gallery-card:hover .title {
+      color: #ffffff;
+    }
   }
 
   /* ── Reveal Content (Now fades in BELOW the title) ── */
@@ -644,11 +654,13 @@
     margin-top: 8px;
   }
 
-  .gallery-card:hover .reveal-content {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    transition-delay: 0.1s;
+  @media (hover: hover) and (pointer: fine) {
+    .gallery-card:hover .reveal-content {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      transition-delay: 0.1s;
+    }
   }
 
   .description {
@@ -678,8 +690,10 @@
     transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
-  .gallery-card:hover .read-action svg {
-    transform: translateX(4px);
+  @media (hover: hover) and (pointer: fine) {
+    .gallery-card:hover .read-action svg {
+      transform: translateX(4px);
+    }
   }
 
   /* ── Sleek Webflow-Style Centered Button ── */

@@ -33,7 +33,7 @@
       <!-- Typography Intro -->
       <header class="project-header">
         <div class="meta-info">
-          <span class="category">{project.category}</span>
+          <span class="category">{project.tags[0]}</span>
           <span class="date">{new Date(project.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</span>
         </div>
         
@@ -44,7 +44,7 @@
         </p>
 
         <div class="tech-stack">
-          {#each project.techStack as tech}
+          {#each project.tags.slice(1) as tech}
             <span class="tech-tag">{tech}</span>
           {/each}
         </div>
