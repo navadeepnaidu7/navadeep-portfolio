@@ -115,7 +115,6 @@
   </button>
 
   <ul class:menu-open={menuOpen}>
-    <li><a href="/#ideasboard" on:click={closeMenu}>IdeaBoard</a></li>
     <li><a href="/#writing" on:click={closeMenu}>Writing</a></li>
     <li><a href="/work" on:click={closeMenu}>Work</a></li>
     <li><a href="/#skills" on:click={closeMenu}>Skills</a></li>
@@ -405,31 +404,42 @@
   /* Hamburger Menu Button */
   .hamburger {
     display: none;
-    width: 28px;
-    height: 22px;
+    width: 44px;
+    height: 44px;
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 0;
+    padding: 10px 8px;
     z-index: 1002;
     position: absolute;
-    right: 20px;
+    right: 12px;
     top: 50%;
     transform: translateY(-50%);
+    -webkit-tap-highlight-color: transparent;
+    border-radius: 10px;
+    transition: background 0.2s ease;
+  }
+
+  .hamburger:active {
+    background: rgba(255, 255, 255, 0.08);
   }
 
   .hamburger span {
     position: absolute;
-    left: 0;
-    width: 100%;
-    height: 2px;
+    left: 10px;
+    right: 10px;
+    height: 1.5px;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 2px;
-    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition:
+      top 0.25s ease 0.25s,
+      bottom 0.25s ease 0.25s,
+      opacity 0.15s ease 0.1s,
+      transform 0.25s ease;
   }
 
   .hamburger span:nth-child(1) {
-    top: 2px;
+    top: 14px;
   }
 
   .hamburger span:nth-child(2) {
@@ -438,7 +448,15 @@
   }
 
   .hamburger span:nth-child(3) {
-    bottom: 2px;
+    bottom: 14px;
+  }
+
+  .hamburger.open span {
+    transition:
+      top 0.25s ease,
+      bottom 0.25s ease,
+      opacity 0.15s ease 0.15s,
+      transform 0.25s ease 0.25s;
   }
 
   .hamburger.open span:nth-child(1) {
@@ -449,7 +467,6 @@
 
   .hamburger.open span:nth-child(2) {
     opacity: 0;
-    transform: translateY(-50%) scale(0);
   }
 
   .hamburger.open span:nth-child(3) {
@@ -484,11 +501,13 @@
   /* Mobile menu styles */
   @media (max-width: 768px) {
     nav {
-      padding: 16px 20px;
+      padding: 18px 20px;
     }
 
     .hamburger {
       display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .overlay {
@@ -507,8 +526,8 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
-      padding: 100px 32px 40px;
-      gap: 16px;
+      padding: 90px 32px 40px;
+      gap: 4px;
       z-index: 1000;
       opacity: 0;
       visibility: hidden;
@@ -528,7 +547,7 @@
       opacity: 0;
       transform: translateY(20px);
       transition: none;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     nav li:last-child {
@@ -575,15 +594,15 @@
     nav a {
       display: block;
       width: 100%;
-      padding: 16px 0;
-      font-size: 2.2rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
+      padding: 14px 0;
+      font-size: 1.35rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
       text-align: left;
       border-radius: 0;
       transition: all 0.3s ease;
-      color: rgba(255, 255, 255, 0.95);
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+      color: rgba(255, 255, 255, 0.85);
+      font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     /* Target only the list items to avoid styling the logo incorrectly in mobile */
@@ -624,23 +643,23 @@
     .blog-button {
       width: 100%;
       max-width: 100%;
-      padding: 16px 0 !important;
-      font-size: 2.2rem !important;
-      font-weight: 600 !important;
-      letter-spacing: -0.02em !important;
+      padding: 14px 0 !important;
+      font-size: 1.35rem !important;
+      font-weight: 500 !important;
+      letter-spacing: -0.01em !important;
       background: transparent !important;
-      color: rgba(255, 255, 255, 0.95) !important;
+      color: rgba(255, 255, 255, 0.85) !important;
       border: none !important;
       border-radius: 0 !important;
       justify-content: flex-start;
       margin-top: 0;
       box-shadow: none !important;
-      gap: 12px;
+      gap: 10px;
       white-space: nowrap;
       outline: none;
       -webkit-tap-highlight-color: transparent;
       transition: opacity 0.3s ease !important;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+      font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     .blog-button:hover, .blog-button:active {
@@ -681,10 +700,10 @@
     }
 
     .item-title {
-      font-size: 1.4rem;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.85);
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.6);
+      font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     .item-desc {
@@ -710,41 +729,39 @@
 
   @media (max-width: 480px) {
     nav {
-      padding: 16px 20px;
+      padding: 16px 16px;
     }
 
     nav ul {
-      padding: 100px 24px 40px;
+      padding: 80px 24px 40px;
     }
 
     nav ul a {
-      padding: 14px 0;
-      font-size: 2rem;
+      padding: 12px 0;
+      font-size: 1.2rem;
     }
 
     .logo {
-      font-size: 1.5rem;
-      left: 20px;
+      font-size: 1.4rem;
+      left: 16px;
     }
 
     .hamburger {
-      width: 26px;
-      height: 20px;
-      right: 20px;
+      right: 8px;
     }
 
     .blog-button {
-      padding: 14px 0 !important;
-      font-size: 2rem !important;
+      padding: 12px 0 !important;
+      font-size: 1.2rem !important;
     }
 
     .item-title {
-      font-size: 1.3rem;
+      font-size: 1rem;
     }
 
     .chevron-icon {
-      width: 16px;
-      height: 16px;
+      width: 12px;
+      height: 12px;
     }
   }
 

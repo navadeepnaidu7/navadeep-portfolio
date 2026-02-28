@@ -499,58 +499,38 @@
     animation: fadeIn 0.8s ease 0.2s both;
   }
 
-  /* ── GitHub button — shimmer sweep ── */
+  /* ── GitHub button ── */
   .github-btn {
     position: relative;
     display: inline-flex;
     align-items: center;
-    padding: 14px 32px;
-    border-radius: 100px;
+    padding: 14px 34px;
+    border-radius: 980px;
     text-decoration: none;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    background: transparent;
+    border: none;
+    background: #fff;
     animation: fadeIn 0.8s ease 0.3s both;
+    transition: background 0.3s ease,
+                opacity 0.3s ease;
   }
 
   .btn-bg {
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: inherit;
-    transition: background 0.4s ease;
-  }
-
-  .github-btn:hover .btn-bg {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  /* shimmer sweep on hover */
-  .github-btn::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      120deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.12) 45%,
-      rgba(255, 255, 255, 0.06) 55%,
-      transparent 100%
-    );
-    transition: left 0s ease;
-  }
-  .github-btn:hover::after {
-    left: 100%;
-    transition: left 0.6s ease;
+    display: none;
   }
 
   .github-btn:hover {
-    border-color: rgba(255, 255, 255, 0.22);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.88);
+  }
+
+  .github-btn:active {
+    background: rgba(255, 255, 255, 0.7);
+    transition: background 0.08s ease;
+  }
+
+  /* remove shimmer */
+  .github-btn::after {
+    display: none;
   }
 
   .btn-content {
@@ -559,10 +539,11 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #f1f1f1;
-    font-family: "SF Pro Display", "Inter", sans-serif;
+    color: #000;
+    font-family: "SF Pro Display", "Inter", -apple-system, sans-serif;
     font-size: 0.95rem;
     font-weight: 500;
+    letter-spacing: -0.01em;
   }
 
   .success-msg {
@@ -769,31 +750,168 @@
   /* ── Responsive ── */
   @media (max-width: 768px) {
     .hero {
-      min-height: 65vh;
-      padding: 100px 16px 40px;
+      min-height: auto;
+      padding: 90px 20px 36px;
     }
     .back-link {
-      top: 80px;
+      top: 60px;
       left: 20px;
     }
     .main-line {
-      font-size: 3.2rem;
+      font-size: 3rem;
     }
     .sub-text {
-      font-size: 1rem;
+      font-size: 0.95rem;
+      margin-bottom: 28px;
     }
     .steps {
-      flex-direction: column;
-      gap: 8px;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
     }
+
+    .step-label {
+      font-size: 0.72rem;
+    }
+
+    .step-num {
+      width: 20px;
+      height: 20px;
+      font-size: 0.6rem;
+    }
+
     .step-arrow {
-      transform: rotate(90deg);
+      font-size: 0.65rem;
     }
+
+    .privacy-note {
+      font-size: 0.68rem;
+    }
+
     .container {
       padding: 0 16px 60px;
     }
+
+    /* Apple-style 4-column grid — avatar + name + handle */
     .visitors-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px 8px;
+      justify-items: center;
+    }
+
+    .visitor-card {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .visitor-card:hover {
+      background: transparent;
+      transform: none;
+      box-shadow: none;
+      border-color: transparent;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border: none;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .visitor-card:hover .avatar {
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    .visitor-info {
+      align-items: center;
+      gap: 0;
+      min-width: 0;
+      width: 100%;
+    }
+
+    .visitor-name {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .visitor-handle {
+      font-size: 0.6rem;
+      color: rgba(255, 255, 255, 0.3);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      line-height: 1.3;
+    }
+
+    .visit-date {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero {
+      padding: 80px 16px 28px;
+    }
+
+    .back-link {
+      top: 56px;
+      left: 16px;
+      font-size: 0.82rem;
+    }
+
+    .main-line {
+      font-size: 2.4rem;
+    }
+
+    .sub-text {
+      font-size: 0.88rem;
+      margin-bottom: 24px;
+    }
+
+    .github-btn {
+      padding: 12px 28px;
+    }
+
+    .btn-content {
+      font-size: 0.85rem;
+      gap: 8px;
+    }
+
+    .container {
+      padding: 0 12px 40px;
+    }
+
+    .visitors-grid {
+      gap: 16px 6px;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+    }
+
+    .visitor-name {
+      font-size: 0.64rem;
+    }
+
+    .visitor-handle {
+      font-size: 0.56rem;
     }
   }
 </style>

@@ -494,9 +494,73 @@
       font-size: 0.95rem;
     }
 
+    /* Switch to avatar-only horizontal row */
     .visitors-grid {
-      grid-template-columns: 1fr;
-      gap: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 36px;
+    }
+
+    .visitor-card {
+      padding: 0;
+      background: none;
+      border: none;
+      border-radius: 50%;
+      margin-left: -10px;
+      animation: none;
+      opacity: 1;
+    }
+
+    .visitor-card:first-child {
+      margin-left: 0;
+    }
+
+    .visitor-card:hover {
+      background: none;
+      border-color: transparent;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .visitor-avatar {
+      width: 52px;
+      height: 52px;
+      border: 2.5px solid #0a0a0c;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    .visitor-card:hover .visitor-avatar {
+      border-color: #0a0a0c;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
+    }
+
+    .visitor-info {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .wall-preview {
+      padding: 60px 16px 80px;
+    }
+
+    .wall-title {
+      font-size: 1.8rem;
+    }
+
+    .wall-subtitle {
+      font-size: 0.88rem;
+    }
+
+    .visitor-avatar {
+      width: 44px;
+      height: 44px;
+    }
+
+    .btn-inner {
+      padding: 12px 24px;
+      font-size: 0.82rem;
     }
   }
 </style>

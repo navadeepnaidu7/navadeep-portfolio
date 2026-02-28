@@ -753,4 +753,43 @@
       padding: 24px;
     }
   }
+
+  @media (max-width: 480px) {
+    #experience {
+      padding: 40px 16px 80px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.95rem;
+      margin-top: 12px;
+    }
+
+    .job-card {
+      padding: 20px;
+    }
+
+    .role {
+      font-size: 1.1rem;
+    }
+
+    .company {
+      font-size: 0.85rem;
+    }
+
+    .responsibilities {
+      font-size: 0.88rem;
+    }
+
+    .timeline {
+      padding-left: 16px;
+    }
+
+    .timeline-marker {
+      left: -22px;
+    }
+  }
 </style>

@@ -540,7 +540,6 @@
   @media (max-width: 1024px) {
     main {
       padding: 15px;
-      overflow-x: hidden;
     }
 
     .left-section {
@@ -568,8 +567,7 @@
       flex-direction: column;
       text-align: center;
       padding: 100px 20px 40px;
-      min-height: 100vh;
-      overflow-x: hidden;
+      min-height: 100dvh;
       justify-content: center;
     }
 
@@ -632,6 +630,17 @@
       height: 3rem;
       font-size: 1.2rem;
     }
+
+    .scramble-text {
+      font-size: 1.2rem;
+    }
+
+    .latest-article {
+      position: relative;
+      bottom: auto;
+      margin-top: 2rem;
+      font-size: 0.78rem;
+    }
   }
 
   @media (max-width: 480px) {
@@ -676,6 +685,10 @@
       width: 2.8rem;
       height: 2.8rem;
       font-size: 1.1rem;
+    }
+
+    .scramble-text {
+      font-size: 1rem;
     }
   }
 </style>
