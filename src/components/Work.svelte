@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import { projects } from "../lib/projects.js";
   import ProjectCard from "./ProjectCard.svelte";
+  import ForceGraph from "./ForceGraph.svelte";
 
   let workSection;
   let visible = false;
@@ -76,15 +77,31 @@
 
     <!-- Bento Grid Gallery for Projects -->
     <div class="projects-bento">
-      {#each topProjects as project, i}
+      <!-- First featured card -->
+      <div class="bento-cell featured">
+        <ProjectCard
+          project={topProjects[0]}
+          index={0}
+          artStyle={artStyles[0]}
+          featured={true}
+        />
+      </div>
+
+      <!-- ── Interactive Knowledge Graph ── -->
+      <div class="bento-cell graph-cell">
+        <ForceGraph />
+      </div>
+
+      <!-- Remaining project cards -->
+      {#each topProjects.slice(1) as project, i}
         <div
           class="bento-cell"
           class:featured={project.hasDeepDive}
         >
           <ProjectCard
             {project}
-            index={i}
-            artStyle={artStyles[i % artStyles.length]}
+            index={i + 1}
+            artStyle={artStyles[(i + 1) % artStyles.length]}
             featured={project.hasDeepDive}
           />
         </div>
@@ -294,6 +311,21 @@
       transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) var(--delay);
   }
 
+  /* ══════════════════════════════════════════════════
+     GRAPH VIEW — Obsidian-style knowledge graph
+     ══════════════════════════════════════════════════ */
+  .graph-cell {
+    grid-column: span 2;
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  .container.animate .graph-cell {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.9s ease 0.3s, transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s;
+  }
+
   /* ── Sleek Webflow-Style Centered Button ── */
   .footer-wrapper {
     margin-top: 55px;
@@ -402,6 +434,10 @@
     .bento-cell,
     .bento-cell.featured {
       grid-column: span 1;
+    }
+
+    .graph-cell {
+      display: none;
     }
   }
 
