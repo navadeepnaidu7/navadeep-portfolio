@@ -6,6 +6,7 @@
   import ScrollIndicator from "./components/ScrollIndicator.svelte";
   import Experience from "./components/Experience.svelte";
   import Skills from "./components/Skills.svelte";
+  import WallPreview from "./components/WallPreview.svelte";
   import Writing from "./components/Writing.svelte";
   import Work from "./components/Work.svelte";
   import WorkFullPage from "./pages/WorkFullPage.svelte";
@@ -93,6 +94,7 @@
         <Writing />
         <Work />
         <Skills />
+        <WallPreview />
       {:else if currentPath === "/work" || currentPath === "/work/"}
         <WorkFullPage />
       {:else if currentPath.startsWith("/work/")}
