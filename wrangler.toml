@@ -1,5 +1,4 @@
 name = "portfolio"
-type = "javascript"
 compatibility_date = "2025-11-01"
 
 [build]
@@ -11,5 +10,5 @@ directory = "dist"
 [[d1_databases]]
 binding = "DB"
 database_name = "portfolio-visitors"
-database_id = "<YOUR_D1_DATABASE_ID>"
+database_id = "8ce817a8-a533-42dd-9725-e6d1d9e1f7fe"
 
