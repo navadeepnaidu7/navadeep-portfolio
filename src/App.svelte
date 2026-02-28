@@ -14,6 +14,7 @@
   import BoardPage from "./pages/BoardPage.svelte";
   import Loading from "./components/Loading.svelte";
   import Footer from "./components/Footer.svelte";
+  import FloatingActions from "./components/FloatingActions.svelte";
   import "./styles/global.css";
 
   let showScrollIndicator = true;
@@ -95,6 +96,7 @@
         <Work />
         <Skills />
         <WallPreview />
+        <FloatingActions />
       {:else if currentPath === "/work" || currentPath === "/work/"}
         <WorkFullPage />
       {:else if currentPath.startsWith("/work/")}
