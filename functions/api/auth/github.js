@@ -10,15 +10,20 @@ export async function onRequestGet(context) {
     });
   }
 
+  const state = crypto.randomUUID();
   const redirectUri = new URL("/api/auth/callback", context.request.url).href;
   const params = new URLSearchParams({
     client_id: clientId,
     redirect_uri: redirectUri,
     scope: "read:user",
+    state: state,
   });
 
-  return Response.redirect(
-    `https://github.com/login/oauth/authorize?${params.toString()}`,
-    302
-  );
+  return new Response(null, {
+    status: 302,
+    headers: {
+      Location: `https://github.com/login/oauth/authorize?${params.toString()}`,
+      "Set-Cookie": `oauth_state=${state}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=300`,
+    },
+  });
 }

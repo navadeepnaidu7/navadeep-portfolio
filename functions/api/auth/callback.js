@@ -3,9 +3,37 @@ export async function onRequestGet(context) {
   const { env, request } = context;
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
+  const state = url.searchParams.get("state");
+
+  // Parse Cookie header to get stored oauth_state
+  const cookieHeader = request.headers.get("Cookie") || "";
+  let storedState = null;
+  cookieHeader.split(";").forEach(c => {
+    const parts = c.split("=");
+    if (parts.length === 2 && parts[0].trim() === "oauth_state") {
+      storedState = parts[1].trim();
+    }
+  });
+
+  // Verify state parameter to prevent login CSRF
+  if (!state || !storedState || state !== storedState) {
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: new URL("/board?error=csrf_detected", url.origin).href,
+        "Set-Cookie": "oauth_state=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0",
+      },
+    });
+  }
 
   if (!code) {
-    return Response.redirect(new URL("/board?error=no_code", url.origin).href, 302);
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: new URL("/board?error=no_code", url.origin).href,
+        "Set-Cookie": "oauth_state=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0",
+      },
+    });
   }
 
   try {
@@ -25,7 +53,13 @@ export async function onRequestGet(context) {
 
     const tokenData = await tokenRes.json();
     if (tokenData.error || !tokenData.access_token) {
-      return Response.redirect(new URL("/board?error=auth_failed", url.origin).href, 302);
+      return new Response(null, {
+        status: 302,
+        headers: {
+          Location: new URL("/board?error=auth_failed", url.origin).href,
+          "Set-Cookie": "oauth_state=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0",
+        },
+      });
     }
 
     // Fetch GitHub user profile
@@ -38,7 +72,13 @@ export async function onRequestGet(context) {
     });
 
     if (!userRes.ok) {
-      return Response.redirect(new URL("/board?error=user_fetch_failed", url.origin).href, 302);
+      return new Response(null, {
+        status: 302,
+        headers: {
+          Location: new URL("/board?error=user_fetch_failed", url.origin).href,
+          "Set-Cookie": "oauth_state=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0",
+        },
+      });
     }
 
     const user = await userRes.json();
@@ -55,9 +95,22 @@ export async function onRequestGet(context) {
       .bind(String(user.id), user.login, user.name || user.login, user.avatar_url)
       .run();
 
-    return Response.redirect(new URL("/board?signed=true", url.origin).href, 302);
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: new URL("/board?signed=true", url.origin).href,
+        "Set-Cookie": "oauth_state=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0",
+      },
+    });
   } catch (err) {
     console.error("OAuth callback error:", err);
-    return Response.redirect(new URL("/board?error=server_error", url.origin).href, 302);
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: new URL("/board?error=server_error", url.origin).href,
+        "Set-Cookie": "oauth_state=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0",
+      },
+    });
   }
 }
+
