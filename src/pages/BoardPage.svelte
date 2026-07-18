@@ -1,16 +1,6 @@
 <script>
   import { onMount, onDestroy } from "svelte";
 
-  const seedVisitors = [
-    { username: "torvalds", name: "Linus Torvalds", avatar_url: "https://avatars.githubusercontent.com/u/1024025?v=4", visited_at: "2025-12-02T10:30:00" },
-    { username: "sindresorhus", name: "Sindre Sorhus", avatar_url: "https://avatars.githubusercontent.com/u/170270?v=4", visited_at: "2026-01-14T15:22:00" },
-    { username: "cassidoo", name: "Cassidy Williams", avatar_url: "https://avatars.githubusercontent.com/u/1454517?v=4", visited_at: "2026-01-28T09:45:00" },
-    { username: "antfu", name: "Anthony Fu", avatar_url: "https://avatars.githubusercontent.com/u/11247099?v=4", visited_at: "2026-02-05T18:12:00" },
-    { username: "kentcdodds", name: "Kent C. Dodds", avatar_url: "https://avatars.githubusercontent.com/u/1500684?v=4", visited_at: "2026-02-11T22:08:00" },
-    { username: "ThePrimeagen", name: "ThePrimeagen", avatar_url: "https://avatars.githubusercontent.com/u/4458174?v=4", visited_at: "2026-02-19T14:33:00" },
-    { username: "tj", name: "TJ Holowaychuk", avatar_url: "https://avatars.githubusercontent.com/u/25254?v=4", visited_at: "2026-02-26T07:55:00" },
-  ];
-
   let visitors = [];
   let loading = true;
   let error = null;
@@ -41,14 +31,10 @@
 
     try {
       const res = await fetch("/api/visitors");
-      const apiVisitors = await res.json();
-      // Merge API visitors with seeds, API visitors take priority
-      const seenUsernames = new Set(apiVisitors.map(v => v.username));
-      visitors = [...apiVisitors, ...seedVisitors.filter(s => !seenUsernames.has(s.username))];
+      visitors = await res.json();
     } catch (e) {
       console.error("Failed to fetch visitors:", e);
-      // Fallback to seed visitors if API is unavailable
-      visitors = seedVisitors;
+      visitors = [];
     } finally {
       loading = false;
     }

@@ -1,16 +1,7 @@
 <script>
   import { onMount } from "svelte";
 
-  const previewVisitors = [
-    { username: "torvalds", name: "Linus Torvalds", avatar_url: "https://avatars.githubusercontent.com/u/1024025?v=4" },
-    { username: "sindresorhus", name: "Sindre Sorhus", avatar_url: "https://avatars.githubusercontent.com/u/170270?v=4" },
-    { username: "cassidoo", name: "Cassidy Williams", avatar_url: "https://avatars.githubusercontent.com/u/1454517?v=4" },
-    { username: "antfu", name: "Anthony Fu", avatar_url: "https://avatars.githubusercontent.com/u/11247099?v=4" },
-    { username: "kentcdodds", name: "Kent C. Dodds", avatar_url: "https://avatars.githubusercontent.com/u/1500684?v=4" },
-    { username: "ThePrimeagen", name: "ThePrimeagen", avatar_url: "https://avatars.githubusercontent.com/u/4458174?v=4" },
-  ];
-
-  let displayVisitors = previewVisitors;
+  let displayVisitors = [];
   let visible = false;
   let sectionEl;
 
@@ -19,10 +10,7 @@
       .then(r => r.json())
       .then(data => {
         if (data && data.length > 0) {
-          const real = data.slice(0, 6);
-          const seen = new Set(real.map(v => v.username));
-          const remaining = previewVisitors.filter(v => !seen.has(v.username));
-          displayVisitors = [...real, ...remaining].slice(0, 6);
+          displayVisitors = data.slice(0, 6);
         }
       })
       .catch(() => {});
@@ -66,23 +54,27 @@
       </div>
 
       <!-- Visitor cards grid -->
-      <div class="visitors-grid">
-        {#each displayVisitors as visitor, i}
-          <a
-            href="https://github.com/{visitor.username}"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="visitor-card"
-            style="--i: {i}"
-          >
-            <img class="visitor-avatar" src={visitor.avatar_url} alt={visitor.name} loading="lazy" />
-            <div class="visitor-info">
-              <span class="visitor-name">{visitor.name || visitor.username}</span>
-              <span class="visitor-handle">@{visitor.username}</span>
-            </div>
-          </a>
-        {/each}
-      </div>
+      {#if displayVisitors.length > 0}
+        <div class="visitors-grid">
+          {#each displayVisitors as visitor, i}
+            <a
+              href="https://github.com/{visitor.username}"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="visitor-card"
+              style="--i: {i}"
+            >
+              <img class="visitor-avatar" src={visitor.avatar_url} alt={visitor.name} loading="lazy" />
+              <div class="visitor-info">
+                <span class="visitor-name">{visitor.name || visitor.username}</span>
+                <span class="visitor-handle">@{visitor.username}</span>
+              </div>
+            </a>
+          {/each}
+        </div>
+      {:else}
+        <p class="empty-state">No visitors yet. Be the first to leave a mark!</p>
+      {/if}
 
       <!-- CTA area -->
       <div class="wall-cta-area">
@@ -439,11 +431,23 @@
     transform: translateX(2px);
   }
 
+  .empty-state {
+    font-family: "SF Pro Display", sans-serif;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.3);
+    margin: 40px auto 60px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+  }
+
   /* ── Reveal on scroll ── */
   .visible .label-row,
   .visible .wall-title,
   .visible .wall-subtitle,
   .visible .visitors-grid,
+  .visible .empty-state,
   .visible .wall-cta-area {
     opacity: 1;
     transform: translateY(0);
