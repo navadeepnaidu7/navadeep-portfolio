@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img">
+  <title>Microsoft Outlook</title>
+  <!-- envelope body -->
+  <path fill="#0A66C2" d="M1.5 4.25h13.5a1.25 1.25 0 0 1 1.25 1.25v13a1.25 1.25 0 0 1-1.25 1.25H1.5A1.25 1.25 0 0 1 .25 18.5v-13A1.25 1.25 0 0 1 1.5 4.25z"/>
+  <path fill="#28A8EA" d="M1.75 6.1 8.25 11l6.5-4.9v11.65h-13V6.1z"/>
+  <path fill="#fff" d="M1.75 5.6h13L8.25 10.6 1.75 5.6z"/>
+  <!-- O badge -->
+  <circle cx="17.25" cy="14.5" r="5.75" fill="#0078D4"/>
+  <circle cx="17.25" cy="14.5" r="3.55" fill="#fff"/>
+  <circle cx="17.25" cy="14.5" r="2.15" fill="#0078D4"/>
+</svg>

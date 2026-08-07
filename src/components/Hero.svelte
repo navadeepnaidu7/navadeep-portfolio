@@ -1,15 +1,8 @@
 <script>
   import { onMount, onDestroy } from "svelte";
   import profileImage from "../assets/endurance.jpg";
+  import SocialContacts from "./SocialContacts.svelte";
   import StarField from "./StarField.svelte";
-
-  const socialLinks = {
-    email: "mailto:navadeepnaidu7@protonmail.com",
-    github: "https://github.com/navadeepnaidu7",
-    linkedin: "https://linkedin.com/in/navadeepnaidu",
-    twitter: "https://x.com/Navadeep_naidu7",
-    medium: "https://medium.com/@navadeepnaidu7",
-  };
 
   let latestPost = null;
 
@@ -109,58 +102,7 @@
         infrastructure behind great software.
       </p>
     </div>
-    <div class="social-buttons">
-      <a
-        href={socialLinks.email}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="social-button email reveal"
-        aria-label="Email"
-        style="--i: 3"
-      >
-        <i class="fa-solid fa-envelope"></i>
-      </a>
-      <a
-        href={socialLinks.github}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="social-button github reveal"
-        aria-label="GitHub"
-        style="--i: 3.1"
-      >
-        <i class="fab fa-github"></i>
-      </a>
-      <a
-        href={socialLinks.linkedin}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="social-button linkedin reveal"
-        aria-label="LinkedIn"
-        style="--i: 3.2"
-      >
-        <i class="fab fa-linkedin"></i>
-      </a>
-      <a
-        href={socialLinks.twitter}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="social-button twitter reveal"
-        aria-label="Twitter"
-        style="--i: 3.3"
-      >
-        <i class="fab fa-twitter"></i>
-      </a>
-      <a
-        href={socialLinks.medium}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="social-button medium reveal"
-        aria-label="Medium"
-        style="--i: 3.4"
-      >
-        <i class="fab fa-medium"></i>
-      </a>
-    </div>
+    <SocialContacts />
   </div>
 
   <div class="right-section">
@@ -400,90 +342,6 @@
     margin-top: 0.8rem;
   }
 
-  .social-buttons {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
-    justify-content: flex-start;
-    margin-right: auto;
-    max-width: 100%;
-    flex-wrap: wrap;
-  }
-
-  .social-button {
-    width: 3.4rem;
-    height: 3.4rem;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    color: rgba(255, 255, 255, 0.9);
-    position: relative;
-    background: rgba(18, 18, 18, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    box-shadow:
-      0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  }
-
-  .social-button::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 16px;
-    padding: 1px;
-    background: linear-gradient(
-      45deg,
-      transparent,
-      rgba(255, 255, 255, 0.1),
-      transparent
-    );
-    mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-  }
-
-  /* .social-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 
-      0 8px 15px rgba(0, 0, 0, 0.2),
-      0 4px 6px rgba(0, 0, 0, 0.1),
-      inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  } */
-
-  .social-button i {
-    position: relative;
-    z-index: 1;
-    transition: all 0.3s ease;
-  }
-
-  .email:hover i {
-    color: #5732e9;
-    text-shadow: 0 0 15px rgba(87, 50, 233, 0.5);
-  }
-  .github:hover i {
-    color: #ffffff;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-  }
-  .linkedin:hover i {
-    color: #0077b5;
-    text-shadow: 0 0 15px rgba(0, 119, 181, 0.5);
-  }
-  .twitter:hover i {
-    color: #1da1f2;
-    text-shadow: 0 0 15px rgba(29, 161, 242, 0.5);
-  }
-  .medium:hover i {
-    color: #ffffff;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-  }
-
   .latest-article {
     position: absolute;
     bottom: 53px;
@@ -620,17 +478,6 @@
       font-size: 1.1rem;
     }
 
-    .social-buttons {
-      justify-content: center;
-      gap: 1rem;
-    }
-
-    .social-button {
-      width: 3rem;
-      height: 3rem;
-      font-size: 1.2rem;
-    }
-
     .scramble-text {
       font-size: 1.2rem;
     }
@@ -673,18 +520,6 @@
     .sub-intro {
       font-size: 1rem;
       line-height: 1.5;
-    }
-
-    .social-buttons {
-      gap: 0.8rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .social-button {
-      width: 2.8rem;
-      height: 2.8rem;
-      font-size: 1.1rem;
     }
 
     .scramble-text {
